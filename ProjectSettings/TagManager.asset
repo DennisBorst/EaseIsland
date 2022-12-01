@@ -15,9 +15,9 @@ TagManager:
   - Interactable
   - Player
   - Sign
-  - 
-  - 
-  - 
+  - Walkable
+  - Camera
+  - Collision
   - 
   - 
   - 

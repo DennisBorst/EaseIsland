@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-    public enum Item
+    public enum ItemType
     {
         Empty,
         Stick,
@@ -17,10 +17,14 @@ public class ItemPickup : MonoBehaviour
         Apple,
         Axe,
         Bucket,
+        FullBucket,
+        Pickaxe,
+        FishingRod,
+        Fish
     }
 
-    public global::Item item;
-    public Item itemType;
+    public Item item;
+    public ItemType itemType;
     
     [HideInInspector] public int currentStacked;
 

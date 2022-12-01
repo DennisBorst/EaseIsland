@@ -6,16 +6,18 @@ using Cinemachine;
 public class CharacterMovement : MonoBehaviour
 {
     [HideInInspector] public Vector3 moveDirection;
-    [HideInInspector] public bool unableToMove;
+    [HideInInspector] public bool unableToStuff;
+    [HideInInspector] public bool canOnlyInteract;
 
     [Header("References")]
     public Transform playerObj;
-    [SerializeField] private Transform orientation;
+    public Transform orientation;
     [SerializeField] private PlayerAnimation playerAnim;
     [SerializeField] private CinemachineFreeLook freelookCam;
     [SerializeField] private GameObject playerUI;
     [SerializeField] private KeyCode pickUpButton;
     [SerializeField] private KeyCode interactButton; //Action Button
+    [SerializeField] private KeyCode runButton; //Run Button
     [SerializeField] private KeyCode menuButton; //Inventory/Craft menu
     [SerializeField] private KeyCode dropButton; //Inventory/Craft menu
     [SerializeField] private KeyCode leftInHandButton; 
@@ -23,8 +25,11 @@ public class CharacterMovement : MonoBehaviour
 
     [Header("PlayerPreferences")]
     [SerializeField] private float movementSpeed;
+    [SerializeField] private float runSpeed;
     [SerializeField] private float gravity = 9.8f;
     private float currentMovementSpeed;
+
+    private bool isRunning;
 
     [Header("RangeToSpot")]
     public float spotRadius;
@@ -47,6 +52,11 @@ public class CharacterMovement : MonoBehaviour
     private CharacterController charCon;
 
 
+    public void CanOnlyInteract(bool freeze)
+    {
+        canOnlyInteract = freeze;
+    }
+
     public void FreezePlayerForDuration(float duration)
     {
         StartCoroutine(FreezePlayerForDurationIE(duration));
@@ -54,12 +64,12 @@ public class CharacterMovement : MonoBehaviour
 
     public void FreezePlayer(bool freeze)
     {
-        unableToMove = freeze;
+        unableToStuff = freeze;
     }
 
     public void DecreaseMovementSpeed(float percentage)
     {
-        currentMovementSpeed = percentage * movementSpeed;
+        //currentMovementSpeed = percentage * movementSpeed;
     }
 
     private void Start()
@@ -76,20 +86,20 @@ public class CharacterMovement : MonoBehaviour
     {
         OpenMenuButton();
 
-        if (unableToMove) { return; }
-
+        if (unableToStuff) { return; }
+        Interact();
+        if (canOnlyInteract) { return; }
         Movement();
         PickUp();
-        Interact();
         SwitchItem();
         DropItem();
     }
 
     private IEnumerator FreezePlayerForDurationIE(float duration)
     {
-        unableToMove = true;
+        unableToStuff = true;
         yield return new WaitForSeconds(duration);
-        unableToMove = false;
+        unableToStuff = false;
     }
 
     private IEnumerator CheckForItems()
@@ -115,13 +125,27 @@ public class CharacterMovement : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
         //currentMovement = new Vector3(vertical * movementSpeed, 0f, horizontal * movementSpeed);
+
+        if (Input.GetKeyDown(runButton))
+        {
+            isRunning = true;
+            currentMovementSpeed = runSpeed;
+        }
+
+        if (Input.GetKeyUp(runButton))
+        {
+            isRunning = false;
+            currentMovementSpeed = movementSpeed;
+        }
+
         moveDirection = orientation.forward * vertical + orientation.right * horizontal;
         moveDirection = Vector3.ClampMagnitude(moveDirection, currentMovementSpeed);
         float vSpeed = 0f;
         vSpeed -= gravity;
         moveDirection.y = vSpeed;
+
+        playerAnim.Movement(new Vector2(vertical, horizontal), isRunning);
         charCon.Move(moveDirection * currentMovementSpeed * Time.deltaTime);
-        playerAnim.Movement(new Vector2(vertical, horizontal));
     }
 
     private void PickUp()
@@ -165,8 +189,8 @@ public class CharacterMovement : MonoBehaviour
             if (!inventoryManager.inventoryOpened)
             {
                 Debug.Log("InventoryOpen");
-                playerAnim.Movement(new Vector2(0, 0));
-                unableToMove = true;
+                playerAnim.Movement(new Vector2(0, 0), false);
+                unableToStuff = true;
                 freelookCam.enabled = false;
                 playerUI.SetActive(false);
                 inventoryManager.OpenInventory();
@@ -174,7 +198,7 @@ public class CharacterMovement : MonoBehaviour
             else
             {
                 Debug.Log("InventoryClosed");
-                unableToMove = false;
+                unableToStuff = false;
                 freelookCam.enabled = true;
                 playerUI.SetActive(true);
                 inventoryManager.CloseInventory();
@@ -183,7 +207,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Joystick1Button1) && inventoryManager.inventoryOpened)
         {
-            unableToMove = false;
+            unableToStuff = false;
             freelookCam.enabled = true;
             playerUI.SetActive(true);
             inventoryManager.CloseInventory();

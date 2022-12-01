@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: c130071969d92b94783707deeb6286b0
   - enabled: 1
-    path: Assets/Scenes/BeginnerIsland.unity
+    path: Assets/Scenes/0.1-BeginnerIsland.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}

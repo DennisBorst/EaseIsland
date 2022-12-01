@@ -10,6 +10,8 @@ public class Tree : MonoBehaviour
     [SerializeField] private int healthTree;
     [Space]
     [SerializeField] private GameObject woodLog;
+    [SerializeField] private GameObject treeSteadyObject;
+    [SerializeField] private GameObject treeFallObject;
     [SerializeField] private List<GameObject> itemDrops = new List<GameObject>();
     [SerializeField] private List<Transform> itemDropSpots = new List<Transform>();
     [Space]
@@ -20,6 +22,11 @@ public class Tree : MonoBehaviour
     [SerializeField] private Material readyMat;
     [SerializeField] private Material unreadyMat;
     [SerializeField] private MeshRenderer Leafes;
+
+    [Header("TreeChopped")]
+    [SerializeField] private float timeToRecover;
+    [SerializeField] private ParticleSystem recoverPar;
+
     [Header("AppleTreeRelated")]
     [SerializeField] private bool appleTree;
     [SerializeField] private GameObject apples;
@@ -28,13 +35,18 @@ public class Tree : MonoBehaviour
     private Animator anim;
     private Interactable interactable;
     private InteractableUI interactableUI;
+    private int currentHealthTree;
 
     private List<Transform> currentDropSpots = new List<Transform>();
     private List<Transform> spawnDropSpots = new List<Transform>();
 
+    private Rigidbody rbFallPart;
     private bool unableToRumble;
     private bool chopping;
     private bool treeDead = false;
+
+    private Vector3 treeRot;
+    private GameObject woodLogObj;
 
     public void Interact(Item itemInHand, Vector3 playerPos)
     {
@@ -42,7 +54,7 @@ public class Tree : MonoBehaviour
 
         if(itemInHand != null) 
         { 
-            if(itemInHand.item == ItemPickup.Item.Axe)
+            if(itemInHand.item == ItemPickup.ItemType.Axe)
             {
                 PlayerAnimation.Instance.PlayAnimCount(itemInHand.animNumber);
                 Chop(playerPos);
@@ -55,7 +67,7 @@ public class Tree : MonoBehaviour
 
     public void InRange()
     {
-        if (unableToRumble) 
+        if (unableToRumble || treeDead) 
         {
             interactableUI.OutRange();
             return; 
@@ -91,15 +103,20 @@ public class Tree : MonoBehaviour
 
     private void Chop(Vector3 playerPos)
     {
-        healthTree -= 1;
+        currentHealthTree -= 1;
 
-        if(healthTree <= 0)
+        if(currentHealthTree <= 0)
         {
             treeDead = true;
             anim.enabled = false;
+            treeSteadyObject.SetActive(false);
+            treeFallObject.SetActive(true);
+            StartCoroutine(RecoverCooldown());
+
             Vector3 direction = treeObject.position - playerPos;
             Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
             StartCoroutine(LerpToRotation(rotation, 3f));
+
         }
         else
         {
@@ -117,8 +134,8 @@ public class Tree : MonoBehaviour
             yield return null;
         }
         Instantiate(particleDead, deadParticlePos.position + (Vector3.up * 2f), Quaternion.identity);
-        Instantiate(woodLog, this.transform.position + (Vector3.up * 0.05f), Quaternion.identity);
-        Destroy(this.gameObject);
+        woodLogObj = Instantiate(woodLog, treeObject.transform.position + (Vector3.up * 0.04f), Quaternion.identity);
+        treeObject.gameObject.SetActive(false);
     }
 
     private IEnumerator WaitForParticles()
@@ -141,15 +158,33 @@ public class Tree : MonoBehaviour
         Leafes.material = readyMat;
     }
 
+    private IEnumerator RecoverCooldown()
+    {
+        currentHealthTree = healthTree;
+        yield return new WaitForSeconds(timeToRecover);
+        if(woodLogObj != null) { Destroy(woodLogObj); }
+
+        treeDead = false;
+        anim.enabled = true;
+        treeObject.transform.eulerAngles = treeRot;
+        treeObject.gameObject.SetActive(true);
+        treeSteadyObject.SetActive(true);
+        treeFallObject.SetActive(false);
+        recoverPar.Play();
+    }
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
         interactable = GetComponent<Interactable>();
         interactableUI = GetComponent<InteractableUI>();
+        rbFallPart = GetComponentInChildren<Rigidbody>();
 
         interactable.doAction.AddListener(Interact);
         interactable.inRange.AddListener(InRange);
         interactable.outRange.AddListener(OutRange);
+        currentHealthTree = healthTree;
+        treeRot = treeObject.transform.eulerAngles;
 
         if (appleTree)
         {

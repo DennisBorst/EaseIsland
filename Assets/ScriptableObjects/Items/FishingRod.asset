@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10e782743bc8ea54f93eb5ae9f7038a2, type: 3}
+  m_Name: FishingRod
+  m_EditorClassIdentifier: 
+  ItemName: Fishing Rod
+  item: 13
+  itemType: 2
+  maxStack: 1
+  animNumber: 0
+  inventoryImg: {fileID: 21300000, guid: de69c8fb46e87584aaaad2e24a14b868, type: 3}
+  prefabItem: {fileID: 2063170183693454774, guid: 839b933a132ff0547b7d9db1dd0ffccb,
+    type: 3}
+  foodAmount: 0

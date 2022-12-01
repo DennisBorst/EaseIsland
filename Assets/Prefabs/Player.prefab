@@ -745,14 +745,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: 0, z: 0}
-  unableToMove: 0
+  unableToStuff: 0
+  canOnlyInteract: 0
   playerObj: {fileID: 1105480763672718603}
   orientation: {fileID: 5159351781914652192}
   playerAnim: {fileID: 4439909191154427940}
   freelookCam: {fileID: 0}
   playerUI: {fileID: 1643288591}
-  pickUpButton: 331
-  interactButton: 332
+  pickUpButton: 332
+  interactButton: 331
   menuButton: 336
   dropButton: 333
   leftInHandButton: 334
@@ -804,6 +805,7 @@ MonoBehaviour:
   itemStack:
     item: {fileID: 0}
     amount: 0
+  currentItemSelected: {fileID: 0}
   itemPivot: {fileID: 1105480764711422305}
   itemSlotUI:
   - {fileID: 2901674504643439892}
@@ -877,15 +879,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1807983795, guid: 2180b5f60dd7c074cbf65a29e32c1760, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.3
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 1807983795, guid: 2180b5f60dd7c074cbf65a29e32c1760, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.3
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 1807983795, guid: 2180b5f60dd7c074cbf65a29e32c1760, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.3
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 2024939587, guid: 2180b5f60dd7c074cbf65a29e32c1760, type: 3}
       propertyPath: m_Layer

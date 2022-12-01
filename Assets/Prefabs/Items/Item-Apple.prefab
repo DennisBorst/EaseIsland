@@ -263,7 +263,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7337267769003303642}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.2
@@ -308,6 +308,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InteractImg
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443613166086399091, guid: 5bb0655a2060fa34b94f310652a7dc3d,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4443613166086399101, guid: 5bb0655a2060fa34b94f310652a7dc3d,
         type: 3}

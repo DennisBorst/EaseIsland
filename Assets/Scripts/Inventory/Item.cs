@@ -11,7 +11,7 @@ public class Item : ScriptableObject
     }
 
     public string ItemName;
-    public ItemPickup.Item item;
+    public ItemPickup.ItemType item;
     public ItemType itemType;
     public int maxStack;
     public int animNumber;

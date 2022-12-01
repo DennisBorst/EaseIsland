@@ -13,15 +13,22 @@ public class PlayerAnimation : MonoBehaviour
         characterMovement.FreezePlayer(true);
     }
 
-    public void Movement(Vector2 movement)
+    public void Movement(Vector2 movement, bool isRunning)
     {
-        if(movement.magnitude > 0.1f)
+        if (isRunning)
         {
-            anim.SetBool("isMoving", true);
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isRunning", true);
+        }
+        else if (movement.magnitude > 0.1f)
+        {
+            anim.SetBool("isRunning", false);
+            anim.SetBool("isWalking", true);
         }
         else
         {
-            anim.SetBool("isMoving", false);
+            anim.SetBool("isRunning", false);
+            anim.SetBool("isWalking", false);
         }
     }
 
