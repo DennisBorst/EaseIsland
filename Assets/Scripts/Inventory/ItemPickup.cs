@@ -20,7 +20,10 @@ public class ItemPickup : MonoBehaviour
         FullBucket,
         Pickaxe,
         FishingRod,
-        Fish
+        Fish,
+        CrystalB,
+        CrystalR,
+        CrystalG
     }
 
     public Item item;
@@ -37,6 +40,7 @@ public class ItemPickup : MonoBehaviour
 
         if (canBePickedUp)
         {
+            PlayerAnimation.Instance.PlayAnimCount(4);
             StartCoroutine(WaitToDestroy());
         }
     }

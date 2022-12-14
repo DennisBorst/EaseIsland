@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e782743bc8ea54f93eb5ae9f7038a2, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
-  ItemName: stone
+  ItemName: Stone
+  itemDescription: 
   item: 3
   itemType: 0
   maxStack: 3
@@ -20,3 +21,4 @@ MonoBehaviour:
   inventoryImg: {fileID: 21300000, guid: 458bb8c40d7afb64686e82b8a59bfccc, type: 3}
   prefabItem: {fileID: 4390777097759357826, guid: 0ff6f6a5846646c4c8642f28503d5630,
     type: 3}
+  foodAmount: 0

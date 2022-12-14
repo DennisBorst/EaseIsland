@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e782743bc8ea54f93eb5ae9f7038a2, type: 3}
   m_Name: Fish
   m_EditorClassIdentifier: 
-  ItemName: fish
+  ItemName: Fish
+  itemDescription: 
   item: 14
   itemType: 1
   maxStack: 4

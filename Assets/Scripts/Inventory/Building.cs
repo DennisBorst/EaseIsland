@@ -5,7 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Building", menuName = "Building")]
 public class Building : ScriptableObject
 {
-    public string buildingName;
+    public string name;
+    [TextArea(10,20)]
+    public string description;
     public GameObject buildObject;
 
     [Serializable]

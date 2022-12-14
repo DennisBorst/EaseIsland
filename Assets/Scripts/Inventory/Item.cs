@@ -7,10 +7,13 @@ public class Item : ScriptableObject
     {
         Normal,
         Food,
-        Tools
+        Tools,
+        Crystal
     }
 
     public string ItemName;
+    [TextArea(10, 20)]
+    public string itemDescription;
     public ItemPickup.ItemType item;
     public ItemType itemType;
     public int maxStack;

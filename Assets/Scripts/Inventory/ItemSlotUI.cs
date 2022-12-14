@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-public class ItemSlotUI : MonoBehaviour
+public class ItemSlotUI : MonoBehaviour, ISelectHandler
 {
-    [HideInInspector] public InventoryManager.ItemStack itemStack;
+    public InventoryManager.ItemStack itemStack;
+    public InventoryPanel inventoryPanel;
 
     [SerializeField] private Image backGroundImg;
     [SerializeField] private Color32 backGroundColorSelected;
@@ -15,6 +18,12 @@ public class ItemSlotUI : MonoBehaviour
 
     private Color32 backGroundColor;
     private Button interactableButton;
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        InventoryManager.Instance.ItemSelected(itemStack);
+        inventoryPanel.ItemSelected(itemStack.item);
+    }
 
     public void UpdateItem(InventoryManager.ItemStack newItem)
     {
@@ -35,7 +44,7 @@ public class ItemSlotUI : MonoBehaviour
     public void Clear()
     {
         itemImg.gameObject.SetActive(false);
-        interactableButton.interactable = false;
+        //interactableButton.interactable = false;
         itemStack = null;
         itemCount.text = "";
     }
@@ -43,7 +52,8 @@ public class ItemSlotUI : MonoBehaviour
     public void SelectThisItem()
     {
         if(itemStack == null) { return; }
-        InventoryManager.Instance.ItemSelected(itemStack);
+        InventoryManager.Instance.MoveItem(itemStack);
+        //InventoryManager.Instance.ItemSelected(itemStack);
     }
 
     private void Awake()
@@ -55,7 +65,7 @@ public class ItemSlotUI : MonoBehaviour
     private void RefreshSlot()
     {
         itemImg.gameObject.SetActive(true);
-        interactableButton.interactable = true;
+        //interactableButton.interactable = true;
         itemImg.sprite = itemStack.item.inventoryImg;
         if(itemStack.amount > 1)
         {

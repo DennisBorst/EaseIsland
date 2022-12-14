@@ -10,6 +10,8 @@ public class Fishing : MonoBehaviour
     [SerializeField] private GameObject targetDot;
     [SerializeField] private Image playerDotImg;
     [SerializeField] private GameObject catchPar;
+    [SerializeField] private GameObject itemAnim;
+    [SerializeField] private Color32 colorPar;
     [Space]
     [SerializeField] private Item fish;
     [Space]
@@ -42,8 +44,9 @@ public class Fishing : MonoBehaviour
         if (hotSpot)
         {
             Debug.Log("Catched Fish");
+            Instantiate(itemAnim, transform.position, Quaternion.identity, CharacterMovement.Instance.transform).GetComponent<GainItem>().ChangeItem(fish, colorPar);
             Instantiate(catchPar, this.transform.position, Quaternion.identity);
-            InventoryManager.Instance.AddToInv(fish);
+            //InventoryManager.Instance.AddToInv(fish);
         }
         else
         {
@@ -53,15 +56,13 @@ public class Fishing : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         playerPos = new Vector3(0, 0, 0);
         CreateDotOnCircle();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Vector3.Distance(playerStartPos, targetPos) < innerDisVisualCircle)
         {

@@ -25,6 +25,7 @@ public class Sheep : MonoBehaviour
 
         if (canBePickedUp)
         {
+            PlayerAnimation.Instance.PlayAnimCount(4);
             StartCoroutine(CooldownWoolReset());
         }
     }

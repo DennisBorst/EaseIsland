@@ -2,14 +2,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private ItemSlotUI[] itemSlots;
     [SerializeField] private ItemSlotUI[] playerItemSlots;
 
-    [SerializeField] private Button useButton;
-    [SerializeField] private Button dropButton;
+    [SerializeField] private Image moveVisImg;
+
+    [SerializeField] private GameObject[] panels;
+    [SerializeField] private TextMeshProUGUI[] panelText;
+
+    private int currentPanelSpot;
+
+    public void OpenPanel(int panelCount)
+    {
+        for (int i = 0; i < panels.Length; i++)
+        {
+            panels[i].SetActive(false);
+            panelText[i].color = Color.black;
+        }
+
+        panels[panelCount].SetActive(true);
+        panels[panelCount].GetComponent<SelectUIObject>().SelectFirstUIElemnt();
+        panelText[panelCount].color = Color.white;
+    }
+
+    public void OpenCurrentPanel()
+    {
+        OpenPanel(currentPanelSpot);
+    }
+
+    public void SwitchPanel(int panelSpot)
+    {
+        currentPanelSpot += panelSpot;
+        if (currentPanelSpot < 0) { currentPanelSpot = panels.Length - 1; }
+        else if (currentPanelSpot >= panels.Length) { currentPanelSpot = 0; }
+
+        OpenPanel(currentPanelSpot);
+    }
 
     public void SelectObject(int objectCount)
     {
@@ -27,18 +59,16 @@ public class InventoryUI : MonoBehaviour
         UpdateItemSlots(currentInvList, playerItemSlots.Length, playerItemSlots);
     }
 
-    public void CheckForButtons(InventoryManager.ItemStack itemStack)
+    public void MoveItemVisual(InventoryManager.ItemStack itemStack, int currentPosition)
     {
-        useButton.interactable = false;
-        dropButton.interactable = false;
+        moveVisImg.gameObject.SetActive(true);
+        moveVisImg.sprite = itemStack.item.inventoryImg;
+        moveVisImg.gameObject.transform.position = itemSlots[currentPosition].transform.position;
+    }
 
-        if (itemStack == null || itemStack.item == null) { return; }
-        
-        dropButton.interactable = true;
-        if(itemStack.item.itemType == Item.ItemType.Food)
-        {
-            useButton.interactable = true;
-        }
+    public void MoveItemDone()
+    {
+        moveVisImg.gameObject.SetActive(false);
     }
 
     private void Start()

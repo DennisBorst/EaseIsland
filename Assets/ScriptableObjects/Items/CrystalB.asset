@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10e782743bc8ea54f93eb5ae9f7038a2, type: 3}
+  m_Name: CrystalB
+  m_EditorClassIdentifier: 
+  ItemName: Crystal Blue
+  item: 15
+  itemType: 3
+  maxStack: 4
+  animNumber: 0
+  inventoryImg: {fileID: 21300000, guid: 51b19d3992c8b1e4e89ac3d29ad92aa0, type: 3}
+  prefabItem: {fileID: 6873787107191309874, guid: b072aeb1578258041bb315ba6c20d70d,
+    type: 3}
+  foodAmount: 0

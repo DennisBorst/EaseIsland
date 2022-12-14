@@ -8,7 +8,7 @@ public class Tent : MonoBehaviour
 
     public void Interact(Item itemInHand, Vector3 playerPos)
     {
-        if(GameManger.Instance.dayTime == GameManger.DayTime.Night)
+        if(GameManger.Instance.dayNightCycle.dayTime == DayNightCycle.DayTime.Night)
         {
             GameManger.Instance.SwitchDayNight();
         }
@@ -16,7 +16,7 @@ public class Tent : MonoBehaviour
 
     public void InRange()
     {
-        if (GameManger.Instance.dayTime != GameManger.DayTime.Night) { return; }
+        if (GameManger.Instance.dayNightCycle.dayTime != DayNightCycle.DayTime.Night) { return; }
         interactableUI.InRange();
     }
 

@@ -6,8 +6,8 @@ using Cinemachine;
 public class CharacterMovement : MonoBehaviour
 {
     [HideInInspector] public Vector3 moveDirection;
-    [HideInInspector] public bool unableToStuff;
-    [HideInInspector] public bool canOnlyInteract;
+    public bool unableToStuff;
+    public bool canOnlyInteract;
 
     [Header("References")]
     public Transform playerObj;
@@ -54,6 +54,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void CanOnlyInteract(bool freeze)
     {
+        unableToStuff = false;
         canOnlyInteract = freeze;
     }
 
@@ -212,6 +213,19 @@ public class CharacterMovement : MonoBehaviour
             playerUI.SetActive(true);
             inventoryManager.CloseInventory();
         }
+
+        if (Input.GetKeyDown(dropButton) && inventoryManager.inventoryOpened)
+        {
+            inventoryManager.DropItemFromInv();
+        }
+
+        if (Input.GetKeyDown(interactButton) && inventoryManager.inventoryOpened)
+        {
+            inventoryManager.UseFoodItem();
+        }
+
+        if (Input.GetKeyDown(leftInHandButton)) { inventoryManager.SwitchPanel(-1); }
+        if (Input.GetKeyDown(rightInHandButton)) { inventoryManager.SwitchPanel(1); }
     }
 
     private void DropItem()

@@ -74,7 +74,7 @@ public class ItemInHand : MonoBehaviour
         }
 
 
-        if (currentItemSelected == null) { return; }
+        if (currentItemSelected == null || currentItemSelected.item == ItemPickup.ItemType.Empty) { return; }
         GameObject item = Instantiate(currentItemSelected.prefabItem, itemPivot.position, itemPivot.rotation, itemPivot);
         item.layer = 8;
         foreach (Transform child in item.transform)

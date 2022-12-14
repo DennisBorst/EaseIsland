@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: Empty
   m_EditorClassIdentifier: 
   ItemName: Empty
+  item: 0
   itemType: 0
-  inventoryImg: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  maxStack: 1
+  animNumber: 0
+  inventoryImg: {fileID: 21300000, guid: f2a38e56a65e4a440908d43fc8bff8e7, type: 3}
+  prefabItem: {fileID: 0}
+  foodAmount: 0

@@ -224,8 +224,8 @@ GameObject:
   - component: {fileID: 6214256261691592089}
   - component: {fileID: 6214256261691592091}
   - component: {fileID: 6214256261691592090}
-  - component: {fileID: 8060707256299066789}
   - component: {fileID: 7801404728491419621}
+  - component: {fileID: 8060707256299066789}
   m_Layer: 5
   m_Name: ItemSlot
   m_TagString: Untagged
@@ -292,27 +292,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8060707256299066789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6214256261691592088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27b9a4059048fd442b8a0eedbf2cdf5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemStack:
-    item: {fileID: 0}
-    amount: 0
-  backGroundImg: {fileID: 6214256262207523144}
-  backGroundColorSelected:
-    serializedVersion: 2
-    rgba: 4285768138
-  itemImg: {fileID: 2813141434128102158}
-  itemCount: {fileID: 445446430}
 --- !u!114 &7801404728491419621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,6 +348,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8060707256299066789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214256261691592088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27b9a4059048fd442b8a0eedbf2cdf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemStack:
+    item: {fileID: 0}
+    amount: 0
+  backGroundImg: {fileID: 6214256262207523144}
+  backGroundColorSelected:
+    serializedVersion: 2
+    rgba: 4285768138
+  itemImg: {fileID: 2813141434128102158}
+  itemCount: {fileID: 445446430}
 --- !u!1 &6214256262207523150
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +407,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 35.3746, y: 35.375}
+  m_SizeDelta: {x: 38, y: 38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6214256262207523145
 CanvasRenderer:

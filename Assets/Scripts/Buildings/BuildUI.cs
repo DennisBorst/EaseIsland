@@ -14,7 +14,7 @@ public class BuildUI : MonoBehaviour
     public void LoadInNecessities(Building building)
     {
         buttonImg.SetActive(false);
-        buildingName.text = building.buildingName;
+        buildingName.text = building.name;
         buildingName.color = Color.red;
 
         for (int i = 0; i < necessitieSlots.Length; i++)

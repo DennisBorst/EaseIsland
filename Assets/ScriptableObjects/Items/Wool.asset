@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e782743bc8ea54f93eb5ae9f7038a2, type: 3}
   m_Name: Wool
   m_EditorClassIdentifier: 
-  ItemName: wool
+  ItemName: Wool
+  itemDescription: 
   item: 4
   itemType: 0
-  maxStack: 2
+  maxStack: 3
   animNumber: 0
   inventoryImg: {fileID: 21300000, guid: 3b630efc392f1d14e976d772b8640c67, type: 3}
   prefabItem: {fileID: 4415727249704013631, guid: 754f3f9f7cc67c34ebe6ab34ab934dd1,
     type: 3}
+  foodAmount: 0

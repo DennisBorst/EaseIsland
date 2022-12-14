@@ -64,8 +64,8 @@ Material:
     - _WaveScale: 3
     - _WaveSpeed: 0.05
     m_Colors:
-    - _DeepWater: {r: 0.18382865, g: 0.44245043, b: 0.764151, a: 0.5882353}
+    - _DeepWater: {r: 0.15294118, g: 0.57254905, b: 0.9411765, a: 0.5882353}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 0.79607844}
     - _RippleColor: {r: 0.00016313937, g: 0.00031244033, b: 0.00035655202, a: 0.34117648}
-    - _ShallowWater: {r: 0.6650944, g: 0.9017124, b: 1, a: 0.23529412}
+    - _ShallowWater: {r: 0.3137255, g: 0.85490197, b: 0.99607843, a: 0.23529412}
   m_BuildTextureStacks: []

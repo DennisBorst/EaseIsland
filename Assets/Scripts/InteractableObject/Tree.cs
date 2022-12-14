@@ -13,7 +13,7 @@ public class Tree : MonoBehaviour
     [SerializeField] private GameObject treeSteadyObject;
     [SerializeField] private GameObject treeFallObject;
     [SerializeField] private List<GameObject> itemDrops = new List<GameObject>();
-    [SerializeField] private List<Transform> itemDropSpots = new List<Transform>();
+    [SerializeField] private Transform[] itemDropSpots;
     [Space]
     [SerializeField] private Transform treeObject;
     [SerializeField] private Transform deadParticlePos;
@@ -85,11 +85,12 @@ public class Tree : MonoBehaviour
         if (unableToRumble) { return; }
         StartCoroutine(RumbleCooldown());
 
+        CheckSpawnPoints();
         int randomDrop = Random.Range(minDrops, maxDrops + 1);
+        if(randomDrop > currentDropSpots.Count) { randomDrop = currentDropSpots.Count; }
+
         anim.SetTrigger("Rumble");
         PlayerAnimation.Instance.PlayAnimCount(3);
-        currentDropSpots = itemDropSpots;
-        spawnDropSpots.Clear();
 
         for (int i = 0; i < randomDrop; i++)
         {
@@ -124,6 +125,20 @@ public class Tree : MonoBehaviour
         }
     }
 
+    private void CheckSpawnPoints()
+    {
+        currentDropSpots.Clear();
+        spawnDropSpots.Clear();
+
+        for (int i = 0; i < itemDropSpots.Length; i++)
+        {
+            if (itemDropSpots[i].transform.childCount == 0)
+            {
+                currentDropSpots.Add(itemDropSpots[i]);
+            }
+        }
+    }
+
     private IEnumerator LerpToRotation(Quaternion rotation, float lerpDuration)
     {
         float timeElapsed = 0;
@@ -145,7 +160,7 @@ public class Tree : MonoBehaviour
         for (int i = 0; i < spawnDropSpots.Count; i++)
         {
             int randomItemDrop = Random.Range(0, itemDrops.Count);
-            Instantiate(itemDrops[randomItemDrop], spawnDropSpots[i].position, Quaternion.identity);
+            Instantiate(itemDrops[randomItemDrop], spawnDropSpots[i].position, Quaternion.identity, spawnDropSpots[i]);
         }
     }
 

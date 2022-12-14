@@ -22,6 +22,7 @@ public class BuildStation : MonoBehaviour
 
         if (destroyAfterBuild)
         {
+            OutRange();
             Destroy(this.gameObject);
         }
         else

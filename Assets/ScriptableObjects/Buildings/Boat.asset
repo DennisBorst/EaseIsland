@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab9447e850ced34ab2f0c59cba51e36, type: 3}
   m_Name: Boat
   m_EditorClassIdentifier: 
-  buildingName: Boat
+  name: Boat
+  description: 
   buildObject: {fileID: 6487122144611231285, guid: 84af3e8ffbf145343abcb84ea94a2e51,
     type: 3}
   necessities:

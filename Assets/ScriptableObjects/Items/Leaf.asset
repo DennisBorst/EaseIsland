@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e782743bc8ea54f93eb5ae9f7038a2, type: 3}
   m_Name: Leaf
   m_EditorClassIdentifier: 
-  ItemName: leaf
+  ItemName: Leaf
+  itemDescription: 
   item: 5
   itemType: 0
   maxStack: 5
@@ -20,3 +21,4 @@ MonoBehaviour:
   inventoryImg: {fileID: 21300000, guid: 9d111661a9e4c5a45a0bab0547b3eee8, type: 3}
   prefabItem: {fileID: 109385521419899546, guid: 10847c15b2104844d8a1091fa8fb1470,
     type: 3}
+  foodAmount: 0

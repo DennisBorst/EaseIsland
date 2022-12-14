@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e782743bc8ea54f93eb5ae9f7038a2, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
-  ItemName: axe
+  ItemName: Axe
+  itemDescription: 
   item: 9
   itemType: 2
   maxStack: 1

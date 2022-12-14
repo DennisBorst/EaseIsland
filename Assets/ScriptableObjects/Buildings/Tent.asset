@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab9447e850ced34ab2f0c59cba51e36, type: 3}
   m_Name: Tent
   m_EditorClassIdentifier: 
-  buildingName: Tent
+  name: Hut
+  description: 
   buildObject: {fileID: 5077621418493816067, guid: 015239965656e8f4b8d82148fb3be989,
     type: 3}
   necessities:
