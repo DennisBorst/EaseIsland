@@ -11,6 +11,11 @@ public class AnimationFunctions : MonoBehaviour
         anim.SetInteger("AnimNumber", animNumber);
     }
 
+    public void DisableObject()
+    {
+        this.gameObject.SetActive(false);
+    }
+
     private void Awake()
     {
         anim = GetComponent<Animator>();

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
   ItemName: Pickaxe
+  itemDescription: The pickaxe is used to collect crystals from the cave. While mining,
+    you will get a slider above your head. You have to time your swing to get items.
+    In the yellow you get 1 item, in the green, you will get 2.
   item: 12
   itemType: 2
   maxStack: 1
@@ -21,3 +24,6 @@ MonoBehaviour:
   prefabItem: {fileID: 5880971377218438374, guid: 51aa0e88b1971b44f80978fee5cd510d,
     type: 3}
   foodAmount: 0
+  color:
+    serializedVersion: 2
+    rgba: 0

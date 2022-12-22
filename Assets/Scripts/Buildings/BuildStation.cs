@@ -39,6 +39,7 @@ public class BuildStation : MonoBehaviour
     public void InRange()
     {
         CheckItems();
+        BuildInfoPanel.Instance.AddBuildingInfo(building);
         buildUI.gameObject.SetActive(true);
     }
 

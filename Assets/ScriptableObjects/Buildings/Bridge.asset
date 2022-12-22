@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bridge
   m_EditorClassIdentifier: 
   name: Bridge
-  description: 
+  description: The bridge is used to cross over waters.
   buildObject: {fileID: 4207886708167615750, guid: 16e353b228fa0d74ba77a4a1ab08b9a6,
     type: 3}
   necessities:

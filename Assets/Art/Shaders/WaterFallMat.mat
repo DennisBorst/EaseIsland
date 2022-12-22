@@ -56,7 +56,7 @@ Material:
     - _VoronoiScale: 7.75
     - _VoronoiSpeed: 4
     m_Colors:
-    - _FallColor: {r: 1.319508, g: 1.319508, b: 1.319508, a: 0}
+    - _FallColor: {r: 1, g: 1, b: 1, a: 0}
     - _RippleColor: {r: 0, g: 0.61877537, b: 2, a: 1}
     - _RippleSpeed: {r: -0.52, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

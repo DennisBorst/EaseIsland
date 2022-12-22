@@ -86,7 +86,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3318977628714453605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +122,10 @@ MonoBehaviour:
   playerDotImg: {fileID: 3318977630157364549}
   catchPar: {fileID: 2215296030505138172, guid: db22a90b031d0d64887bf92dd6233dd7,
     type: 3}
+  itemAnim: {fileID: 0}
+  colorPar:
+    serializedVersion: 2
+    rgba: 0
   fish: {fileID: 11400000, guid: 3e63b66a22b576e43ba328e5a3a843ad, type: 2}
   playerDotColorNormal: {r: 0.24056602, g: 0.55796254, b: 1, a: 1}
   playerDotColorHotspot: {r: 0.16794232, g: 0.3891395, b: 0.6981132, a: 1}
@@ -129,13 +133,6 @@ MonoBehaviour:
     type: 3}
   playerDotSpriteHotspot: {fileID: 21300000, guid: ed2501c7087b7d445afa280b031b6a3f,
     type: 3}
-  innerDisVisualCircle: 150
-  maxDisVisualCircle: 500
-  maxDisToTargetDot: 40
-  closeToTargetRadius: 180
-  minSizePlayerDot: 1
-  maxSizePlayerDot: 2.5
-  sizeInInnerCircle: 2.8
   playerSpeedMultipler: 5
 --- !u!1 &3318977630001536064
 GameObject:

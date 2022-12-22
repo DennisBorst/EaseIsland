@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: CaveSupport
   m_EditorClassIdentifier: 
   name: Cave Support
-  description: 
+  description: The cave support is used to get rid of the falling stones. It will
+    unlock the cave.
   buildObject: {fileID: 3619528976723130556, guid: 1c55693d691f0544fb8a674c2555a050,
     type: 3}
   necessities:

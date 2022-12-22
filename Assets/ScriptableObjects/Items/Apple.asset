@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   ItemName: Apple
-  itemDescription: 
+  itemDescription: The apple will fall from appletrees, it provide 15 food points.
   item: 8
   itemType: 1
   maxStack: 4
@@ -22,3 +22,6 @@ MonoBehaviour:
   prefabItem: {fileID: 7337267769003303642, guid: 1560ee0f3f092b3469c6513de6612d4b,
     type: 3}
   foodAmount: 15
+  color:
+    serializedVersion: 2
+    rgba: 0

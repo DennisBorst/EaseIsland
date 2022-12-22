@@ -6,6 +6,9 @@ public class WaterPoint : MonoBehaviour
 {
     [SerializeField] private GameObject fishObject;
 
+    [SerializeField] private FishStats[] daytimeFish;
+    [SerializeField] private FishStats[] nighttimeFish;
+
     private Interactable interactable;
     private InteractableUI interactableUI;
 
@@ -59,6 +62,9 @@ public class WaterPoint : MonoBehaviour
             GameObject fishingPool = Instantiate(fishObject, spawnPos, rotation);
             fishScript = fishingPool.GetComponent<Fishing>();
 
+            FishStats randomFish = GetRandomFish();
+            fishScript.LoadInFish(randomFish);
+
             OutRange();
         }
         else
@@ -67,6 +73,20 @@ public class WaterPoint : MonoBehaviour
             fishScript.TryToCatch();
             fishScript = null;
             CharacterMovement.Instance.CanOnlyInteract(false);
+        }
+    }
+
+    private FishStats GetRandomFish()
+    {
+        if(GameManger.Instance.dayNightCycle.dayTime == DayNightCycle.DayTime.Day)
+        {
+            int randomInt = Random.Range(0, daytimeFish.Length);
+            return daytimeFish[randomInt];
+        }
+        else
+        {
+            int randomInt = Random.Range(0, nighttimeFish.Length);
+            return nighttimeFish[randomInt];
         }
     }
 }

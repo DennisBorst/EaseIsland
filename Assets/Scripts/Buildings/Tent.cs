@@ -11,6 +11,8 @@ public class Tent : MonoBehaviour
         if(GameManger.Instance.dayNightCycle.dayTime == DayNightCycle.DayTime.Night)
         {
             GameManger.Instance.SwitchDayNight();
+            PlayerAnimation.Instance.PlayAnimCount(0);
+            OutRange();
         }
     }
 

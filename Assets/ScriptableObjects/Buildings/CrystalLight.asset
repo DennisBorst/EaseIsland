@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab9447e850ced34ab2f0c59cba51e36, type: 3}
   m_Name: CrystalLight
   m_EditorClassIdentifier: 
-  name: Light
-  description: 
+  name: Lantern Light
+  description: The lantern light is a crystal put on the lantern to generate light
+    in night time. To put the crystal on the lantern you should place a crystal color
+    to your liking in your hand.
   buildObject: {fileID: 2094568212840196176, guid: 93c211dc5f618a84fa476be47057a2cb,
     type: 3}
   necessities:

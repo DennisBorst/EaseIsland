@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Wool
   m_EditorClassIdentifier: 
   ItemName: Wool
-  itemDescription: 
+  itemDescription: 'Wool can be obtained by shearing sheeps. Wool is often used in
+    building structures. '
   item: 4
   itemType: 0
   maxStack: 3
@@ -22,3 +23,6 @@ MonoBehaviour:
   prefabItem: {fileID: 4415727249704013631, guid: 754f3f9f7cc67c34ebe6ab34ab934dd1,
     type: 3}
   foodAmount: 0
+  color:
+    serializedVersion: 2
+    rgba: 0

@@ -20,10 +20,13 @@ public class ItemPickup : MonoBehaviour
         FullBucket,
         Pickaxe,
         FishingRod,
-        Fish,
         CrystalB,
         CrystalR,
-        CrystalG
+        CrystalG,
+        Fish,
+        NightFish,
+        CaveFish,
+        WindOrb
     }
 
     public Item item;

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Lantern
   m_EditorClassIdentifier: 
   name: Lantern
-  description: 
+  description: 'The lantern is a starting block to build some light on top of it. '
   buildObject: {fileID: 2094568212840196176, guid: 93c211dc5f618a84fa476be47057a2cb,
     type: 3}
   necessities:
   - item: {fileID: 11400000, guid: e55b820070677314cb96721705af313a, type: 2}
     amount: 2
   - item: {fileID: 11400000, guid: 324a80b066585f0458245b4231c596b0, type: 2}
-    amount: 2
+    amount: 1

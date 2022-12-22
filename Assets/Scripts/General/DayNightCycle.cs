@@ -16,23 +16,28 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] private float dayDurationInMin;
     [SerializeField] private float nightDurationInMin;
     [Space]
+    [SerializeField] private float morningTime;
+    [SerializeField] private float noonTime;
+    [Space]
     [SerializeField] private Light sunLight;
     [SerializeField] private Volume volumeDay;
     [SerializeField] private Volume volumeNight;
+    [SerializeField] private GameObject sunMoonIcon;
     [SerializeField] private Vector3 rotatePointStart;
     [SerializeField] private Vector3 rotatePointEnd;
     [SerializeField] private float maxIntensity;
     [SerializeField] private float morningEveningKelvin;
     [SerializeField] private float dayTimeKelvin;
     [Space]
-    [SerializeField] private UnityEvent dayEvent;
-    [SerializeField] private UnityEvent nightEvent;
+    public UnityEvent dayEvent;
+    public UnityEvent nightEvent;
     [Space]
     [SerializeField] private Animator fadeScreen;
 
     private float dayDurationInSec;
     private float nightDurationInSec;
     private float timeStartedLerping;
+    private float noonTimeStartedLerping;
     private float timer;
 
     public delegate void StartDayTimee();
@@ -45,6 +50,7 @@ public class DayNightCycle : MonoBehaviour
     {
         timer = 0;
         timeStartedLerping = Time.time;
+        noonTimeStartedLerping = timeStartedLerping + noonTime;
         dayTime = DayTime.Day;
         dayEvent.Invoke();
     }
@@ -67,24 +73,25 @@ public class DayNightCycle : MonoBehaviour
 
     private void Start()
     {
-        dayTime = DayTime.Day;
-        StartCoroutine(UpdateInSeconds());
         dayDurationInSec = dayDurationInMin * 60f;
         nightDurationInSec = nightDurationInMin * 60f;
-        timeStartedLerping = Time.time;
+        morningTime *= dayDurationInSec;
+        noonTime *= dayDurationInSec;
 
         startDayTime = StartDayTime;
         startNightTime = StartNightTime;
+
+        startDayTime.Invoke();
+        StartCoroutine(UpdateInSeconds());
     }
 
     private IEnumerator DayNightSwitchWaitTime()
     {
+        dayTime = DayTime.Day;
+        PlayerAnimation.Instance.Movement(new Vector2(0, 0), false);
         yield return new WaitForSeconds(1f);
         FoodManager.Instance.IncreaseFood(20f);
-        timer = 0;
-        timeStartedLerping = Time.time;
-        dayTime = DayTime.Day;
-        dayEvent.Invoke();
+        startDayTime.Invoke();
     }
 
     private IEnumerator UpdateInSeconds()
@@ -110,11 +117,31 @@ public class DayNightCycle : MonoBehaviour
         if (timer != dayDurationInSec)
         {
             timer = LerpFloat(0, dayDurationInSec, timeStartedLerping, dayDurationInSec);
+
+            //whole day
             sunLight.transform.eulerAngles = LerpVector3(rotatePointStart, rotatePointEnd, timeStartedLerping, dayDurationInSec);
-            sunLight.intensity = LerpFloat(0f, maxIntensity, timeStartedLerping, dayDurationInSec / 4);
-            sunLight.colorTemperature = LerpFloat(morningEveningKelvin, dayTimeKelvin, timeStartedLerping, dayDurationInSec / 4);
-            volumeDay.weight = LerpFloat(0f, 1f, timeStartedLerping, dayDurationInSec / 8);
-            volumeNight.weight = LerpFloat(1f, 0f, timeStartedLerping, dayDurationInSec / 8);
+            sunMoonIcon.transform.eulerAngles = LerpVector3(new Vector3(0,0,0), new Vector3(0, 0, 180f), timeStartedLerping, dayDurationInSec);
+
+            if (timer < morningTime)
+            {
+                //MorningTime
+                volumeDay.weight = LerpFloat(0f, 1f, timeStartedLerping, morningTime);
+                volumeNight.weight = LerpFloat(1f, 0f, timeStartedLerping, morningTime);
+                sunLight.intensity = LerpFloat(0f, maxIntensity, timeStartedLerping, morningTime);
+                sunLight.colorTemperature = LerpFloat(morningEveningKelvin, dayTimeKelvin, timeStartedLerping, morningTime);
+            }
+            else if(timer < noonTime)
+            {
+                //Daytime
+                volumeDay.weight = 1f;
+                volumeNight.weight = 0f;
+            }
+            else if(timer > noonTime)
+            {
+                //NoonTime
+                sunLight.intensity = LerpFloat(maxIntensity, 0f, noonTimeStartedLerping, dayDurationInSec - noonTime);
+                sunLight.colorTemperature = LerpFloat(dayTimeKelvin, morningEveningKelvin, noonTimeStartedLerping, dayDurationInSec - noonTime);
+            }
         }
         else
         {
@@ -129,9 +156,8 @@ public class DayNightCycle : MonoBehaviour
         {
 
             timer = LerpFloat(0, nightDurationInSec, timeStartedLerping, nightDurationInSec);
-            sunLight.intensity = LerpFloat(maxIntensity, 0f, timeStartedLerping, dayDurationInSec / 4);
+            sunMoonIcon.transform.eulerAngles = LerpVector3(new Vector3(0, 0, 180f), new Vector3(0, 0, 360f), timeStartedLerping, dayDurationInSec);
 
-            sunLight.colorTemperature = LerpFloat(dayTimeKelvin, morningEveningKelvin, timeStartedLerping, dayDurationInSec / 8);
             volumeDay.weight = LerpFloat(1f, 0f, timeStartedLerping, nightDurationInSec / 8);
             volumeNight.weight = LerpFloat(0f, 1f, timeStartedLerping, nightDurationInSec / 8);
         }

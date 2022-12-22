@@ -25,13 +25,18 @@ public class InventoryUI : MonoBehaviour
         }
 
         panels[panelCount].SetActive(true);
-        panels[panelCount].GetComponent<SelectUIObject>().SelectFirstUIElemnt();
+        panels[panelCount].GetComponent<SelectUIObject>().SelectFirstUIElement();
         panelText[panelCount].color = Color.white;
     }
 
     public void OpenCurrentPanel()
     {
         OpenPanel(currentPanelSpot);
+    }
+
+    public void CloseCurrentPanel()
+    {
+        panels[currentPanelSpot].SetActive(false);
     }
 
     public void SwitchPanel(int panelSpot)
@@ -71,32 +76,11 @@ public class InventoryUI : MonoBehaviour
         moveVisImg.gameObject.SetActive(false);
     }
 
-    private void Start()
-    {
-        for (int i = 0; i < itemSlots.Length; i++)
-        {
-            itemSlots[i].Clear();
-        }
-    }
-
     private void UpdateItemSlots(List<InventoryManager.ItemStack> currentInvList, int maxSlots, ItemSlotUI[] slots)
     {
-        for (int i = 0; i < maxSlots; i++)
-        {
-            slots[i].Clear();
-        }
-
         for (int i = 0; i < currentInvList.Count; i++)
         {
-            if (currentInvList[i] != null)
-            {
-                slots[i].UpdateItem(currentInvList[i]);
-            }
-            else
-            {
-                slots[i].Clear();
-            }
-
+            slots[i].UpdateItem(currentInvList[i]);
             if (slots.Length - 1 == i) { break; }
         }
     }

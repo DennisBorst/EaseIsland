@@ -29,7 +29,7 @@ public class CraftingPanel : MonoBehaviour
         if (toolCount == 1)
         {
             selectUIObject.selectAsFirstUI = newObj;
-            selectUIObject.SelectFirstUIElemnt();
+            selectUIObject.SelectFirstUIElement();
         }
 
     }
@@ -54,7 +54,7 @@ public class CraftingPanel : MonoBehaviour
         UpdateUI();
 
         selectUIObject.selectAsFirstUI = lastButton;
-        selectUIObject.SelectFirstUIElemnt();
+        selectUIObject.SelectFirstUIElement();
     }
 
     private void Start()
@@ -65,12 +65,20 @@ public class CraftingPanel : MonoBehaviour
         {
             AddTool(startTools[i]);
         }
+
+        itemAmountInfo.UpdateItems();
     }
 
     private void OnEnable()
     {
         if(lastTool == null) { return; }
         UpdateUI();
+
+        if(lastButton != null)
+        {
+            selectUIObject.selectAsFirstUI = lastButton;
+            selectUIObject.SelectFirstUIElement();
+        }
     }
 }
 

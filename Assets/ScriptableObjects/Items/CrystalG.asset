@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: CrystalG
   m_EditorClassIdentifier: 
   ItemName: Crystal Green
-  item: 17
+  itemDescription: The green crystal comes from the green crystals in the cave, it
+    can be used to light up lanterns.
+  item: 16
   itemType: 3
   maxStack: 4
   animNumber: 0
@@ -21,3 +23,6 @@ MonoBehaviour:
   prefabItem: {fileID: 6770933866677055667, guid: 6b73c0d48cccf3e4db4a4cd7a4070c61,
     type: 3}
   foodAmount: 0
+  color:
+    serializedVersion: 2
+    rgba: 4282121984

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Stone
   m_EditorClassIdentifier: 
   ItemName: Stone
-  itemDescription: 
+  itemDescription: Stones can be found laying on the floor. It is used in building
+    tools and in some structures.
   item: 3
   itemType: 0
   maxStack: 3
@@ -22,3 +23,6 @@ MonoBehaviour:
   prefabItem: {fileID: 4390777097759357826, guid: 0ff6f6a5846646c4c8642f28503d5630,
     type: 3}
   foodAmount: 0
+  color:
+    serializedVersion: 2
+    rgba: 4287664272

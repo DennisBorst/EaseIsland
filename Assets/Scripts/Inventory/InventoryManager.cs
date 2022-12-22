@@ -13,6 +13,7 @@ public class InventoryManager : MonoBehaviour
 
     [Header("Inventory Referenses")]
     [SerializeField] private GameObject inventoryCanvas;
+    [SerializeField] private GameObject buildTextPopUp;
     [SerializeField] private List<ItemStack> inInventory = new List<ItemStack>();
     [SerializeField] private InventoryUI inventoryUI;
     //[SerializeField] private CraftingManager craftingManager;
@@ -35,10 +36,10 @@ public class InventoryManager : MonoBehaviour
         public Item item;
         public int amount;
 
-        public ItemStack(Item item)
+        public ItemStack(Item item, int amount = 1)
         {
             this.item = item;
-            amount = 1;
+            this.amount = amount;
         }
     }
 
@@ -46,7 +47,9 @@ public class InventoryManager : MonoBehaviour
     {
         inventoryOpened = true;
         //craftingManager.CheckItems();
+        UpdateAllUI();
         inventoryUI.OpenCurrentPanel();
+        buildTextPopUp.SetActive(false);
         inventoryCanvas.SetActive(true);
         //Cursor.lockState = CursorLockMode.Confined;
         //Cursor.visible = true;
@@ -55,6 +58,7 @@ public class InventoryManager : MonoBehaviour
     public void CloseInventory()
     {
         inventoryOpened = false;
+        inventoryUI.CloseCurrentPanel();
         inventoryCanvas.SetActive(false);
         inventoryUI.MoveItemDone();
         itemMoving = false;
@@ -69,6 +73,28 @@ public class InventoryManager : MonoBehaviour
 
 
     #region Inventory
+    
+    public List<ItemStack> GetInventoryList()
+    {
+        List<ItemStack> itemList = new List<ItemStack>();
+
+        for (int i = 0; i < inInventory.Count; i++)
+        {
+            itemList.Add(new ItemStack(inInventory[i].item, inInventory[i].amount));
+        }
+        return itemList;
+    }
+
+    public void UpdateInventoryList(List<ItemStack> newList)
+    {
+        for (int i = 0; i < inInventory.Count; i++)
+        {
+            inInventory[i] = newList[i];
+        }
+
+        UpdateAllUI();
+    }
+    
     public bool AddToInv(Item item)
     {
         ItemStack itemStack = GetItemStack(item);
@@ -311,10 +337,10 @@ public class InventoryManager : MonoBehaviour
     {
         for (int i = 0; i < maxInvSlots; i++)
         {
-            ItemStack itemStack = GetItemStack(emptyItem);
             inInventory.Add(new ItemStack(emptyItem));
         }
 
+        UpdateAllUI();
     }
     #endregion
 

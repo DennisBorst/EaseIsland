@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: CrystalR
   m_EditorClassIdentifier: 
   ItemName: Crystal Red
-  item: 16
+  itemDescription: The red crystal comes from the red crystals in the cave, it can
+    be used to light up lanterns.
+  item: 15
   itemType: 3
   maxStack: 4
   animNumber: 0
@@ -21,3 +23,6 @@ MonoBehaviour:
   prefabItem: {fileID: 3821716188583725418, guid: fda68fc2aeb2ce54893160c694c7e640,
     type: 3}
   foodAmount: 0
+  color:
+    serializedVersion: 2
+    rgba: 4278225407

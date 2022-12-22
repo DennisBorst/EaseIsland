@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Tent
   m_EditorClassIdentifier: 
   name: Hut
-  description: 
+  description: The hut gives you a place to live in. Inside you can build some usefull
+    places like a bed, chest and wardrobe.
   buildObject: {fileID: 5077621418493816067, guid: 015239965656e8f4b8d82148fb3be989,
     type: 3}
   necessities:
   - item: {fileID: 11400000, guid: f1bf2eda935381a47894d9edec7ff79f, type: 2}
     amount: 5
   - item: {fileID: 11400000, guid: e77c13c6609cfc24aaddd8e40959ea77, type: 2}
-    amount: 4
+    amount: 5

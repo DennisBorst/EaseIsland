@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: FishingRod
   m_EditorClassIdentifier: 
   ItemName: Fishing Rod
+  itemDescription: "The fishing rod is used to fish in the fishing area's. This will
+    create a fishing pool, search the fish with your left joystick, when you found
+    the fish click A to catch it. \nOn different spots or different times of the
+    day you can catch other fish."
   item: 13
   itemType: 2
   maxStack: 1
@@ -21,3 +25,6 @@ MonoBehaviour:
   prefabItem: {fileID: 2063170183693454774, guid: 839b933a132ff0547b7d9db1dd0ffccb,
     type: 3}
   foodAmount: 0
+  color:
+    serializedVersion: 2
+    rgba: 0

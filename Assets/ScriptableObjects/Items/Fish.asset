@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e782743bc8ea54f93eb5ae9f7038a2, type: 3}
   m_Name: Fish
   m_EditorClassIdentifier: 
-  ItemName: Fish
-  itemDescription: 
-  item: 14
+  ItemName: Orange Fish
+  itemDescription: The orange fish can be caught while fishing in the daytime on
+    the island. It provides 20 food points.
+  item: 17
   itemType: 1
   maxStack: 4
   animNumber: 1
@@ -22,3 +23,6 @@ MonoBehaviour:
   prefabItem: {fileID: 6902524663535909787, guid: 06f2ed38744b8c643952cf40b47eed31,
     type: 3}
   foodAmount: 20
+  color:
+    serializedVersion: 2
+    rgba: 0

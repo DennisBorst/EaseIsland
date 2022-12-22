@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab9447e850ced34ab2f0c59cba51e36, type: 3}
+  m_Name: Bed
+  m_EditorClassIdentifier: 
+  name: Bed
+  description: The bed is used to skip the night time. This also provide some food,
+    because sleep is important!
+  buildObject: {fileID: 4124785114373759508, guid: c0e4af4e916c31b45be3d058e10241be,
+    type: 3}
+  necessities:
+  - item: {fileID: 11400000, guid: e55b820070677314cb96721705af313a, type: 2}
+    amount: 3
+  - item: {fileID: 11400000, guid: e77c13c6609cfc24aaddd8e40959ea77, type: 2}
+    amount: 6

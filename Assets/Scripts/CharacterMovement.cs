@@ -73,13 +73,26 @@ public class CharacterMovement : MonoBehaviour
         //currentMovementSpeed = percentage * movementSpeed;
     }
 
+    public void OpenMenu()
+    {
+        playerAnim.Movement(new Vector2(0, 0), false);
+        playerUI.SetActive(false);
+        freelookCam.enabled = false;
+    }
+
+    public void CloseMenu()
+    {
+        playerUI.SetActive(true);
+        freelookCam.enabled = true;
+    }
+
     private void Start()
     {
         charCon = GetComponent<CharacterController>();
         inventoryManager = GetComponent<InventoryManager>();
         itemInHand = GetComponent<ItemInHand>();
         playerAnim.SetCharacterMovement(this);
-        StartCoroutine(CheckForItems());
+        StartCoroutine(CheckForInteractables());
         currentMovementSpeed = movementSpeed;
     }
 
@@ -99,13 +112,16 @@ public class CharacterMovement : MonoBehaviour
     private IEnumerator FreezePlayerForDurationIE(float duration)
     {
         unableToStuff = true;
+        isRunning = false;
+        currentMovementSpeed = movementSpeed;
+        playerAnim.Movement(new Vector2(0, 0), isRunning);
         yield return new WaitForSeconds(duration);
         unableToStuff = false;
     }
 
-    private IEnumerator CheckForItems()
+    private IEnumerator CheckForInteractables()
     {
-        WaitForSeconds wait = new WaitForSeconds(0.2f);
+        WaitForSeconds wait = new WaitForSeconds(0f);
 
         while (true)
         {
@@ -189,19 +205,14 @@ public class CharacterMovement : MonoBehaviour
         {
             if (!inventoryManager.inventoryOpened)
             {
-                Debug.Log("InventoryOpen");
-                playerAnim.Movement(new Vector2(0, 0), false);
                 unableToStuff = true;
-                freelookCam.enabled = false;
-                playerUI.SetActive(false);
+                OpenMenu();
                 inventoryManager.OpenInventory();
             }
             else
             {
-                Debug.Log("InventoryClosed");
                 unableToStuff = false;
-                freelookCam.enabled = true;
-                playerUI.SetActive(true);
+                CloseMenu();
                 inventoryManager.CloseInventory();
             }
         }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boat
   m_EditorClassIdentifier: 
   name: Boat
-  description: 
+  description: The boat is build to sail away to another island.
   buildObject: {fileID: 6487122144611231285, guid: 84af3e8ffbf145343abcb84ea94a2e51,
     type: 3}
   necessities:
@@ -25,3 +25,5 @@ MonoBehaviour:
     amount: 6
   - item: {fileID: 11400000, guid: 324a80b066585f0458245b4231c596b0, type: 2}
     amount: 3
+  - item: {fileID: 11400000, guid: a9d145f96a05cd54cb1635b0bb9408e0, type: 2}
+    amount: 1

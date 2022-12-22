@@ -7,13 +7,13 @@ public class SelectUIObject : MonoBehaviour
 {
     public GameObject selectAsFirstUI;
 
-    public void SelectFirstUIElemnt()
+    public void SelectFirstUIElement()
     {
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(selectAsFirstUI);
     }
 
-    private void Start()
+    private void OnEnable()
     {
         if(selectAsFirstUI == null) { return; }
 

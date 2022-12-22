@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: 
   ItemName: Axe
-  itemDescription: 
+  itemDescription: The axe is used to chop down tree's, while in hand, you can cut
+    down tree's in 3 hits. Do not have this item in your hand when you just want
+    to shake the tree.
   item: 9
   itemType: 2
   maxStack: 1
@@ -22,3 +24,6 @@ MonoBehaviour:
   prefabItem: {fileID: 8474223943232593888, guid: 5df059cfd89ae064c81640854a5f5fff,
     type: 3}
   foodAmount: 0
+  color:
+    serializedVersion: 2
+    rgba: 0

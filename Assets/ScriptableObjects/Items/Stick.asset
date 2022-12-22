@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Stick
   m_EditorClassIdentifier: 
   ItemName: Stick
-  itemDescription: 
+  itemDescription: Sticks have a chance of falling from shaking the tree's. It can
+    be used to build tools or some structures.
   item: 1
   itemType: 0
   maxStack: 5
@@ -22,3 +23,6 @@ MonoBehaviour:
   prefabItem: {fileID: 3770329664592127805, guid: 760d270af15eb3542ba567a664f3c0f4,
     type: 3}
   foodAmount: 0
+  color:
+    serializedVersion: 2
+    rgba: 0

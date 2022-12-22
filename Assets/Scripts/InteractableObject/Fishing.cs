@@ -21,13 +21,13 @@ public class Fishing : MonoBehaviour
     [SerializeField] private Sprite playerDotSpriteHotspot;
 
     [Header("Preferences")]
-    [SerializeField] private float innerDisVisualCircle;
-    [SerializeField] private float maxDisVisualCircle;
-    [SerializeField] private float maxDisToTargetDot;
-    [SerializeField] private float closeToTargetRadius;
-    [SerializeField] private float minSizePlayerDot;
-    [SerializeField] private float maxSizePlayerDot;
-    [SerializeField] private float sizeInInnerCircle;
+    private float innerDisVisualCircle;
+    private float maxDisVisualCircle;
+    private float maxDisToTargetDot;
+    private float closeToTargetRadius;
+    private float minSizePlayerDot;
+    private float maxSizePlayerDot;
+    private float sizeInInnerCircle;
     [SerializeField] private float playerSpeedMultipler;
 
     private Vector3 targetPos;
@@ -38,6 +38,24 @@ public class Fishing : MonoBehaviour
 
     private Vector3 playerPos;
     private Vector3 playerStartPos = new Vector3(0,0,0);
+
+    public void LoadInFish(FishStats fishStats)
+    {
+        fish = fishStats.item;
+        playerDotSpriteHotspot = fish.inventoryImg;
+        colorPar = fishStats.color;
+
+        innerDisVisualCircle = fishStats.innerDisVisualCircle;
+        maxDisVisualCircle = fishStats.maxDisVisualCircle;
+        maxDisToTargetDot = fishStats.maxDisToTargetDot;
+        closeToTargetRadius = fishStats.closeToTargetRadius;
+        minSizePlayerDot = fishStats.minSizePlayerDot;
+        maxSizePlayerDot = fishStats.maxSizePlayerDot;
+        sizeInInnerCircle = fishStats.sizeInInnerCircle;
+
+        playerPos = new Vector3(0, 0, 0);
+        CreateDotOnCircle();
+    }
 
     public void TryToCatch()
     {
@@ -58,8 +76,8 @@ public class Fishing : MonoBehaviour
 
     private void Start()
     {
-        playerPos = new Vector3(0, 0, 0);
-        CreateDotOnCircle();
+        //playerPos = new Vector3(0, 0, 0);
+        //CreateDotOnCircle();
     }
 
     private void Update()

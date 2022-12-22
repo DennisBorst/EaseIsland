@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06d2493622c343e439ce418c6a0a73da, type: 3}
+  m_Name: CaveFish
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 3b78272cb60b7444ebcd1ef709ed03d2, type: 2}
+  itemType: 19
+  color:
+    serializedVersion: 2
+    rgba: 4278255597
+  innerDisVisualCircle: 150
+  maxDisVisualCircle: 500
+  maxDisToTargetDot: 40
+  closeToTargetRadius: 180
+  minSizePlayerDot: 1
+  maxSizePlayerDot: 2.5
+  sizeInInnerCircle: 2.8

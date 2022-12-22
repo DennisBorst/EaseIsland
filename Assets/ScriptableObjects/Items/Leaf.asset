@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Leaf
   m_EditorClassIdentifier: 
   ItemName: Leaf
-  itemDescription: 
+  itemDescription: 'Leafs have a chance of falling from shaking the tree''s. Leafs
+    can be usefull to build house related stuff.
+
+'
   item: 5
   itemType: 0
   maxStack: 5
@@ -22,3 +25,6 @@ MonoBehaviour:
   prefabItem: {fileID: 109385521419899546, guid: 10847c15b2104844d8a1091fa8fb1470,
     type: 3}
   foodAmount: 0
+  color:
+    serializedVersion: 2
+    rgba: 0

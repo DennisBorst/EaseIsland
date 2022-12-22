@@ -14,7 +14,7 @@ public class BuildInfoButton : MonoBehaviour, ISelectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        buildInfoPanel.BuildInfoSelected(buildObject);
+        buildInfoPanel.BuildInfoSelected(buildObject, this.gameObject);
     }
 
     public void UpdateUI()

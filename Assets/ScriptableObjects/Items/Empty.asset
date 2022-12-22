@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e782743bc8ea54f93eb5ae9f7038a2, type: 3}
   m_Name: Empty
   m_EditorClassIdentifier: 
-  ItemName: Empty
+  ItemName: 
+  itemDescription: 
   item: 0
   itemType: 0
   maxStack: 1
@@ -20,3 +21,6 @@ MonoBehaviour:
   inventoryImg: {fileID: 21300000, guid: f2a38e56a65e4a440908d43fc8bff8e7, type: 3}
   prefabItem: {fileID: 0}
   foodAmount: 0
+  color:
+    serializedVersion: 2
+    rgba: 0

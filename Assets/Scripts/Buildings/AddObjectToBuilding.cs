@@ -10,6 +10,8 @@ public class AddObjectToBuilding : MonoBehaviour
     [SerializeField] private ParticleSystem buildComplete;
     [SerializeField] private bool destroyAfterBuild = true;
     [SerializeField] private GameObject alwaysDestroyedAfterBuild;
+    [SerializeField] private Light light;
+
     private BuildUI buildUI;
     private bool canBuild = false;
 
@@ -19,8 +21,17 @@ public class AddObjectToBuilding : MonoBehaviour
 
         if(itemInHand.itemType == Item.ItemType.Crystal)
         {
-            Collider colItem = Instantiate(itemInHand.prefabItem, buildLocation.transform.position, buildLocation.transform.rotation).GetComponent<Collider>();
+            Collider colItem = Instantiate(itemInHand.prefabItem, buildLocation.transform.position, buildLocation.transform.rotation, this.transform).GetComponent<Collider>();
             colItem.enabled = false;
+            light.color = itemInHand.color;
+
+            GameManger.Instance.dayNightCycle.dayEvent.AddListener(DayEvent);
+            GameManger.Instance.dayNightCycle.nightEvent.AddListener(NightEvent);
+            if(GameManger.Instance.dayNightCycle.dayTime == DayNightCycle.DayTime.Night)
+            {
+                NightEvent();
+            }
+
             Instantiate(buildComplete, buildLocation.transform.position, Quaternion.identity);
             InventoryManager.Instance.UseItemFromHand();
         }
@@ -37,7 +48,6 @@ public class AddObjectToBuilding : MonoBehaviour
             Destroy(interactable);
             Destroy(alwaysDestroyedAfterBuild);
             OutRange();
-            Destroy(this);
         }
     }
 
@@ -56,6 +66,16 @@ public class AddObjectToBuilding : MonoBehaviour
     {
         buildUI = GetComponentInChildren<BuildUI>();
         CheckItems();
+    }
+
+    private void DayEvent()
+    {
+        light.gameObject.SetActive(false);
+    }
+
+    private void NightEvent()
+    {
+        light.gameObject.SetActive(true);
     }
 
     private void CheckItems()

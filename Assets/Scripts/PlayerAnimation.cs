@@ -40,7 +40,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void EndOfAnimation()
     {
-        anim.SetInteger("AnimNumber", 0);
+        anim.SetInteger("AnimNumber", -1);
         characterMovement.FreezePlayer(false);
         characterMovement.CanOnlyInteract(false);
     }

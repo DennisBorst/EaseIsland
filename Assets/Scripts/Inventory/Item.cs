@@ -8,7 +8,8 @@ public class Item : ScriptableObject
         Normal,
         Food,
         Tools,
-        Crystal
+        Crystal,
+        NotTradable
     }
 
     public string ItemName;
@@ -22,4 +23,5 @@ public class Item : ScriptableObject
     public GameObject prefabItem;
     [Space]
     public float foodAmount;
+    public Color32 color;
 }
