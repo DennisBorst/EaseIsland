@@ -6,6 +6,7 @@ public class ItemInHand : MonoBehaviour
 {
     public InventoryManager.ItemStack itemStack;
     [HideInInspector] public Item currentItemSelected;
+    [HideInInspector] public GameObject itemObj;
 
     [SerializeField] private Transform itemPivot;
     [SerializeField] private ItemSlotUI[] itemSlotUI;
@@ -75,13 +76,13 @@ public class ItemInHand : MonoBehaviour
 
 
         if (currentItemSelected == null || currentItemSelected.item == ItemPickup.ItemType.Empty) { return; }
-        GameObject item = Instantiate(currentItemSelected.prefabItem, itemPivot.position, itemPivot.rotation, itemPivot);
-        item.layer = 8;
-        foreach (Transform child in item.transform)
+        itemObj = Instantiate(currentItemSelected.prefabItem, itemPivot.position, itemPivot.rotation, itemPivot);
+        itemObj.layer = 8;
+        foreach (Transform child in itemObj.transform)
         {
             child.gameObject.layer = 8;
         }
-        item.GetComponent<ItemPickup>().ColliderActive(false);
+        itemObj.GetComponent<ItemPickup>().ColliderActive(false);
     }
 
     #region Singleton

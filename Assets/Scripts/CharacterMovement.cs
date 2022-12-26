@@ -8,6 +8,7 @@ public class CharacterMovement : MonoBehaviour
     [HideInInspector] public Vector3 moveDirection;
     public bool unableToStuff;
     public bool canOnlyInteract;
+    private bool inventoryOpened;
 
     [Header("References")]
     public Transform playerObj;
@@ -50,6 +51,14 @@ public class CharacterMovement : MonoBehaviour
     //[Header("TestPorpuse")]
     private InventoryManager inventoryManager;
     private CharacterController charCon;
+
+    public enum PlayerState
+    {
+        CharacterInput,
+        Menu
+    }
+
+    private PlayerState playerState;
 
 
     public void CanOnlyInteract(bool freeze)
@@ -94,15 +103,42 @@ public class CharacterMovement : MonoBehaviour
         playerAnim.SetCharacterMovement(this);
         StartCoroutine(CheckForInteractables());
         currentMovementSpeed = movementSpeed;
+        playerState = PlayerState.CharacterInput;
     }
 
     private void Update()
     {
-        OpenMenuButton();
-
         if (unableToStuff) { return; }
+        
+        switch (playerState)
+        {
+            case PlayerState.CharacterInput:
+                UpdateCharacterInput();
+                break;
+            case PlayerState.Menu:
+                OpenMenuButton();
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    private void UpdateCharacterInput()
+    {
         Interact();
         if (canOnlyInteract) { return; }
+
+        if (Input.GetKeyDown(menuButton))
+        {
+            if (inventoryManager.inventoryOpened) { return; }
+            playerState = PlayerState.Menu;
+            inventoryOpened = true;
+            OpenMenu();
+            inventoryManager.OpenInventory();
+        }
+
+        if (inventoryOpened) { return; }
         Movement();
         PickUp();
         SwitchItem();
@@ -141,7 +177,6 @@ public class CharacterMovement : MonoBehaviour
     {
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
-        //currentMovement = new Vector3(vertical * movementSpeed, 0f, horizontal * movementSpeed);
 
         if (Input.GetKeyDown(runButton))
         {
@@ -203,34 +238,28 @@ public class CharacterMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(menuButton))
         {
-            if (!inventoryManager.inventoryOpened)
-            {
-                unableToStuff = true;
-                OpenMenu();
-                inventoryManager.OpenInventory();
-            }
-            else
-            {
-                unableToStuff = false;
-                CloseMenu();
-                inventoryManager.CloseInventory();
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Joystick1Button1) && inventoryManager.inventoryOpened)
-        {
-            unableToStuff = false;
-            freelookCam.enabled = true;
-            playerUI.SetActive(true);
+            playerState = PlayerState.CharacterInput;
+            inventoryOpened = false;
+            CloseMenu();
             inventoryManager.CloseInventory();
+            return;
         }
 
-        if (Input.GetKeyDown(dropButton) && inventoryManager.inventoryOpened)
+        if (Input.GetKeyDown(KeyCode.Joystick1Button1))
+        {
+            playerState = PlayerState.CharacterInput;
+            inventoryOpened = false;
+            CloseMenu();
+            inventoryManager.CloseInventory();
+            return;
+        }
+
+        if (Input.GetKeyDown(dropButton))
         {
             inventoryManager.DropItemFromInv();
         }
 
-        if (Input.GetKeyDown(interactButton) && inventoryManager.inventoryOpened)
+        if (Input.GetKeyDown(interactButton))
         {
             inventoryManager.UseFoodItem();
         }

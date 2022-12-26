@@ -19,6 +19,7 @@ public class Fishing : MonoBehaviour
     [SerializeField] private Color playerDotColorHotspot;
     [SerializeField] private Sprite playerDotSpriteNormal;
     [SerializeField] private Sprite playerDotSpriteHotspot;
+    [SerializeField] private Rigidbody cubeRb;
 
     [Header("Preferences")]
     private float innerDisVisualCircle;
@@ -54,15 +55,23 @@ public class Fishing : MonoBehaviour
         sizeInInnerCircle = fishStats.sizeInInnerCircle;
 
         playerPos = new Vector3(0, 0, 0);
+        PlayerAnimation.Instance.PlayAnimCount(8);
+        StartCoroutine(waitForFishString());
         CreateDotOnCircle();
+    }
+
+    public void StartLoopFishingRod()
+    {
     }
 
     public void TryToCatch()
     {
+        PlayerAnimation.Instance.PlayAnimCount(10);
+
         if (hotSpot)
         {
             Debug.Log("Catched Fish");
-            Instantiate(itemAnim, transform.position, Quaternion.identity, CharacterMovement.Instance.transform).GetComponent<GainItem>().ChangeItem(fish, colorPar);
+            InventoryManager.Instance.AddToInvWithAnim(fish);
             Instantiate(catchPar, this.transform.position, Quaternion.identity);
             //InventoryManager.Instance.AddToInv(fish);
         }
@@ -70,14 +79,8 @@ public class Fishing : MonoBehaviour
         {
             Debug.Log("Missed");
         }
-
+        
         Destroy(this.gameObject);
-    }
-
-    private void Start()
-    {
-        //playerPos = new Vector3(0, 0, 0);
-        //CreateDotOnCircle();
     }
 
     private void Update()
@@ -99,21 +102,7 @@ public class Fishing : MonoBehaviour
         Vector3 cameraRot = new Vector3(0f, 0f, 0f);
         cameraRot.y = Camera.main.transform.eulerAngles.y;
         this.transform.eulerAngles = cameraRot;
-        /*
-        Vector3 playerInput = Camera.main.transform.TransformDirection(new Vector3(horizontal, vertical, 0f));
-        float translateHor = (horizontal * Mathf.Cos(Camera.main.transform.eulerAngles.y * Mathf.Deg2Rad)) - (vertical * Mathf.Sin(Camera.main.transform.eulerAngles.y * Mathf.Deg2Rad));
-        Debug.Log("hor: " + translateHor);
-        float translateVer = (horizontal * Mathf.Sin(Camera.main.transform.eulerAngles.y * Mathf.Deg2Rad)) + (vertical * Mathf.Cos(Camera.main.transform.eulerAngles.y * Mathf.Deg2Rad));
-        Debug.Log("ver: " + translateVer);
-        Vector3 currentVector = new Vector3(horizontal, vertical, 0f);
-        Debug.DrawLine(transform.position, transform.position + (cameraRot * 5f), Color.red);
-        Vector3 forward = Vector3.Cross(transform.position, Camera.main.transform.position);
-        Vector3 cameraRot = transform.position + (Camera.main.transform.forward);
-        cameraRot.z = 0f;
-        Vector3 playerInput = new Vector3(horizontal, vertical, 0f) * playerSpeedMultipler;
-        cameraRot += playerInput;
-        playerDotVisual.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
-        */
+
         playerPos += new Vector3(horizontal, vertical, 0f) * playerSpeedMultipler;
 
         if (Vector3.Distance(playerPos, playerStartPos) > maxDisVisualCircle)
@@ -123,9 +112,6 @@ public class Fishing : MonoBehaviour
         }
 
         playerDotVisual.transform.localPosition = playerPos;
-
-        //playerDotVisual.Move(moveDirection * playerSpeedMultipler * Time.deltaTime);
-        //playerDotVisual.transform.position += (cameraRot - playerDotVisual.transform.position).normalized * playerSpeedMultipler * Time.deltaTime;
     }
 
     private void CheckDisToTargetDots()
@@ -180,5 +166,12 @@ public class Fishing : MonoBehaviour
         float randomY = Random.Range(-maxDisCircleVisual, maxDisCircleVisual);
         Vector3 v3 = new Vector3(randomX, randomY, 0.004f);
         return v3;
+    }
+
+    private IEnumerator waitForFishString()
+    {
+        ItemInHand.Instance.itemObj.GetComponent<FishingRod>().StartFishing(playerDotImg.gameObject);
+        yield return new WaitForSeconds(0.8f);
+        ItemInHand.Instance.itemObj.GetComponent<FishingRod>().StartUpdateRod();
     }
 }

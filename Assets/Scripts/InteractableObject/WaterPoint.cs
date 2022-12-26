@@ -72,6 +72,7 @@ public class WaterPoint : MonoBehaviour
             fishing = false;
             fishScript.TryToCatch();
             fishScript = null;
+            ItemInHand.Instance.itemObj.GetComponent<FishingRod>().StopFishing();
             CharacterMovement.Instance.CanOnlyInteract(false);
         }
     }

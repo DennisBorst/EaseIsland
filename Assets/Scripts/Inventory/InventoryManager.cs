@@ -19,6 +19,9 @@ public class InventoryManager : MonoBehaviour
     //[SerializeField] private CraftingManager craftingManager;
     [SerializeField] private Transform dropPosition;
     [SerializeField] private Item emptyItem;
+    [SerializeField] private GameObject itemAnimObject;
+    [SerializeField] private Transform backPackLoc;
+
 
     private int itemSelectedIndex = 0;
     private ItemInHand itemInHand;
@@ -46,7 +49,6 @@ public class InventoryManager : MonoBehaviour
     public void OpenInventory()
     {
         inventoryOpened = true;
-        //craftingManager.CheckItems();
         UpdateAllUI();
         inventoryUI.OpenCurrentPanel();
         buildTextPopUp.SetActive(false);
@@ -73,7 +75,6 @@ public class InventoryManager : MonoBehaviour
 
 
     #region Inventory
-    
     public List<ItemStack> GetInventoryList()
     {
         List<ItemStack> itemList = new List<ItemStack>();
@@ -110,15 +111,32 @@ public class InventoryManager : MonoBehaviour
             itemStack.amount += 1;
         }
 
-        if(item.itemType != Item.ItemType.Tools)
-        {
-            //PlayerAnimation.Instance.PlayAnimCount(4);
-        }
-        //StartCoroutine(AddItemInHandAfterTime(itemStack));
         UpdateAllUI();
         return true;
     }
 
+    public bool AddToInvWithAnim(Item item, int itemCount = 1)
+    {
+        ItemStack itemStack = GetItemStack(item);
+
+        if (itemStack == null || itemStack.isFull)
+        {
+            if (!SlotsAvailable()) { return false; }
+        }
+        Instantiate(itemAnimObject, transform.position, new Quaternion(0,0,0,0), backPackLoc).GetComponent<GainItem>().ChangeItem(item, item.color, itemCount);
+        return true;
+    }
+
+    public bool CheckSpace(Item item)
+    {
+        ItemStack itemStack = GetItemStack(item);
+
+        if (itemStack == null || itemStack.isFull)
+        {
+            if (!SlotsAvailable()) { return false; }
+        }
+        return true;
+    }
 
     public void RemoveFromInv(Item item)
     {

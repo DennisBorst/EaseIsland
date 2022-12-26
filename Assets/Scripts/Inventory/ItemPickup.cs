@@ -26,7 +26,8 @@ public class ItemPickup : MonoBehaviour
         Fish,
         NightFish,
         CaveFish,
-        WindOrb
+        WindOrb,
+        Shears
     }
 
     public Item item;
@@ -39,7 +40,7 @@ public class ItemPickup : MonoBehaviour
 
     public void PickedUp()
     {
-        bool canBePickedUp = InventoryManager.Instance.AddToInv(item);
+        bool canBePickedUp = InventoryManager.Instance.AddToInvWithAnim(item);
 
         if (canBePickedUp)
         {
@@ -55,7 +56,7 @@ public class ItemPickup : MonoBehaviour
 
     public void InVision(bool inVision)
     {
-        if (inVision)
+        if (inVision && InventoryManager.Instance.CheckSpace(item))
         {
             itemUI.ShowUI(true);
         }
