@@ -413,7 +413,7 @@ MonoBehaviour:
   playerDotSpriteHotspot: {fileID: 21300000, guid: ed2501c7087b7d445afa280b031b6a3f,
     type: 3}
   cubeRb: {fileID: 1572001996916864854}
-  playerSpeedMultipler: 5
+  playerSpeedMultipler: 650
 --- !u!1 &7016987562494786273
 GameObject:
   m_ObjectHideFlags: 0

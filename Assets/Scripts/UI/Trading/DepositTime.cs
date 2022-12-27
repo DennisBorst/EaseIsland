@@ -52,7 +52,6 @@ public class DepositTime : MonoBehaviour
 
         if (timer == timeToDeposit && !deposit)
         {
-            Debug.Log("Time to deposit");
             deposit = true;
             itemTradeButton.tradeUIManager.DepositItem(itemTradeButton);
             DisableUI();

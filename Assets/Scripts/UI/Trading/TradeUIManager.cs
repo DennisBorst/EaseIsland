@@ -147,7 +147,7 @@ public class TradeUIManager : MonoBehaviour
     {
         if(firstItem != null)
         {
-            Instantiate(itemAnim, transform.position, Quaternion.identity, CharacterMovement.Instance.transform).GetComponent<GainItem>().ChangeItem(firstItem, firstItem.color);
+            InventoryManager.Instance.AddToInvWithAnim(firstItem);
             firstItem = null;
         }
     }

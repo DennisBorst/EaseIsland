@@ -56,6 +56,8 @@ public class FishingRod : MonoBehaviour
 
     private void UpdateObject()
     {
+        if(targetPos == null) { return; }
+
         firstStringObj.transform.LookAt(targetPos);
         lastStringObj.transform.position = targetPos.position;
     }

@@ -10,6 +10,14 @@ public class CharacterMovement : MonoBehaviour
     public bool canOnlyInteract;
     private bool inventoryOpened;
 
+    public enum PlayerState
+    {
+        CharacterInput,
+        Menu
+    }
+
+    public PlayerState playerState;
+
     [Header("References")]
     public Transform playerObj;
     public Transform orientation;
@@ -52,14 +60,6 @@ public class CharacterMovement : MonoBehaviour
     private InventoryManager inventoryManager;
     private CharacterController charCon;
 
-    public enum PlayerState
-    {
-        CharacterInput,
-        Menu
-    }
-
-    private PlayerState playerState;
-
 
     public void CanOnlyInteract(bool freeze)
     {
@@ -86,13 +86,13 @@ public class CharacterMovement : MonoBehaviour
     {
         playerAnim.Movement(new Vector2(0, 0), false);
         playerUI.SetActive(false);
-        freelookCam.enabled = false;
+        freelookCam.m_XAxis.m_MaxSpeed = 0f;
     }
 
     public void CloseMenu()
     {
         playerUI.SetActive(true);
-        freelookCam.enabled = true;
+        freelookCam.m_XAxis.m_MaxSpeed = 150f;
     }
 
     private void Start()
@@ -104,6 +104,11 @@ public class CharacterMovement : MonoBehaviour
         StartCoroutine(CheckForInteractables());
         currentMovementSpeed = movementSpeed;
         playerState = PlayerState.CharacterInput;
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(CheckForInteractables());
     }
 
     private void Update()
@@ -259,7 +264,7 @@ public class CharacterMovement : MonoBehaviour
             inventoryManager.DropItemFromInv();
         }
 
-        if (Input.GetKeyDown(interactButton))
+        if (Input.GetKeyDown(pickUpButton))
         {
             inventoryManager.UseFoodItem();
         }

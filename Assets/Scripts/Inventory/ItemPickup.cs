@@ -32,10 +32,10 @@ public class ItemPickup : MonoBehaviour
 
     public Item item;
     public ItemType itemType;
+    [SerializeField] private Collider collider;
     
     [HideInInspector] public int currentStacked;
 
-    private Collider collider;
     private ItemUI itemUI;
 
     public void PickedUp()
@@ -69,7 +69,6 @@ public class ItemPickup : MonoBehaviour
     private void Awake()
     {
         itemUI = GetComponent<ItemUI>();
-        collider = GetComponent<Collider>();
     }
 
     private IEnumerator WaitToDestroy()

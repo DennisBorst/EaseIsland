@@ -138,6 +138,12 @@ MonoBehaviour:
   buildInfoPanel: {fileID: 0}
   buildObject: {fileID: 0}
   buildName: {fileID: 4933610916420945424}
+  unableToCraft:
+    serializedVersion: 2
+    rgba: 4282864613
+  ableToCraft:
+    serializedVersion: 2
+    rgba: 4286377826
 --- !u!1 &4933610916420945430
 GameObject:
   m_ObjectHideFlags: 0

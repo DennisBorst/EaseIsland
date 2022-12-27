@@ -11,6 +11,7 @@ public class CraftingPanel : MonoBehaviour
     [Space]
     [SerializeField] private CraftableObject[] startTools;
 
+    private List<ToolButton> toolButtons = new List<ToolButton>();
     private int toolCount = 0;
     private SelectUIObject selectUIObject;
     private CraftableObject lastTool;
@@ -25,6 +26,7 @@ public class CraftingPanel : MonoBehaviour
         newTool.craftingPanel = this;
         newTool.craftObject = tool;
         newTool.UpdateUI();
+        toolButtons.Add(newTool);
 
         if (toolCount == 1)
         {
@@ -38,6 +40,11 @@ public class CraftingPanel : MonoBehaviour
     {
         itemAmountInfo.UpdateItems();
         objectInfo.UpdateCraftItem(lastTool);
+
+        for (int i = 0; i < toolButtons.Count; i++)
+        {
+            toolButtons[i].UpdateUI();
+        }
     }
 
     public void ToolSelected(CraftableObject tool, GameObject button)

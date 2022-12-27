@@ -10,6 +10,63 @@ public class GameManger : MonoBehaviour
     [Space]
     [SerializeField] private Animator fadeScreen;
 
+    public FMODUnity.EventReference fmodEvent;
+    [SerializeField] private Location startLocation;
+    private FMOD.Studio.EventInstance instanceFMOD;
+
+
+    public enum Location
+    {
+        Island,
+        Home,
+        Cave
+    }
+
+    private Location currentLocationPlayer;
+
+    public void SwitchLocation(Location location)
+    {
+        currentLocationPlayer = location;
+        UpdateMusic();
+    }
+
+    public void UpdateMusic()
+    {
+        switch (currentLocationPlayer)
+        {
+            case Location.Island:
+                if(dayNightCycle.dayTime == DayNightCycle.DayTime.Day)
+                {
+                    instanceFMOD.setParameterByName("Day", 1);
+                    instanceFMOD.setParameterByName("Night", 0);
+                    instanceFMOD.setParameterByName("Home", 0);
+                    instanceFMOD.setParameterByName("Cave", 0);
+                }
+                else
+                {
+                    instanceFMOD.setParameterByName("Day", 0);
+                    instanceFMOD.setParameterByName("Night", 1);
+                    instanceFMOD.setParameterByName("Home", 0);
+                    instanceFMOD.setParameterByName("Cave", 0);
+                }
+                break;
+            case Location.Home:
+                instanceFMOD.setParameterByName("Day", 0);
+                instanceFMOD.setParameterByName("Night", 0);
+                instanceFMOD.setParameterByName("Home", 1);
+                instanceFMOD.setParameterByName("Cave", 0);
+                break;
+            case Location.Cave:
+                instanceFMOD.setParameterByName("Day", 0);
+                instanceFMOD.setParameterByName("Night", 0);
+                instanceFMOD.setParameterByName("Home", 0);
+                instanceFMOD.setParameterByName("Cave", 1);
+                break;
+            default:
+                break;  
+        }
+    }
+
     public void SwitchDayNight()
     {
         dayNightCycle.SwitchDayNight();
@@ -44,6 +101,14 @@ public class GameManger : MonoBehaviour
         enableLevel.SetActive(true);
         disableLevel.SetActive(false);
         CharacterMovement.Instance.transform.position = playerPos.position;
+    }
+
+    void Start()
+    {
+        instanceFMOD = FMODUnity.RuntimeManager.CreateInstance(fmodEvent);
+        instanceFMOD.start();
+        currentLocationPlayer = startLocation;
+        UpdateMusic();
     }
 
     #region Singleton

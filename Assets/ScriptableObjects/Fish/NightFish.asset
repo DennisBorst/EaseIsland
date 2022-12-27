@@ -18,7 +18,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294913024
   innerDisVisualCircle: 150
-  maxDisVisualCircle: 500
+  maxDisVisualCircle: 450
   maxDisToTargetDot: 60
   closeToTargetRadius: 250
   minSizePlayerDot: 1

@@ -54,6 +54,11 @@ public class InventoryUI : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(itemSlots[objectCount].gameObject);
     }
 
+    public void UpdatePanelPage()
+    {
+        panels[currentPanelSpot].GetComponent<SelectUIObject>().UpdatePanel();
+    }
+
     public void UpdateSlots(List<InventoryManager.ItemStack> currentInvList, int maxSlots)
     {
         UpdateItemSlots(currentInvList, itemSlots.Length, itemSlots);

@@ -63,6 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: f1bf2eda935381a47894d9edec7ff79f, type: 2}
   itemType: 1
+  collider: {fileID: 3770329664592127804}
   currentStacked: 0
 --- !u!114 &6173587345634497187
 MonoBehaviour:

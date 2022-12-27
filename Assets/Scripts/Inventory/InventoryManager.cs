@@ -169,7 +169,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (fromHand)
         {
-            PlayerAnimation.Instance.PlayAnimCount(2);
+            //PlayerAnimation.Instance.PlayAnimCount(2);
             StartCoroutine(DeleteFoodAfterTime(itemInHand.itemStack, itemInHand.itemStack.item.foodAmount));
         }
         else
@@ -307,6 +307,7 @@ public class InventoryManager : MonoBehaviour
     {
         inventoryUI.UpdateSlots(inInventory, maxInvSlots);
         inventoryUI.UpdatePlayerSlots(inInventory, maxInvSlots);
+        inventoryUI.UpdatePanelPage();
         itemInHand.UpdateItem();
     }
 

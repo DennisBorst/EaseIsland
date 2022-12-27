@@ -103,7 +103,7 @@ public class Fishing : MonoBehaviour
         cameraRot.y = Camera.main.transform.eulerAngles.y;
         this.transform.eulerAngles = cameraRot;
 
-        playerPos += new Vector3(horizontal, vertical, 0f) * playerSpeedMultipler;
+        playerPos += new Vector3(horizontal, vertical, 0f) * playerSpeedMultipler * Time.deltaTime;
 
         if (Vector3.Distance(playerPos, playerStartPos) > maxDisVisualCircle)
         {
@@ -157,7 +157,6 @@ public class Fishing : MonoBehaviour
     {
         targetPos = GetTargetDotLocation();
         targetDot.transform.localPosition = targetPos;
-        Debug.Log(targetPos);
     }
 
     private Vector3 GetTargetDotLocation()

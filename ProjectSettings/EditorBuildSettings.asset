@@ -11,10 +11,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/0.2-BeginnerIsland.unity
     guid: 9f52c3edd1a741345aeba3609a53106d
-  - enabled: 1
-    path: Assets/Scenes/Mine.unity
-    guid: 2c1c41827f714904b9c610d57408054e
-  - enabled: 1
-    path: Assets/Scenes/0.1-BeginnerIsland.unity
-    guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}
