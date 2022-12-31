@@ -11,11 +11,14 @@ public class BuildStation : MonoBehaviour
     [SerializeField] private bool destroyAfterBuild = true;
     [SerializeField] private GameObject alwaysDestroyedAfterBuild;
     private BuildUI buildUI;
+    private InteractableUI interactableUI;
     private bool canBuild = false;
 
     public void Interact(Item itemInHand, Vector3 playerPos)
     {
         if (!canBuild) { return; }
+        if (!FoodManager.Instance.FoodStatus()) { return; }
+
         Instantiate(buildComplete, buildLocation.transform.position, Quaternion.identity);
         Instantiate(building.buildObject, buildLocation.transform.position, buildLocation.transform.rotation);
         InventoryManager.Instance.BuildingCompleted(building);
@@ -40,17 +43,29 @@ public class BuildStation : MonoBehaviour
     {
         CheckItems();
         BuildInfoPanel.Instance.AddBuildingInfo(building);
-        buildUI.gameObject.SetActive(true);
+
+        if (FoodManager.Instance.FoodStatus()) 
+        { 
+            buildUI.gameObject.SetActive(true);
+            interactableUI.OutRange();
+        }
+        else 
+        { 
+            interactableUI.InRange();
+            buildUI.gameObject.SetActive(false);
+        }
     }
 
     public void OutRange()
     {
         buildUI.gameObject.SetActive(false);
+        interactableUI.OutRange();
     }
 
     private void Awake()
     {
         buildUI = GetComponentInChildren<BuildUI>();
+        interactableUI = GetComponent<InteractableUI>();
         CheckItems();
     }
 

@@ -28,6 +28,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private KeyCode interactButton; //Action Button
     [SerializeField] private KeyCode runButton; //Run Button
     [SerializeField] private KeyCode menuButton; //Inventory/Craft menu
+    [SerializeField] private KeyCode menuSecondButton; //Inventory/Craft menu
     [SerializeField] private KeyCode dropButton; //Inventory/Craft menu
     [SerializeField] private KeyCode leftInHandButton; 
     [SerializeField] private KeyCode rightInHandButton; 
@@ -87,6 +88,8 @@ public class CharacterMovement : MonoBehaviour
         playerAnim.Movement(new Vector2(0, 0), false);
         playerUI.SetActive(false);
         freelookCam.m_XAxis.m_MaxSpeed = 0f;
+        isRunning = false;
+        currentMovementSpeed = movementSpeed;
     }
 
     public void CloseMenu()
@@ -126,7 +129,6 @@ public class CharacterMovement : MonoBehaviour
             default:
                 break;
         }
-
     }
 
     private void UpdateCharacterInput()
@@ -134,7 +136,7 @@ public class CharacterMovement : MonoBehaviour
         Interact();
         if (canOnlyInteract) { return; }
 
-        if (Input.GetKeyDown(menuButton))
+        if (Input.GetKeyDown(menuButton) || Input.GetKeyDown(menuSecondButton))
         {
             if (inventoryManager.inventoryOpened) { return; }
             playerState = PlayerState.Menu;
@@ -241,7 +243,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void OpenMenuButton()
     {
-        if (Input.GetKeyDown(menuButton))
+        if (Input.GetKeyDown(menuButton) || Input.GetKeyDown(menuSecondButton))
         {
             playerState = PlayerState.CharacterInput;
             inventoryOpened = false;

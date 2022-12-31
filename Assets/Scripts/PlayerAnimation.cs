@@ -25,7 +25,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (isRunning && movement.magnitude > 0.1f)
         {
-            anim.SetFloat("WalkSpeed", 1.4f);
+            anim.SetFloat("WalkSpeed", 1.6f);
             anim.SetBool("isWalking", true);
             //anim.SetBool("isRunning", true);
         }

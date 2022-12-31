@@ -15,7 +15,7 @@ MonoBehaviour:
   craftableItem: {fileID: 11400000, guid: 43e6fe422745f514a9de4ed5aee5c69f, type: 2}
   necessities:
   - item: {fileID: 11400000, guid: f1bf2eda935381a47894d9edec7ff79f, type: 2}
-    amount: 2
+    amount: 1
   - item: {fileID: 11400000, guid: b2a773e7f10a3114abbbf687e812458a, type: 2}
     amount: 2
   - item: {fileID: 11400000, guid: 324a80b066585f0458245b4231c596b0, type: 2}

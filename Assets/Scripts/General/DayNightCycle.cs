@@ -11,6 +11,7 @@ public class DayNightCycle : MonoBehaviour
         Day,
         Night
     }
+
     [HideInInspector] public DayTime dayTime;
 
     [SerializeField] private float dayDurationInMin;

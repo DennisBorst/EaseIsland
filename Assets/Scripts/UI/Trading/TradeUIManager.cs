@@ -22,13 +22,13 @@ public class TradeUIManager : MonoBehaviour
     [SerializeField] private Sprite randomSprite;
 
     [SerializeField] private Item firstItem;
-    [SerializeField] private List<Item> randomItem = new List<Item>();
+    [SerializeField] private List<Clothing> randomClothing = new List<Clothing>();
     
     private int itemMoveLoc;
     private bool itemIsMoving;
     private InventoryManager.ItemStack itemSelected;
     private int itemSelectedIndex = 0;
-    private Item newItem;
+    private Clothing newCloth;
 
     [Serializable]
     public struct ItemDeposit
@@ -143,26 +143,31 @@ public class TradeUIManager : MonoBehaviour
         CheckForNeededItems();
     }
 
-    public void GetRandomItem(GameObject itemAnim)
+    public void GetRandomItem()
     {
         if(firstItem != null)
         {
             InventoryManager.Instance.AddToInvWithAnim(firstItem);
             firstItem = null;
+            return;
         }
+
+
+        if(newCloth == null) { return; }
+        ClothManager.Instance.AddCloth(newCloth);
     }
 
     public bool ItemAvailable()
     {
-        if (randomItem.Count == 0)
+        if (randomClothing.Count == 0)
         {
             return false;
         }
         else
         {
-            int randomItemInt = UnityEngine.Random.Range(0, randomItem.Count);
-            newItem = randomItem[randomItemInt];
-            randomItem.Remove(randomItem[randomItemInt]);
+            int randomItemInt = UnityEngine.Random.Range(0, randomClothing.Count);
+            newCloth = randomClothing[randomItemInt];
+            randomClothing.Remove(randomClothing[randomItemInt]);
             return true;
         }
     }

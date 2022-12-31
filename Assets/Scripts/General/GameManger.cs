@@ -91,6 +91,8 @@ public class GameManger : MonoBehaviour
     private IEnumerator WaitToGoToLevel(float waitTime, int level)
     {
         yield return new WaitForSeconds(waitTime);
+        instanceFMOD.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        instanceFMOD.release();
         SceneManager.LoadScene(level);
     }
 

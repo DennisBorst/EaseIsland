@@ -11,6 +11,8 @@ public class ClothChangeButton : MonoBehaviour, ISelectHandler
 
     [SerializeField] private TextMeshProUGUI objectName;
 
+    private ClothUI clothUI;
+
     public void UpdateUI(string objectName)
     {
         this.objectName.text = objectName;
@@ -18,7 +20,12 @@ public class ClothChangeButton : MonoBehaviour, ISelectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        ClothManager.Instance.ClothSelected(this, this.gameObject);
+        clothUI.ClothSelected(this, this.gameObject);
+    }
+
+    public void AddClothUI(ClothUI clothUI)
+    {
+        this.clothUI = clothUI;
     }
 
     void Start()

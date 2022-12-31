@@ -6361,16 +6361,18 @@ MonoBehaviour:
   emptyItem: {fileID: 11400000, guid: 202303ab25ec7424db776c8083f209c1, type: 2}
   moveVisImg: {fileID: 110720162}
   summonItemImg: {fileID: 325813770}
-  randomSprite: {fileID: 21300000, guid: 20a419d65cfbb1141acb66aba2cf3648, type: 3}
+  randomSprite: {fileID: 21300000, guid: b8dafb4da3804ba48a1e4916b58ae3e8, type: 3}
   firstItem: {fileID: 11400000, guid: a9d145f96a05cd54cb1635b0bb9408e0, type: 2}
-  randomItem: []
+  randomClothing:
+  - {fileID: 11400000, guid: 89e94795da97a074d8f816af24c82b9c, type: 2}
+  - {fileID: 11400000, guid: 1986c86dfec55d0478a8527cc23dd709, type: 2}
   itemsNeeded:
   - anyItem: 1
     checkItem: 0
     item: 0
     checkItemType: 0
     itemType: 0
-    amount: 20
+    amount: 16
     amountAlreadyFilled: 0
     itemAmount: {fileID: 1058039123}
   - anyItem: 0
@@ -6378,7 +6380,7 @@ MonoBehaviour:
     item: 0
     checkItemType: 1
     itemType: 3
-    amount: 6
+    amount: 8
     amountAlreadyFilled: 0
     itemAmount: {fileID: 684557510}
 --- !u!1 &1058039121

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Orange Fish
   itemDescription: The orange fish can be caught while fishing in the daytime on
-    the island. It provides 20 food points.
+    the island. It provides 15  food points.
   item: 17
   itemType: 1
   maxStack: 4
@@ -22,7 +22,7 @@ MonoBehaviour:
   inventoryImg: {fileID: 21300000, guid: ed2501c7087b7d445afa280b031b6a3f, type: 3}
   prefabItem: {fileID: 6902524663535909787, guid: 06f2ed38744b8c643952cf40b47eed31,
     type: 3}
-  foodAmount: 20
+  foodAmount: 15
   color:
     serializedVersion: 2
     rgba: 4278220799

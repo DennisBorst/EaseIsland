@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4a26cab563fb4946aa312596e4ea7fb, type: 3}
+  m_Name: Shirt#4
+  m_EditorClassIdentifier: 
+  objectName: Brown blouse
+  itemType: 1
+  hat: {fileID: 0}
+  shirt:
+  - {fileID: 7550261545968067018, guid: 2eeaac6de630cc34ab1c69380b9a84b1, type: 3}
+  - {fileID: 4084591478484042137, guid: 306ea993b5495fd4998ec6b630031ecb, type: 3}
+  - {fileID: 6917294463158400130, guid: c02b38d37c80c9842ad2c325dbac6391, type: 3}
+  pants: []
+  shoes: []

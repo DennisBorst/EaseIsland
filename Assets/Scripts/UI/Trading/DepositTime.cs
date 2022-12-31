@@ -41,7 +41,13 @@ public class DepositTime : MonoBehaviour
 
     private void UpdateItemSlider()
     {
-        if (itemTradeButton.tradeUIManager.movingItem == itemTradeButton.itemStack || itemTradeButton.itemStack.item.item == ItemPickup.ItemType.Empty)
+        if (itemTradeButton.tradeUIManager != null && itemTradeButton.tradeUIManager.movingItem == itemTradeButton.itemStack || itemTradeButton.itemStack.item.item == ItemPickup.ItemType.Empty)
+        {
+            DisableUI();
+            return;
+        }
+
+        if (itemTradeButton.foodTable != null && itemTradeButton.foodTable.movingItem == itemTradeButton.itemStack || itemTradeButton.itemStack.item.item == ItemPickup.ItemType.Empty)
         {
             DisableUI();
             return;
@@ -53,7 +59,8 @@ public class DepositTime : MonoBehaviour
         if (timer == timeToDeposit && !deposit)
         {
             deposit = true;
-            itemTradeButton.tradeUIManager.DepositItem(itemTradeButton);
+            if (itemTradeButton.tradeUIManager != null) { itemTradeButton.tradeUIManager.DepositItem(itemTradeButton); }
+            if (itemTradeButton.foodTable != null) { itemTradeButton.foodTable.DepositItem(itemTradeButton); }
             DisableUI();
         }
     }
@@ -66,10 +73,19 @@ public class DepositTime : MonoBehaviour
 
     private void OnDisable()
     {
-        if (itemTradeButton.tradeUIManager.movingItem == itemTradeButton.itemStack || itemTradeButton.itemStack.item.item == ItemPickup.ItemType.Empty) { return; }
+        if(itemTradeButton.tradeUIManager != null)
+        {
+            if (itemTradeButton.tradeUIManager.movingItem == itemTradeButton.itemStack || itemTradeButton.itemStack.item.item == ItemPickup.ItemType.Empty) { return; }
+            itemTradeButton.tradeUIManager.DepositItem(itemTradeButton);
+        }
+
+        if(itemTradeButton.foodTable != null)
+        {
+            if (itemTradeButton.foodTable.movingItem == itemTradeButton.itemStack || itemTradeButton.itemStack.item.item == ItemPickup.ItemType.Empty) { return; }
+            itemTradeButton.foodTable.DepositItem(itemTradeButton);
+        }
 
         deposit = true;
-        itemTradeButton.tradeUIManager.DepositItem(itemTradeButton);
         DisableUI();
     }
 

@@ -21,4 +21,6 @@ public class Clothing : ScriptableObject
     public GameObject[] shirt;
     public GameObject[] pants;
     public GameObject[] shoes;
+
+    public GameObject itemObject;
 }

@@ -14,7 +14,7 @@ public class Wardrobe : MonoBehaviour
 
     private Interactable interactable;
     private InteractableUI interactableUI;
-    private ClothManager clothManager;
+    private ClothUI clothUI;
 
     private bool inWardrobe;
 
@@ -48,7 +48,7 @@ public class Wardrobe : MonoBehaviour
     {
         interactable = GetComponent<Interactable>();
         interactableUI = GetComponent<InteractableUI>();
-        clothManager = GetComponent<ClothManager>();
+        clothUI = GetComponent<ClothUI>();
 
         interactable.doAction.AddListener(Interact);
         interactable.inRange.AddListener(InRange);
@@ -62,7 +62,7 @@ public class Wardrobe : MonoBehaviour
         StartCoroutine(CheckForInput());
         cinemachineFreeLook.Priority = 15;
 
-        clothManager.LoadInStats();
+        clothUI.LoadInStats();
         playerStandPos.gameObject.SetActive(true);
         CharacterMovement.Instance.gameObject.SetActive(false);
         wardrobeCanvas.SetActive(true);
@@ -78,7 +78,7 @@ public class Wardrobe : MonoBehaviour
         CharacterMovement.Instance.gameObject.transform.position = this.transform.position;
         CharacterMovement.Instance.gameObject.transform.eulerAngles = (this.transform.eulerAngles + new Vector3(0, 90, 0));
 
-        clothManager.UpdateStats();
+        clothUI.UpdateStats();
 
         CharacterMovement.Instance.gameObject.SetActive(true);
         playerStandPos.gameObject.SetActive(false);
@@ -99,11 +99,11 @@ public class Wardrobe : MonoBehaviour
 
         if (Input.GetKeyDown(leftButton))
         {
-            clothManager.SwitchAccessoire(-1);
+            clothUI.SwitchAccessoire(-1);
         }
         else if (Input.GetKeyDown(rightButton))
         {
-            clothManager.SwitchAccessoire(1);
+            clothUI.SwitchAccessoire(1);
         }
     }
 
