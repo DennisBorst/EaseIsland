@@ -11,20 +11,6 @@ public class ItemAmountUI : MonoBehaviour
 
     public void UpdateItems()
     {
-        for (int i = 0; i < itemInInventoryUI.Length; i++)
-        {
-            //itemInInventoryUI[i].ObjectInvisible(emptyItem);
-        }
-
-        List<Item> currentItems = new List<Item>();
-        currentItems = InventoryManager.Instance.GetItemInfo();
-
-        for (int i = 0; i < currentItems.Count; i++)
-        {
-            int amountOfItems = InventoryManager.Instance.AmountItemInfo(currentItems[i]);
-            //itemInInventoryUI[i].ChangeItem(currentItems[i], amountOfItems);
-        }
-
         for (int i = 0; i < itemTypeList.Count; i++)
         {
             int amountOfItems = InventoryManager.Instance.AmountItemInfo(itemTypeList[i]);

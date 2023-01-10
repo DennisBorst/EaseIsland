@@ -90,14 +90,11 @@ public class Wardrobe : MonoBehaviour
 
     private void CheckInput()
     {
-        Debug.Log("Search for input");
-
         if (Input.GetKeyDown(closeMenuButton) || Input.GetKeyDown(closeMenuSecondButton))
         {
             CloseWardrobe();
             return;
         }
-        
 
         if (Input.GetKeyDown(leftButton))
         {

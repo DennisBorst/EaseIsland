@@ -23,7 +23,7 @@ public class BuildObjectInfo : MonoBehaviour
         for (int i = 0; i < buildItemsNeeded.Length; i++)
         {
             buildItemsNeeded[i].ItemTextColor(redColor);
-            //buildItemsNeeded[i].ObjectInvisible();
+            buildItemsNeeded[i].ObjectInvisible();
         }
 
         int itemAvaibleCount = 0;
