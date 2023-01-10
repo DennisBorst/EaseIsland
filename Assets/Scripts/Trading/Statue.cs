@@ -25,7 +25,7 @@ public class Statue : MonoBehaviour
             itemReady = false;
             itemPrepare = true;
             OutRange();
-            tradeUIManager.GetRandomItem(itemAnim);
+            tradeUIManager.GetRandomItem();
             anim.SetTrigger("ItemPickedUp");
             return;
         }

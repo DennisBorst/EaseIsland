@@ -1,0 +1,196 @@
+fileFormatVersion: 2
+guid: 61a07f85554b95b479a71fe3c6bf43cb
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable:
+  - first:
+      74: -7515808115336404258
+    second: SmoothWalkCycle
+  - first:
+      74: -6205517584724062203
+    second: Armature.005|SmoothWalkCycle
+  - first:
+      74: -4187070084771750883
+    second: Armature.002|Idle
+  - first:
+      74: -8869289242565285665
+    second: Armature.005|IdleAnim
+  - first:
+      74: 4742901661734029402
+    second: IdleAnim
+  - first:
+      74: -4689845874237520934
+    second: Armature.005|Grab
+  - first:
+      74: -3443985681492114326
+    second: Grab
+  - first:
+      74: -8031564126458074866
+    second: Armature.002|Grab
+  - first:
+      74: -3671601596690056613
+    second: Shake
+  - first:
+      74: 7413068192051285482
+    second: Armature.005|Armature.005Action
+  - first:
+      74: -684617145241569180
+    second: Armature.005|Shake
+  - first:
+      74: -7753227349842223383
+    second: Chop
+  - first:
+      74: -1096302755316008573
+    second: Armature.002|Shake
+  - first:
+      74: -1645259276091645744
+    second: Armature.005|Chop
+  - first:
+      74: 5505950269587242522
+    second: MineEnd
+  - first:
+      74: 47049344655068212
+    second: MineStart.001
+  - first:
+      74: 172211605769496977
+    second: MineLoop.001
+  - first:
+      74: -8824889147450920661
+    second: Armature.002|MineStart
+  - first:
+      74: -6229109859307095105
+    second: Armature.005|MineEnd
+  - first:
+      74: 2682207446190858301
+    second: Armature.005|MineLoop
+  - first:
+      74: -1212653808442005314
+    second: Armature.005|MineStart
+  - first:
+      74: 5126214043975288182
+    second: Cylinder.057|Chop
+  - first:
+      74: 5663931844968718232
+    second: StopMovement
+  - first:
+      74: 7422708911891821505
+    second: FishLoop
+  - first:
+      74: 7748005800049138512
+    second: FishThrow.001
+  - first:
+      74: 3133128300640284254
+    second: Armature.005|FishLoop
+  - first:
+      74: 6615647840879887626
+    second: Armature.005|FishThrow
+  - first:
+      74: 1471157766403110898
+    second: FishEnd
+  - first:
+      74: -1648103874811977065
+    second: Armature.005|FishEnd
+  - first:
+      74: 1652713108784973313
+    second: Armature.005|FishLoop.001
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.4
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 0.4
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

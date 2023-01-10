@@ -67,7 +67,7 @@ public class Tree : MonoBehaviour
 
     public void InRange()
     {
-        if (unableToRumble || treeDead) 
+        if (unableToRumble && ItemInHand.Instance.currentItemSelected.item != ItemPickup.ItemType.Axe || treeDead) 
         {
             interactableUI.OutRange();
             return; 

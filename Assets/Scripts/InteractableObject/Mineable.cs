@@ -99,10 +99,10 @@ public class Mineable : MonoBehaviour
         switch (mineValue)
         {
             case 2:
-                Instantiate(itemAnim, transform.position, Quaternion.identity, CharacterMovement.Instance.transform).GetComponent<GainItem>().ChangeItem(mineItem, colorPar, 2);
+                InventoryManager.Instance.AddToInvWithAnim(mineItem, 2);
                 break;
             case 1:
-                Instantiate(itemAnim, transform.position, Quaternion.identity, CharacterMovement.Instance.transform).GetComponent<GainItem>().ChangeItem(mineItem, colorPar);
+                InventoryManager.Instance.AddToInvWithAnim(mineItem);
                 break;
             default:
                 break;

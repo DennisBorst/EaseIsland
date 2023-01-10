@@ -21,18 +21,32 @@ public class Sheep : MonoBehaviour
     public void GrabWool()
     {
         if (!woolReady) { return; }
-        bool canBePickedUp = InventoryManager.Instance.AddToInv(wool);
+
+        bool canBePickedUp = false;
+        if (ItemInHand.Instance.currentItemSelected != null)
+        {
+            if (ItemInHand.Instance.currentItemSelected.item == ItemPickup.ItemType.Shears)
+            {
+                canBePickedUp = InventoryManager.Instance.AddToInvWithAnim(wool, 2);
+                if (canBePickedUp) { PlayerAnimation.Instance.PlayAnimCount(2); }
+            }
+            else
+            {
+                canBePickedUp = InventoryManager.Instance.AddToInvWithAnim(wool);
+                if (canBePickedUp) { PlayerAnimation.Instance.PlayAnimCount(4); }
+            }
+        }
 
         if (canBePickedUp)
         {
-            PlayerAnimation.Instance.PlayAnimCount(4);
             StartCoroutine(CooldownWoolReset());
+            OutRange();
         }
     }
 
     public void InRange()
     {
-        if (!woolReady) { return; }
+        if (!woolReady || !InventoryManager.Instance.CheckSpace(wool)) { return; }
         interactableUI.InRange();
     }
 
@@ -84,7 +98,7 @@ public class Sheep : MonoBehaviour
     {
         Vector3 playerPosision = CharacterMovement.Instance.transform.position;
 
-        if(Vector3.Distance(this.transform.position, playerPosision) < 3f)
+        if(Vector3.Distance(this.transform.position, playerPosision) < 3.3f)
         {
             AdjustSpeed(0);
         }
@@ -109,12 +123,10 @@ public class Sheep : MonoBehaviour
                 agent.SetDestination(point);
             }
         }
-
     }
 
     private bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
-
         Vector3 randomPoint = center + Random.insideUnitSphere * range;
         NavMeshHit hit;
         if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))

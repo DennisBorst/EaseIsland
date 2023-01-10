@@ -273,3 +273,9 @@ MonoBehaviour:
   craftingPanel: {fileID: 0}
   craftObject: {fileID: 0}
   craftName: {fileID: 3383972076374262120}
+  unableToCraft:
+    serializedVersion: 2
+    rgba: 4282864613
+  ableToCraft:
+    serializedVersion: 2
+    rgba: 4286377826

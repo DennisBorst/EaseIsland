@@ -16,7 +16,7 @@ public class GainItem : MonoBehaviour
     {
         this.transform.localPosition = new Vector3(0, 0, 0);
         this.transform.localRotation = new Quaternion(0, 0, 0, 0);
-        this.transform.position += (Vector3.up * 3.5f);
+        this.transform.position += (Vector3.up * 1.5f);
 
         float animSpeed = 0.8f * itemCount;
         if(itemCount > 1) { anim.SetFloat("AnimSpeed", animSpeed); }
@@ -25,7 +25,12 @@ public class GainItem : MonoBehaviour
         animCount += 1;
 
         GameObject itemObj = Instantiate(item.prefabItem, itemLoc.position, itemLoc.rotation, itemLoc);
-        itemGained = item;  
+        itemGained = item;
+        itemObj.layer = 8;
+        foreach (Transform child in itemObj.transform)
+        {
+            child.gameObject.layer = 8;
+        }
         itemObj.GetComponent<ItemPickup>().ColliderActive(false);
         ParticleSystem.MainModule main = particle.main;
         main.startColor = new Color(color.r, color.g, color.b, 155);
@@ -44,6 +49,11 @@ public class GainItem : MonoBehaviour
         {
             EndOfAnimation();
         }
+    }
+
+    public void OpenBackPack()
+    {
+        PlayerAnimation.Instance.OpenBackPack();
     }
 
     public void EndOfAnimation()

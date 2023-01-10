@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Cave Fish
   itemDescription: Cave fish is found in a cave, wow you didn't expected that, didn't
-    you? It provides 40 food points.
+    you? It provides 25 food points.
   item: 19
   itemType: 1
-  maxStack: 2
+  maxStack: 3
   animNumber: 1
   inventoryImg: {fileID: 21300000, guid: f24d10b8a35cfa24caa868af06359e82, type: 3}
   prefabItem: {fileID: 4338576644699481246, guid: a3ef7b6c8077527438128260bb83462f,
     type: 3}
-  foodAmount: 40
+  foodAmount: 25
   color:
     serializedVersion: 2
-    rgba: 0
+    rgba: 4278251251

@@ -19,6 +19,6 @@ MonoBehaviour:
     type: 3}
   necessities:
   - item: {fileID: 11400000, guid: f1bf2eda935381a47894d9edec7ff79f, type: 2}
-    amount: 5
+    amount: 4
   - item: {fileID: 11400000, guid: e77c13c6609cfc24aaddd8e40959ea77, type: 2}
-    amount: 5
+    amount: 4

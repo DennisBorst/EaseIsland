@@ -13,16 +13,16 @@ public class BuildInfoPanel : MonoBehaviour
     [SerializeField] private Building emptyInfo;
     [SerializeField] private Building[] startInfo;
     [SerializeField] private List<Building> discoveredBuildings = new List<Building>();
+    [SerializeField] private List<BuildInfoButton> buildButtons = new List<BuildInfoButton>();
 
     private int buildInfoCount = 0;
-    private SelectUIObject selectUIObject;
+    [SerializeField] private SelectUIObject selectUIObject;
     private Building lastBuilding;
     private GameObject lastSelectedButton;
 
     public void AddBuildingInfo(Building building)
     {
         if (discoveredBuildings.Contains(building)) { return; }
-
 
         buildDiscoveredText.SetActive(true);
         discoveredBuildings.Add(building);
@@ -34,7 +34,9 @@ public class BuildInfoPanel : MonoBehaviour
         newBuildObj.buildObject = building;
         newBuildObj.UpdateUI();
 
-        if(buildInfoCount == 1)
+        buildButtons.Add(newBuildObj);
+
+        if (buildInfoCount == 1)
         {
             selectUIObject.selectAsFirstUI = newObj;
             lastBuilding = building;
@@ -50,6 +52,11 @@ public class BuildInfoPanel : MonoBehaviour
 
         if (lastBuilding == null) { objectInfo.UpdateBuildItem(emptyInfo); }
         else { objectInfo.UpdateBuildItem(lastBuilding); }
+
+        for (int i = 0; i < buildButtons.Count; i++)
+        {
+            buildButtons[i].UpdateUI();
+        }
     }
 
     public void BuildInfoSelected(Building building, GameObject button)
@@ -75,11 +82,11 @@ public class BuildInfoPanel : MonoBehaviour
         if(lastBuilding == null) { return; }
         UpdateUI();
 
-
         if (lastSelectedButton != null)
         {
             selectUIObject.selectAsFirstUI = lastSelectedButton;
             selectUIObject.SelectFirstUIElement();
+            return;
         }
     }
 

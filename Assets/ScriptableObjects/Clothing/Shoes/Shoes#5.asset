@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4a26cab563fb4946aa312596e4ea7fb, type: 3}
+  m_Name: Shoes#5
+  m_EditorClassIdentifier: 
+  objectName: Black Sandals
+  itemType: 3
+  hat: {fileID: 0}
+  shirt: []
+  pants: []
+  shoes:
+  - {fileID: 6346694461433252246, guid: 74ed204afc978104db5dda881dfeaa3a, type: 3}
+  - {fileID: 263511985116187647, guid: a902cf7fc13f94f41bdcd12dfc13d14e, type: 3}

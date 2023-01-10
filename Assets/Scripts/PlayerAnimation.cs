@@ -7,6 +7,8 @@ public class PlayerAnimation : MonoBehaviour
     private Animator anim;
     private CharacterMovement characterMovement;
 
+    [SerializeField] private Animator animBackPack;
+
     public void PlayAnimCount(int animNumber)
     {
         anim.SetInteger("AnimNumber", animNumber);
@@ -23,12 +25,14 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (isRunning && movement.magnitude > 0.1f)
         {
-            anim.SetBool("isWalking", false);
-            anim.SetBool("isRunning", true);
+            anim.SetFloat("WalkSpeed", 1.6f);
+            anim.SetBool("isWalking", true);
+            //anim.SetBool("isRunning", true);
         }
         else if (movement.magnitude > 0.1f)
         {
-            anim.SetBool("isRunning", false);
+            anim.SetFloat("WalkSpeed", 1f);
+            //anim.SetBool("isRunning", false);
             anim.SetBool("isWalking", true);
         }
         else
@@ -58,6 +62,11 @@ public class PlayerAnimation : MonoBehaviour
     public void SetCharacterMovement(CharacterMovement characterMovement)
     {
         this.characterMovement = characterMovement;
+    }
+
+    public void OpenBackPack()
+    {
+        animBackPack.SetTrigger("OpenBackPack");
     }
 
     #region Singleton

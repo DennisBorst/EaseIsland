@@ -26,20 +26,21 @@ public class ItemPickup : MonoBehaviour
         Fish,
         NightFish,
         CaveFish,
-        WindOrb
+        WindOrb,
+        Shears
     }
 
     public Item item;
     public ItemType itemType;
+    [SerializeField] private Collider collider;
     
     [HideInInspector] public int currentStacked;
 
-    private Collider collider;
     private ItemUI itemUI;
 
     public void PickedUp()
     {
-        bool canBePickedUp = InventoryManager.Instance.AddToInv(item);
+        bool canBePickedUp = InventoryManager.Instance.AddToInvWithAnim(item);
 
         if (canBePickedUp)
         {
@@ -55,7 +56,7 @@ public class ItemPickup : MonoBehaviour
 
     public void InVision(bool inVision)
     {
-        if (inVision)
+        if (inVision && InventoryManager.Instance.CheckSpace(item))
         {
             itemUI.ShowUI(true);
         }
@@ -68,7 +69,6 @@ public class ItemPickup : MonoBehaviour
     private void Awake()
     {
         itemUI = GetComponent<ItemUI>();
-        collider = GetComponent<Collider>();
     }
 
     private IEnumerator WaitToDestroy()

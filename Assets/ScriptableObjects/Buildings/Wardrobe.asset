@@ -15,10 +15,12 @@ MonoBehaviour:
   name: Wardrobe
   description: The wardrobe is used to customize the character. You can unlock cloths
     throughout the world.
-  buildObject: {fileID: 6487122144611231285, guid: 84af3e8ffbf145343abcb84ea94a2e51,
+  buildObject: {fileID: 7983425176031201239, guid: 5caf0dfb94049fa47b7c5738a5317a5c,
     type: 3}
   necessities:
   - item: {fileID: 11400000, guid: f1bf2eda935381a47894d9edec7ff79f, type: 2}
-    amount: 4
+    amount: 3
   - item: {fileID: 11400000, guid: e77c13c6609cfc24aaddd8e40959ea77, type: 2}
-    amount: 6
+    amount: 4
+  - item: {fileID: 11400000, guid: e55b820070677314cb96721705af313a, type: 2}
+    amount: 2

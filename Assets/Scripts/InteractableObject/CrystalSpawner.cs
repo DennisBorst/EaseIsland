@@ -10,6 +10,7 @@ public class CrystalSpawner : MonoBehaviour
     [Space]
     [SerializeField] private GameObject[] spawnObjects;
     [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private bool crystalSpawner = true;
 
     private List<Transform> currentSpawnPointsLeft = new List<Transform>();
     private int currentActive;
@@ -34,8 +35,17 @@ public class CrystalSpawner : MonoBehaviour
             int randomObjInt = Random.Range(0, spawnObjects.Length);
             int randomPosInt = Random.Range(0, currentSpawnPointsLeft.Count);
             currentActive += 1;
-            Mineable mineAble = Instantiate(spawnObjects[randomObjInt], currentSpawnPointsLeft[randomPosInt].position, currentSpawnPointsLeft[randomPosInt].rotation, currentSpawnPointsLeft[randomPosInt]).GetComponent<Mineable>();
-            mineAble.crystalSpawner = this;
+
+            if (crystalSpawner)
+            {
+                Mineable mineAble = Instantiate(spawnObjects[randomObjInt], currentSpawnPointsLeft[randomPosInt].position, currentSpawnPointsLeft[randomPosInt].rotation, currentSpawnPointsLeft[randomPosInt]).GetComponent<Mineable>();
+                mineAble.crystalSpawner = this;
+            }
+            else
+            {
+                Instantiate(spawnObjects[randomObjInt], currentSpawnPointsLeft[randomPosInt].position, currentSpawnPointsLeft[randomPosInt].rotation, currentSpawnPointsLeft[randomPosInt]);
+            }
+
             currentSpawnPointsLeft.RemoveAt(randomPosInt);
         }
         StartCoroutine(UpdateTimerIE());
@@ -65,8 +75,17 @@ public class CrystalSpawner : MonoBehaviour
 
         int randomObjInt = Random.Range(0, spawnObjects.Length);
         int randomPosInt = Random.Range(0, currentSpawnPointsLeft.Count);
-        Mineable mineAble = Instantiate(spawnObjects[randomObjInt], currentSpawnPointsLeft[randomPosInt].position, currentSpawnPointsLeft[randomPosInt].rotation, currentSpawnPointsLeft[randomPosInt]).GetComponent<Mineable>();
-        mineAble.crystalSpawner = this;
+
+        if (crystalSpawner)
+        {
+            Mineable mineAble = Instantiate(spawnObjects[randomObjInt], currentSpawnPointsLeft[randomPosInt].position, currentSpawnPointsLeft[randomPosInt].rotation, currentSpawnPointsLeft[randomPosInt]).GetComponent<Mineable>();
+            mineAble.crystalSpawner = this;
+        }
+        else
+        {
+            Instantiate(spawnObjects[randomObjInt], currentSpawnPointsLeft[randomPosInt].position, currentSpawnPointsLeft[randomPosInt].rotation, currentSpawnPointsLeft[randomPosInt]);
+        }
+
         currentSpawnPointsLeft.RemoveAt(randomPosInt);
     }
 

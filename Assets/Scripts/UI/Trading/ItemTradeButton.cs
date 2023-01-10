@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ItemTradeButton : MonoBehaviour, ISelectHandler
 {
     [HideInInspector] public TradeUIManager tradeUIManager;
+    [HideInInspector] public FoodTableUI foodTable;
     public InventoryManager.ItemStack itemStack;
 
     public delegate void Onclick();
@@ -26,12 +27,15 @@ public class ItemTradeButton : MonoBehaviour, ISelectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        tradeUIManager.ItemSelected(itemStack);
+        if(tradeUIManager != null) { tradeUIManager.ItemSelected(itemStack); }
+        if(foodTable != null) { foodTable.ItemSelected(itemStack); }
     }
 
     public void OnClick()
     {
-        tradeUIManager.MoveItem(itemStack);
+        if (tradeUIManager != null) { tradeUIManager.MoveItem(itemStack); }
+        if(foodTable != null) { foodTable.MoveItem(itemStack); }
+
         if(onClick != null)
         {
             onClick.Invoke();

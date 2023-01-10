@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 432828048497964431}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MoveObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 432828049510279720}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ItemLoc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 432828049708484090}
   - component: {fileID: 432828049708484091}
   - component: {fileID: 432828049708484085}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GainItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 188227640003692966}
   - component: {fileID: 9047510223556912695}
   - component: {fileID: 6991615138419039546}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4983,7 +4983,7 @@ GameObject:
   - component: {fileID: 1432050093689113180}
   - component: {fileID: 1235547313664046790}
   - component: {fileID: 8517277460409677472}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ItemGained
   m_TagString: Untagged
   m_Icon: {fileID: 0}

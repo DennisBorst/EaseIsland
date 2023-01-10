@@ -5,15 +5,14 @@ using UnityEngine.UI;
 
 public class FoodManager : MonoBehaviour
 {
+    [Range(0f, 100f)]
+    [SerializeField] private float startAmount;
     [SerializeField] private float decreaseHungerOnTick = 0f;
     [Range(0f, 1f)]
     [SerializeField] private float timer = 0.2f;
-    [Range(0f, 1f)]
-    [SerializeField] private float hungerWalkSpeed = 0.8f;
-    [Space]
-    [SerializeField] private Slider foodSlider;
 
-    private CharacterMovement characterMovement;
+    private List<FoodTableUI> foodTables = new List<FoodTableUI>();
+    private List<Slider> sliders = new List<Slider>();
     private float hunger;
 
     public void IncreaseFood(float amount)
@@ -26,13 +25,37 @@ public class FoodManager : MonoBehaviour
         }
     }
 
+    public void StartFoodTimer()
+    {
+        StartCoroutine(Timer());
+    }
+
+    public void AddFoodTable(FoodTableUI table)
+    {
+        foodTables.Add(table);
+        Debug.Log(foodTables.Count);
+    }
+
+    public void AddSlider(Slider slider)
+    {
+        sliders.Add(slider);
+    }
+
+    public bool FoodStatus()
+    {
+        if (hunger > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     private void Start()
     {
-        characterMovement = GetComponent<CharacterMovement>();
-        StartCoroutine(Timer());
-        hunger = 100f;
-        foodSlider.maxValue = hunger - 10f;
-        foodSlider.value = hunger;
+        hunger = startAmount;
     }
 
     private IEnumerator Timer()
@@ -49,16 +72,17 @@ public class FoodManager : MonoBehaviour
     private void DecreaseHunger()
     {
         hunger -= decreaseHungerOnTick;
-        foodSlider.value = hunger;
 
         if(hunger <= 0)
         {
             hunger = 0f;
-            characterMovement.DecreaseMovementSpeed(hungerWalkSpeed);
             return;
         }
 
-        characterMovement.DecreaseMovementSpeed(1f);
+        if(sliders.Count != 0) { sliders[0].value = hunger; }
+
+        if(foodTables.Count == 0) { return; }
+        foodTables[0].UpdateSlider(hunger);
     }
 
     #region Singleton

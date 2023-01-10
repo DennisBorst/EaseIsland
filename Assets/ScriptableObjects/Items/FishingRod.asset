@@ -20,11 +20,11 @@ MonoBehaviour:
   item: 13
   itemType: 2
   maxStack: 1
-  animNumber: 0
+  animNumber: 1
   inventoryImg: {fileID: 21300000, guid: de69c8fb46e87584aaaad2e24a14b868, type: 3}
-  prefabItem: {fileID: 2063170183693454774, guid: 839b933a132ff0547b7d9db1dd0ffccb,
+  prefabItem: {fileID: 2615464513004728042, guid: 8f6cc8322455cdb4d9d8d0519a1fb19d,
     type: 3}
   foodAmount: 0
   color:
     serializedVersion: 2
-    rgba: 0
+    rgba: 4291348680
