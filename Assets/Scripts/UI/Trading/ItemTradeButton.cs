@@ -52,6 +52,12 @@ public class ItemTradeButton : MonoBehaviour, ISelectHandler
         return button.interactable;
     }
 
+    public void EnableImg(bool value)
+    {
+        itemImg.gameObject.SetActive(value);
+        itemCount.gameObject.SetActive(value);
+    }
+
     private void RefreshSlot()
     {
         itemImg.sprite = itemStack.item.inventoryImg;

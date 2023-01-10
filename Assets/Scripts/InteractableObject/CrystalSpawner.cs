@@ -53,6 +53,21 @@ public class CrystalSpawner : MonoBehaviour
 
     private void UpdateTimer()
     {
+        if (!crystalSpawner)
+        {
+            int active = 0;
+
+            for (int i = 0; i < spawnPoints.Length; i++)
+            {
+                if(spawnPoints[i].childCount > 0)
+                {
+                    active += 1;
+                }
+            }
+
+            currentActive = active;
+        }
+
         if (currentActive >= maxSpawned) { return; }
 
         if (!timerRunning)
@@ -104,7 +119,7 @@ public class CrystalSpawner : MonoBehaviour
 
     private IEnumerator UpdateTimerIE()
     {
-        WaitForSeconds wait = new WaitForSeconds(0f);
+        WaitForSeconds wait = new WaitForSeconds(1f);
 
         while (true)
         {

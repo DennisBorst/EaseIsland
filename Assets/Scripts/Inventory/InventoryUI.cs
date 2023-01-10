@@ -9,10 +9,16 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private ItemSlotUI[] itemSlots;
     [SerializeField] private ItemSlotUI[] playerItemSlots;
 
+    [SerializeField] private GameObject moveVisObj;
     [SerializeField] private Image moveVisImg;
+    [SerializeField] private TextMeshProUGUI moveVisText;
+
 
     [SerializeField] private GameObject[] panels;
     [SerializeField] private TextMeshProUGUI[] panelText;
+    [SerializeField] private Image[] panelColor;
+    [SerializeField] private Color32 panelColorSelected;
+    [SerializeField] private Color32 panelColorUnselected;
 
     private int currentPanelSpot;
 
@@ -22,11 +28,13 @@ public class InventoryUI : MonoBehaviour
         {
             panels[i].SetActive(false);
             panelText[i].color = Color.black;
+            panelColor[i].color = panelColorUnselected;
         }
 
         panels[panelCount].SetActive(true);
         panels[panelCount].GetComponent<SelectUIObject>().SelectFirstUIElement();
         panelText[panelCount].color = Color.white;
+        panelColor[panelCount].color = panelColorSelected;
     }
 
     public void OpenCurrentPanel()
@@ -71,14 +79,26 @@ public class InventoryUI : MonoBehaviour
 
     public void MoveItemVisual(InventoryManager.ItemStack itemStack, int currentPosition)
     {
-        moveVisImg.gameObject.SetActive(true);
+        moveVisObj.SetActive(true);
         moveVisImg.sprite = itemStack.item.inventoryImg;
-        moveVisImg.gameObject.transform.position = itemSlots[currentPosition].transform.position;
+        if(itemStack.amount == 1) { moveVisText.text = ""; }
+        else { moveVisText.text = "" + itemStack.amount; }
+        moveVisObj.gameObject.transform.position = itemSlots[currentPosition].transform.position;
+    }
+
+    public void MoveItem(int currentPosition)
+    {
+        itemSlots[currentPosition].EnableImg(false);
     }
 
     public void MoveItemDone()
     {
-        moveVisImg.gameObject.SetActive(false);
+        moveVisObj.SetActive(false);
+
+        for (int i = 0; i < itemSlots.Length; i++)
+        {
+            itemSlots[i].EnableImg(true);
+        }
     }
 
     private void UpdateItemSlots(List<InventoryManager.ItemStack> currentInvList, int maxSlots, ItemSlotUI[] slots)

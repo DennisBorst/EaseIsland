@@ -86,7 +86,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &3318977628714453605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,6 +133,7 @@ MonoBehaviour:
     type: 3}
   playerDotSpriteHotspot: {fileID: 21300000, guid: ed2501c7087b7d445afa280b031b6a3f,
     type: 3}
+  cubeRb: {fileID: 0}
   playerSpeedMultipler: 5
 --- !u!1 &3318977630001536064
 GameObject:

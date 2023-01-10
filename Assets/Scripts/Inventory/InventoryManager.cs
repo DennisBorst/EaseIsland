@@ -215,16 +215,18 @@ public class InventoryManager : MonoBehaviour
         {
             itemMoving = true;
             itemMoveLoc = inInventory.IndexOf(itemStack);
+            inventoryUI.MoveItemVisual(inInventory[itemMoveLoc], itemMoveLoc);
+            inventoryUI.MoveItem(itemMoveLoc);
         }
         else if(itemMoving)
         {
+            itemMoving = false;
             int newLocation = inInventory.IndexOf(itemSelected);
             inInventory[newLocation] = inInventory[itemMoveLoc];
             inInventory[itemMoveLoc] = itemSelected;
             UpdateAllUI();
-            inventoryUI.SelectObject(newLocation);
             inventoryUI.MoveItemDone();
-            itemMoving = false;
+            inventoryUI.SelectObject(newLocation);
         }
     }
     #endregion

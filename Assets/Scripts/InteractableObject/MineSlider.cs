@@ -9,6 +9,9 @@ public class MineSlider : MonoBehaviour
 
     [SerializeField] private int getOneItemValue;
     [SerializeField] private int getTwoItemsValue;
+    [Space]
+    [SerializeField] private FirstTimeEvent firstTimeCounter;
+    [SerializeField] private GameObject tutorialCloud;
 
     private float lerpValue;
     private float timeWeStarted;
@@ -28,6 +31,8 @@ public class MineSlider : MonoBehaviour
     {
         stop = true;
 
+        if (slider.value >= getOneItemValue) { firstTimeCounter.mining = true; }
+
         if (slider.value >= getTwoItemsValue) { return 2; }
         else if (slider.value >= getOneItemValue) { return 1; }
         else { return 0; }
@@ -40,6 +45,8 @@ public class MineSlider : MonoBehaviour
 
         timeWeStarted = Time.time;
         elapsedTime = 0.4f;
+
+        if (!firstTimeCounter.mining) { tutorialCloud.SetActive(true); }
     }
 
     private void Update()

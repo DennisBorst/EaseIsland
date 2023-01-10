@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class FoodTableUI : MonoBehaviour
 {
@@ -17,8 +18,10 @@ public class FoodTableUI : MonoBehaviour
 
     [SerializeField] private List<ItemTradeButton> itemTradeList = new List<ItemTradeButton>();
     [SerializeField] private ItemTradeButton tradeButton;
-    [SerializeField] private Image moveVisImg;
     [SerializeField] private Item emptyItem;
+    [Space]
+    [SerializeField] private Image moveVisImg;
+    [SerializeField] private TextMeshProUGUI moveVisText;
 
     [SerializeField] private List<Clothing> randomClothing = new List<Clothing>();
     [SerializeField] private List<InventoryManager.ItemStack> inventory = new List<InventoryManager.ItemStack>();
@@ -40,7 +43,7 @@ public class FoodTableUI : MonoBehaviour
     private int itemSelectedIndex = 0;
 
     private float clothSliderCurrentAmount;
-    private bool clothActive;
+    private bool clothActive = true;
 
     public void GetInventoryItems()
     {
@@ -71,8 +74,6 @@ public class FoodTableUI : MonoBehaviour
 
         if (itemIsMoving)
         {
-            moveVisImg.gameObject.SetActive(true);
-            moveVisImg.sprite = inventory[itemMoveLoc].item.inventoryImg;
             moveVisImg.gameObject.transform.position = itemTradeList[itemSelectedIndex].transform.position;
         }
     }
@@ -85,17 +86,18 @@ public class FoodTableUI : MonoBehaviour
             movingItem = itemStack;
             CheckForItem();
             itemMoveLoc = inventory.IndexOf(itemStack);
+            StartMoveItem(itemMoveLoc, movingItem);
         }
         else if (itemIsMoving)
         {
+            itemIsMoving = false;
             movingItem = null;
             int newLocation = inventory.IndexOf(itemSelected);
             inventory[newLocation] = inventory[itemMoveLoc];
             inventory[itemMoveLoc] = itemSelected;
             UpdateInventoryUI();
             SelectObject(newLocation);
-            MoveItemDone();
-            itemIsMoving = false;
+            StopMoveItem();
         }
     }
 
@@ -170,13 +172,28 @@ public class FoodTableUI : MonoBehaviour
         }
     }
 
-    private void MoveItemDone()
+    private void StartMoveItem(int currentPosition, InventoryManager.ItemStack itemStack)
+    {
+        moveVisImg.sprite = inventory[currentPosition].item.inventoryImg;
+        moveVisImg.gameObject.SetActive(true);
+        itemTradeList[currentPosition].EnableImg(false);
+        if (itemStack.amount == 1) { moveVisText.text = ""; }
+        else { moveVisText.text = "" + itemStack.amount; }
+        moveVisImg.gameObject.transform.position = itemTradeList[currentPosition].transform.position;
+    }
+
+    private void StopMoveItem()
     {
         moveVisImg.gameObject.SetActive(false);
 
         if (tradeButton.itemStack.item == emptyItem)
         {
             tradeButton.Interactable(false);
+        }
+
+        for (int i = 0; i < itemTradeList.Count; i++)
+        {
+            itemTradeList[i].EnableImg(true);
         }
     }
 
@@ -185,6 +202,7 @@ public class FoodTableUI : MonoBehaviour
         if(randomClothing.Count == 0) { return; }
 
         clothActive = true;
+        clothSliderCurrentAmount = 0f;
         clothSlider.value = 0f;
         clothSlider.gameObject.SetActive(true);
     }

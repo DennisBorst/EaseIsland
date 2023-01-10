@@ -16,6 +16,7 @@ public class TradeUIManager : MonoBehaviour
     [SerializeField] private List<InventoryManager.ItemStack> inventory = new List<InventoryManager.ItemStack>();
     [SerializeField] private Item emptyItem;
     [SerializeField] private Image moveVisImg;
+    [SerializeField] private TextMeshProUGUI moveVisText;
 
     [Space]
     [SerializeField] private Image summonItemImg;
@@ -72,8 +73,6 @@ public class TradeUIManager : MonoBehaviour
 
         if (itemIsMoving)
         {
-            moveVisImg.gameObject.SetActive(true);
-            moveVisImg.sprite = inventory[itemMoveLoc].item.inventoryImg;
             moveVisImg.gameObject.transform.position = itemTradeList[itemSelectedIndex].transform.position;
         }
     }
@@ -86,9 +85,11 @@ public class TradeUIManager : MonoBehaviour
             movingItem = itemStack;
             CheckForItem();
             itemMoveLoc = inventory.IndexOf(itemStack);
+            StartMoveItem(itemMoveLoc, movingItem);
         }
         else if (itemIsMoving)
         {
+            itemIsMoving = false;
             movingItem = null;
             int newLocation = inventory.IndexOf(itemSelected);
             inventory[newLocation] = inventory[itemMoveLoc];
@@ -96,10 +97,11 @@ public class TradeUIManager : MonoBehaviour
             UpdateInventoryUI();
             UpdateDepositItems();
             SelectObject(newLocation);
-            MoveItemDone();
-            itemIsMoving = false;
+            StopMoveItem();
         }
     }
+
+
 
     public void DepositItem(ItemTradeButton tradeButton)
     {
@@ -151,7 +153,6 @@ public class TradeUIManager : MonoBehaviour
             firstItem = null;
             return;
         }
-
 
         if(newCloth == null) { return; }
         ClothManager.Instance.AddCloth(newCloth);
@@ -224,7 +225,17 @@ public class TradeUIManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(itemTradeList[objectCount].gameObject);
     }
-    private void MoveItemDone()
+    private void StartMoveItem(int currentPosition, InventoryManager.ItemStack itemStack)
+    {
+        moveVisImg.sprite = inventory[itemMoveLoc].item.inventoryImg;
+        moveVisImg.gameObject.SetActive(true);
+        itemTradeList[currentPosition].EnableImg(false);
+        if (itemStack.amount == 1) { moveVisText.text = ""; }
+        else { moveVisText.text = "" + itemStack.amount; }
+        moveVisImg.gameObject.transform.position = itemTradeList[itemSelectedIndex].transform.position;
+    }
+
+    private void StopMoveItem()
     {
         moveVisImg.gameObject.SetActive(false);
 
@@ -234,6 +245,11 @@ public class TradeUIManager : MonoBehaviour
             {
                 tradeButtons[i].Interactable(false);
             }
+        }
+
+        for (int i = 0; i < itemTradeList.Count; i++)
+        {
+            itemTradeList[i].EnableImg(true);
         }
     }
 

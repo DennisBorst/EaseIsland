@@ -31,6 +31,12 @@ public class ChestItemButton : MonoBehaviour, ISelectHandler
         chest.MoveItem(this);
     }
 
+    public void EnableImg(bool value)
+    {
+        itemImg.gameObject.SetActive(value);
+        itemCount.gameObject.SetActive(value);
+    }
+
     private void RefreshSlot()
     {
         itemImg.sprite = itemStack.item.inventoryImg;

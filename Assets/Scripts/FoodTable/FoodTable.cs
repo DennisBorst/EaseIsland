@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class FoodTable : MonoBehaviour
 {
+    [SerializeField] private KeyCode closeMenuButton;
+    [SerializeField] private KeyCode closeMenuSecondButton;
+    [Space]
     [SerializeField] private GameObject foodCanvas;
     [SerializeField] private FoodTableUI foodTableUI;
     [SerializeField] private Slider foodSlider;
@@ -14,6 +17,7 @@ public class FoodTable : MonoBehaviour
     private InteractableUI interactableUI;
     private bool clothReady = false;
     private Clothing cloth;
+    private Coroutine checkForInputRoutine;
 
     public void Interact(Item itemInHand, Vector3 playerPos)
     {
@@ -25,11 +29,7 @@ public class FoodTable : MonoBehaviour
         }
         else
         {
-            menuOpened = true;
-            CharacterMovement.Instance.OpenMenu();
-            CharacterMovement.Instance.CanOnlyInteract(true);
-            foodCanvas.SetActive(true);
-            foodTableUI.GetInventoryItems();
+            OpenMenu();
         }
     }
 
@@ -48,22 +48,7 @@ public class FoodTable : MonoBehaviour
         interactableUI.OutRange();
     }
 
-    public void CloseMenu()
-    {
-        foodCanvas.SetActive(false);
-        foodTableUI.UpdateInventory();
-        CharacterMovement.Instance.CanOnlyInteract(false);
-        CharacterMovement.Instance.CloseMenu();
 
-        if (clothReady)
-        {
-            clothReady = false;
-            ClothManager.Instance.AddCloth(cloth);
-            cloth = null;
-        }
-
-        menuOpened = false;
-    }
 
     public void ClothReady(Clothing cloth, float waitTime)
     {
@@ -94,9 +79,61 @@ public class FoodTable : MonoBehaviour
         FoodManager.Instance.AddSlider(foodSlider);
     }
 
+    private void OpenMenu()
+    {
+        menuOpened = true;
+
+        CharacterMovement.Instance.OpenMenu();
+        CharacterMovement.Instance.FreezePlayer(true);
+
+        foodCanvas.SetActive(true);
+        foodTableUI.GetInventoryItems();
+
+        if (checkForInputRoutine != null) { StopCoroutine(checkForInputRoutine); }
+        checkForInputRoutine = StartCoroutine(CheckForInput());
+    }
+
+    private void CloseMenu()
+    {
+        menuOpened = false;
+        StopCoroutine(checkForInputRoutine);
+
+        foodCanvas.SetActive(false);
+        foodTableUI.UpdateInventory();
+
+        CharacterMovement.Instance.FreezePlayer(false);
+        CharacterMovement.Instance.CloseMenu();
+
+        if (clothReady)
+        {
+            clothReady = false;
+            ClothManager.Instance.AddCloth(cloth);
+            cloth = null;
+        }
+    }
+
+    private void CheckInput()
+    {
+        if (Input.GetKeyDown(closeMenuButton) || Input.GetKeyDown(closeMenuSecondButton))
+        {
+            CloseMenu();
+        }
+    }
+
     private IEnumerator WaitForNewClothing(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         foodTableUI.ClothSliderActivate();
+    }
+
+    private IEnumerator CheckForInput()
+    {
+        WaitForSeconds wait = new WaitForSeconds(0f);
+
+        while (true)
+        {
+            yield return wait;
+            CheckInput();
+        }
     }
 }

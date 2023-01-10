@@ -8,6 +8,7 @@ public class Wardrobe : MonoBehaviour
     [SerializeField] private CinemachineFreeLook cinemachineFreeLook;
     [SerializeField] private Transform playerStandPos;
     [SerializeField] private KeyCode closeMenuButton;
+    [SerializeField] private KeyCode closeMenuSecondButton;
     [SerializeField] private KeyCode leftButton;
     [SerializeField] private KeyCode rightButton;
     [SerializeField] private GameObject wardrobeCanvas;
@@ -91,11 +92,12 @@ public class Wardrobe : MonoBehaviour
     {
         Debug.Log("Search for input");
 
-        if (Input.GetKeyDown(closeMenuButton))
+        if (Input.GetKeyDown(closeMenuButton) || Input.GetKeyDown(closeMenuSecondButton))
         {
             CloseWardrobe();
             return;
         }
+        
 
         if (Input.GetKeyDown(leftButton))
         {

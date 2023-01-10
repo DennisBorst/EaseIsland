@@ -11,20 +11,23 @@ public class CraftObjectInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemDescription;
     [SerializeField] private Image buildItemImg;
     [SerializeField] private Button craftButton;
+    [SerializeField] private Color32 redColorTitle;
+    [SerializeField] private Color32 redColor;
+    [SerializeField] private Color32 greenColor;
 
 
     public void UpdateCraftItem(CraftableObject craftableObject)
     {
         craftName.text = craftableObject.craftableItem.ItemName;
-        craftName.color = Color.red;
+        craftName.color = redColorTitle;
         craftButton.interactable = false;
         itemDescription.text = craftableObject.craftableItem.itemDescription;
         buildItemImg.sprite = craftableObject.craftableItem.inventoryImg;
 
         for (int i = 0; i < craftItemsNeeded.Length; i++)
         {
-            craftItemsNeeded[i].ItemTextColor(Color.red);
-            craftItemsNeeded[i].ObjectInvisible();
+            craftItemsNeeded[i].ItemTextColor(redColor);
+            //craftItemsNeeded[i].ObjectInvisible();
         }
 
         int itemAvaibleCount = 0;
@@ -38,14 +41,14 @@ public class CraftObjectInfo : MonoBehaviour
         {
             if (InventoryManager.Instance.AmountOfItem(craftableObject.necessities[i].item, craftableObject.necessities[i].amount))
             {
-                craftItemsNeeded[i].ItemTextColor(Color.green);
+                craftItemsNeeded[i].ItemTextColor(greenColor);
                 itemAvaibleCount += 1;
             }
         }
 
         if (craftableObject.necessities.Length <= itemAvaibleCount)
         {
-            craftName.color = Color.green;
+            craftName.color = greenColor;
             craftButton.interactable = true;
         }
     }

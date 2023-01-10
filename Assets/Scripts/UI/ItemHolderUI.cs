@@ -13,12 +13,20 @@ public class ItemHolderUI : MonoBehaviour
     {
         itemImg.sprite = item.inventoryImg;
         itemAmount.text = "" + itemAmountNeeded;
+        //itemAmount.gameObject.SetActive(true);
         this.gameObject.SetActive(true);
     }
 
-    public void ObjectInvisible()
+    public void ObjectInvisible(Item item)
     {
-        this.gameObject.SetActive(false);
+        ChangeItem(item, 1);
+        //itemAmount.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
+    }
+
+    public void ChangeAmount(int itemAmountNeeded)
+    {
+        itemAmount.text = "" + itemAmountNeeded;
     }
 
     public void ItemTextColor(Color32 color)

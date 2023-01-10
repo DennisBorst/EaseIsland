@@ -24,6 +24,8 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private PlayerAnimation playerAnim;
     [SerializeField] private CinemachineFreeLook freelookCam;
     [SerializeField] private GameObject playerUI;
+    [SerializeField] private FirstTimeEvent firstTime;
+    [SerializeField] private GameObject walkUI;
     [SerializeField] private KeyCode pickUpButton;
     [SerializeField] private KeyCode interactButton; //Action Button
     [SerializeField] private KeyCode runButton; //Run Button
@@ -66,6 +68,11 @@ public class CharacterMovement : MonoBehaviour
     {
         unableToStuff = false;
         canOnlyInteract = freeze;
+
+        if (freeze)
+        {
+            StopRunning();
+        }
     }
 
     public void FreezePlayerForDuration(float duration)
@@ -76,6 +83,11 @@ public class CharacterMovement : MonoBehaviour
     public void FreezePlayer(bool freeze)
     {
         unableToStuff = freeze;
+
+        if (freeze)
+        {
+            StopRunning();
+        }
     }
 
     public void DecreaseMovementSpeed(float percentage)
@@ -104,9 +116,11 @@ public class CharacterMovement : MonoBehaviour
         inventoryManager = GetComponent<InventoryManager>();
         itemInHand = GetComponent<ItemInHand>();
         playerAnim.SetCharacterMovement(this);
-        StartCoroutine(CheckForInteractables());
         currentMovementSpeed = movementSpeed;
         playerState = PlayerState.CharacterInput;
+
+        StartCoroutine(CheckForInteractables());
+        StartCoroutine(WaitForTutorialUI());
     }
 
     private void OnEnable()
@@ -187,14 +201,20 @@ public class CharacterMovement : MonoBehaviour
 
         if (Input.GetKeyDown(runButton))
         {
-            isRunning = true;
-            currentMovementSpeed = runSpeed;
+            if (isRunning)
+            {
+                StopRunning();
+            }
+            else
+            {
+                isRunning = true;
+                currentMovementSpeed = runSpeed;
+            }
         }
 
-        if (Input.GetKeyUp(runButton))
+        if(new Vector2(vertical, horizontal).magnitude < 0.1f)
         {
-            isRunning = false;
-            currentMovementSpeed = movementSpeed;
+            StopRunning();
         }
 
         moveDirection = orientation.forward * vertical + orientation.right * horizontal;
@@ -205,6 +225,17 @@ public class CharacterMovement : MonoBehaviour
 
         playerAnim.Movement(new Vector2(vertical, horizontal), isRunning);
         charCon.Move(moveDirection * currentMovementSpeed * Time.deltaTime);
+
+        if (!firstTime.walking && new Vector2(horizontal, vertical).magnitude > 0.1f)
+        {
+            StartCoroutine(TutorialUIDisappear());
+        }
+    }
+
+    private void StopRunning()
+    {
+        isRunning = false;
+        currentMovementSpeed = movementSpeed;
     }
 
     private void PickUp()
@@ -252,23 +283,18 @@ public class CharacterMovement : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Joystick1Button1))
-        {
-            playerState = PlayerState.CharacterInput;
-            inventoryOpened = false;
-            CloseMenu();
-            inventoryManager.CloseInventory();
-            return;
-        }
+        //if (Input.GetKeyDown(KeyCode.Joystick1Button0))
+        //{
+        //    playerState = PlayerState.CharacterInput;
+        //    inventoryOpened = false;
+        //    CloseMenu();
+        //    inventoryManager.CloseInventory();
+        //    return;
+        //}
 
         if (Input.GetKeyDown(dropButton))
         {
             inventoryManager.DropItemFromInv();
-        }
-
-        if (Input.GetKeyDown(pickUpButton))
-        {
-            inventoryManager.UseFoodItem();
         }
 
         if (Input.GetKeyDown(leftInHandButton)) { inventoryManager.SwitchPanel(-1); }
@@ -418,6 +444,19 @@ public class CharacterMovement : MonoBehaviour
                 signObj = null;
             }
         }
+    }
+
+    private IEnumerator TutorialUIDisappear()
+    {
+        firstTime.walking = true;
+        yield return new WaitForSeconds(0.2f);
+        walkUI.SetActive(false);
+        Destroy(walkUI);
+    }
+    private IEnumerator WaitForTutorialUI()
+    {
+        yield return new WaitForSeconds(5f);
+        if (!firstTime.walking) { walkUI.SetActive(true); }
     }
 
     #region Singleton

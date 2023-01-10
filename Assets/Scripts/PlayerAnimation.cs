@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem runPar;
+
     private Animator anim;
     private CharacterMovement characterMovement;
 
@@ -40,6 +42,9 @@ public class PlayerAnimation : MonoBehaviour
             anim.SetBool("isRunning", false);
             anim.SetBool("isWalking", false);
         }
+
+        if (isRunning && !runPar.isEmitting) { runPar.Play(); }
+        else if(!isRunning) { runPar.Stop(); }
     }
 
     public void EndOfAnimation()
@@ -75,6 +80,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         instance = this;
         anim = GetComponent<Animator>();
+        runPar.Stop(true, ParticleSystemStopBehavior.StopEmitting);
     }
     public static PlayerAnimation Instance
     {

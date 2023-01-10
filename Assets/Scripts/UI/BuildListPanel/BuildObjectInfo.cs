@@ -8,18 +8,22 @@ public class BuildObjectInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI buildName;
     [SerializeField] private ItemHolderUI[] buildItemsNeeded;
     [SerializeField] private TextMeshProUGUI buildDescription;
+    [Space]
+    [SerializeField] private Color32 redColorTitle;
+    [SerializeField] private Color32 redColor;
+    [SerializeField] private Color32 greenColor;
 
 
     public void UpdateBuildItem(Building buildObject)
     {
         buildName.text = buildObject.name;
-        buildName.color = Color.red;
+        buildName.color = redColorTitle;
         buildDescription.text = buildObject.description;
 
         for (int i = 0; i < buildItemsNeeded.Length; i++)
         {
-            buildItemsNeeded[i].ItemTextColor(Color.red);
-            buildItemsNeeded[i].ObjectInvisible();
+            buildItemsNeeded[i].ItemTextColor(redColor);
+            //buildItemsNeeded[i].ObjectInvisible();
         }
 
         int itemAvaibleCount = 0;
@@ -33,14 +37,14 @@ public class BuildObjectInfo : MonoBehaviour
         {
             if (InventoryManager.Instance.AmountOfItem(buildObject.necessities[i].item, buildObject.necessities[i].amount))
             {
-                buildItemsNeeded[i].ItemTextColor(Color.green);
+                buildItemsNeeded[i].ItemTextColor(greenColor);
                 itemAvaibleCount += 1;
             }
         }
 
         if(buildObject.necessities.Length <= itemAvaibleCount)
         {
-            buildName.color = Color.green;
+            buildName.color = greenColor;
         }
     }
 }

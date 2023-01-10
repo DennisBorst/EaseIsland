@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class Chest : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class Chest : MonoBehaviour
     [SerializeField] private GameObject chestCanvas;
     [SerializeField] private Item emptyItem;
     [SerializeField] private Image moveVisImg;
+    [SerializeField] private TextMeshProUGUI moveVisText;
+
+    [SerializeField] private KeyCode closeMenuButton;
+    [SerializeField] private KeyCode closeMenuSecondButton;
 
     private bool chestOpen;
     private Interactable interactable;
@@ -32,13 +37,7 @@ public class Chest : MonoBehaviour
         if (chestOpen)
         {
             //Close chest
-            chestOpen = false;
-            chestCanvas.SetActive(false);
-            UpdateInventory();
-            CharacterMovement.Instance.CanOnlyInteract(false);
-            CharacterMovement.Instance.CloseMenu();
-            anim.SetBool("OpenChest", false);
-
+            CloseChest();
         }
         else
         {
@@ -63,8 +62,9 @@ public class Chest : MonoBehaviour
 
     public void OpenChest()
     {
+        StartCoroutine(CheckForInput());
+
         CharacterMovement.Instance.OpenMenu();
-        CharacterMovement.Instance.CanOnlyInteract(true);
         chestCanvas.SetActive(true);
         GetInventoryItems();
     }
@@ -76,8 +76,6 @@ public class Chest : MonoBehaviour
 
         if (itemIsMoving)
         {
-            moveVisImg.gameObject.SetActive(true);
-            moveVisImg.sprite = uiList[itemMoveLoc].itemStack.item.inventoryImg;
             moveVisImg.gameObject.transform.position = uiList[itemSelectedIndex].transform.position;
         }
     }
@@ -89,17 +87,18 @@ public class Chest : MonoBehaviour
             itemIsMoving = true;
             movingItem = chestItemButton.itemStack;
             itemMoveLoc = uiList.IndexOf(chestItemButton);
+            StartMoveItem(itemMoveLoc, movingItem);
         }
         else if (itemIsMoving)
         {
+            itemIsMoving = false;
             movingItem = null;
             //int newLocation = inventory.IndexOf(itemSelected);
             uiList[itemSelectedIndex].itemStack = uiList[itemMoveLoc].itemStack;
             uiList[itemMoveLoc].itemStack = itemSelected;
             UpdateItemList();
             SelectObject(itemSelectedIndex);
-            MoveItemDone();
-            itemIsMoving = false;
+            StopMoveItem();
         }
     }
 
@@ -131,6 +130,17 @@ public class Chest : MonoBehaviour
             chestItems.Add(new InventoryManager.ItemStack(emptyItem));
             uiList[i + inventoryItems.Count].UpdateItem(chestItems[i]);
         }
+    }
+
+    private void CloseChest()
+    {
+        chestOpen = false;
+        StopAllCoroutines();
+        chestCanvas.SetActive(false);
+        UpdateInventory();
+        CharacterMovement.Instance.CanOnlyInteract(false);
+        CharacterMovement.Instance.CloseMenu();
+        anim.SetBool("OpenChest", false);
     }
 
     private void GetInventoryItems()
@@ -184,13 +194,47 @@ public class Chest : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(uiList[objectCount].gameObject);
     }
 
-    private void MoveItemDone()
+    private void StartMoveItem(int currentPosition, InventoryManager.ItemStack itemStack)
+    {
+        moveVisImg.sprite = uiList[itemMoveLoc].itemStack.item.inventoryImg;
+        moveVisImg.gameObject.SetActive(true);
+        uiList[currentPosition].EnableImg(false);
+        if (itemStack.amount == 1) { moveVisText.text = ""; }
+        else { moveVisText.text = "" + itemStack.amount; }
+        moveVisImg.gameObject.transform.position = uiList[itemSelectedIndex].transform.position;
+    }
+
+    private void StopMoveItem()
     {
         moveVisImg.gameObject.SetActive(false);
+        for (int i = 0; i < uiList.Count; i++)
+        {
+            uiList[i].EnableImg(true);
+        }
     }
 
     private void UpdateInventory()
     {
         InventoryManager.Instance.UpdateInventoryList(inventoryItems);
+    }
+
+    private void CheckInput()
+    {
+        if (Input.GetKeyDown(closeMenuButton) || Input.GetKeyDown(closeMenuSecondButton))
+        {
+            CloseChest();
+            return;
+        }
+    }
+
+    private IEnumerator CheckForInput()
+    {
+        WaitForSeconds wait = new WaitForSeconds(0f);
+
+        while (true)
+        {
+            yield return wait;
+            CheckInput();
+        }
     }
 }

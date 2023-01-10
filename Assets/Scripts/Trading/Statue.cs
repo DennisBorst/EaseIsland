@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Statue : MonoBehaviour
 {
+    [SerializeField] private KeyCode closeMenuButton;
+    [SerializeField] private KeyCode closeMenuSecondButton;
+
+
     [SerializeField] private GameObject tradeUIManagerCanvas;
     [SerializeField] private TradeUIManager tradeUIManager;
     [SerializeField] private GameObject itemAnim;
@@ -36,12 +40,7 @@ public class Statue : MonoBehaviour
         }
         else
         {
-            menuOpened = true;
-            OutRange();
-            CharacterMovement.Instance.OpenMenu();
-            CharacterMovement.Instance.CanOnlyInteract(true);
-            tradeUIManagerCanvas.SetActive(true);
-            tradeUIManager.GetInventoryItems();
+            OpenMenu();
         }
     }
 
@@ -82,15 +81,6 @@ public class Statue : MonoBehaviour
         }
     }
 
-    public void CloseMenu()
-    {
-        tradeUIManagerCanvas.SetActive(false);
-        tradeUIManager.UpdateInventory();
-        CharacterMovement.Instance.CanOnlyInteract(false);
-        CharacterMovement.Instance.CloseMenu();
-        menuOpened = false;
-    }
-
     private void Awake()
     {
         tradeUIManager.statue = this;
@@ -101,5 +91,50 @@ public class Statue : MonoBehaviour
         interactable.doAction.AddListener(Interact);
         interactable.inRange.AddListener(InRange);
         interactable.outRange.AddListener(OutRange);
+    }
+
+    private void OpenMenu()
+    {
+        menuOpened = true;
+        OutRange();
+        CharacterMovement.Instance.OpenMenu();
+        CharacterMovement.Instance.FreezePlayer(true);
+
+        tradeUIManagerCanvas.SetActive(true);
+        tradeUIManager.GetInventoryItems();
+
+        StartCoroutine(CheckForInput());
+    }
+
+    private void CloseMenu()
+    {
+        menuOpened = false;
+        StopAllCoroutines();
+
+        tradeUIManagerCanvas.SetActive(false);
+        tradeUIManager.UpdateInventory();
+
+        CharacterMovement.Instance.FreezePlayer(false);
+        CharacterMovement.Instance.CloseMenu();
+    }
+
+
+    private void CheckInput()
+    {
+        if (Input.GetKeyDown(closeMenuButton) || Input.GetKeyDown(closeMenuSecondButton))
+        {
+            CloseMenu();
+        }
+    }
+
+    private IEnumerator CheckForInput()
+    {
+        WaitForSeconds wait = new WaitForSeconds(0f);
+
+        while (true)
+        {
+            yield return wait;
+            CheckInput();
+        }
     }
 }

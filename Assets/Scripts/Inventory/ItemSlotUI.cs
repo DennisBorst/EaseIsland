@@ -56,6 +56,12 @@ public class ItemSlotUI : MonoBehaviour, ISelectHandler
         //InventoryManager.Instance.ItemSelected(itemStack);
     }
 
+    public void EnableImg(bool value)
+    {
+        itemImg.gameObject.SetActive(value);
+        itemCount.gameObject.SetActive(value);
+    }
+
     private void Awake()
     {
         backGroundColor = backGroundImg.color;

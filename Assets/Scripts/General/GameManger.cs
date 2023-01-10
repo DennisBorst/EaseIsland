@@ -9,6 +9,7 @@ public class GameManger : MonoBehaviour
     public DayNightCycle dayNightCycle;
     [Space]
     [SerializeField] private Animator fadeScreen;
+    [SerializeField] private FirstTimeEvent firstTimeCounter;
 
     public FMODUnity.EventReference fmodEvent;
     [SerializeField] private Location startLocation;
@@ -111,6 +112,10 @@ public class GameManger : MonoBehaviour
         instanceFMOD.start();
         currentLocationPlayer = startLocation;
         UpdateMusic();
+
+        firstTimeCounter.walking = false;
+        firstTimeCounter.fishing = false;
+        //firstTimeCounter.mining = false;
     }
 
     #region Singleton
