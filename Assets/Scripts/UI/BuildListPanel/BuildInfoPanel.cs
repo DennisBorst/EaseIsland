@@ -20,11 +20,11 @@ public class BuildInfoPanel : MonoBehaviour
     private Building lastBuilding;
     private GameObject lastSelectedButton;
 
-    public void AddBuildingInfo(Building building)
+    public void AddBuildingInfo(Building building, bool startInfo = false)
     {
         if (discoveredBuildings.Contains(building)) { return; }
 
-        buildDiscoveredText.SetActive(true);
+        if (!startInfo) { buildDiscoveredText.SetActive(true); }
         discoveredBuildings.Add(building);
         buildInfoCount += 1;
 
@@ -73,7 +73,7 @@ public class BuildInfoPanel : MonoBehaviour
 
         for (int i = 0; i < startInfo.Length; i++)
         {
-            AddBuildingInfo(startInfo[i]);
+            AddBuildingInfo(startInfo[i], true);
         }
     }
 

@@ -20,6 +20,8 @@ public class Fishing : MonoBehaviour
     [SerializeField] private Sprite playerDotSpriteNormal;
     [SerializeField] private Sprite playerDotSpriteHotspot;
     [SerializeField] private Rigidbody cubeRb;
+    [SerializeField] private FirstTimeEvent firstTimeCounter;
+    [SerializeField] private GameObject tutorialCloud;
 
     [Header("Preferences")]
     private float innerDisVisualCircle;
@@ -58,10 +60,8 @@ public class Fishing : MonoBehaviour
         PlayerAnimation.Instance.PlayAnimCount(8);
         StartCoroutine(waitForFishString());
         CreateDotOnCircle();
-    }
 
-    public void StartLoopFishingRod()
-    {
+        if (!firstTimeCounter.fishing && tutorialCloud != null) { tutorialCloud.SetActive(true); }
     }
 
     public void TryToCatch()
@@ -70,10 +70,9 @@ public class Fishing : MonoBehaviour
 
         if (hotSpot)
         {
-            Debug.Log("Catched Fish");
             InventoryManager.Instance.AddToInvWithAnim(fish);
             Instantiate(catchPar, this.transform.position, Quaternion.identity);
-            //InventoryManager.Instance.AddToInv(fish);
+            firstTimeCounter.fishing = true;
         }
         else
         {

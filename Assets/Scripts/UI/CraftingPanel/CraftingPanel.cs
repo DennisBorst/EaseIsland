@@ -73,6 +73,7 @@ public class CraftingPanel : MonoBehaviour
             AddTool(startTools[i]);
         }
 
+        objectInfo.craftingPanel = this;
         itemAmountInfo.UpdateItems();
     }
 
@@ -86,6 +87,13 @@ public class CraftingPanel : MonoBehaviour
             selectUIObject.selectAsFirstUI = lastButton;
             selectUIObject.SelectFirstUIElement();
         }
+
+        objectInfo.StartCheckingInput();
+    }
+
+    private void OnDisable()
+    {
+        objectInfo.StopCoroutines();
     }
 }
 

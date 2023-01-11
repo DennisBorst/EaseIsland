@@ -21,6 +21,11 @@ public class ItemHolderUI : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    public void ChangeAmount(int itemAmountNeeded)
+    {
+        itemAmount.text = "" + itemAmountNeeded;
+    }
+
     public void ItemTextColor(Color32 color)
     {
         itemAmount.color = color;

@@ -4,27 +4,30 @@ using UnityEngine;
 
 public class ItemAmountUI : MonoBehaviour
 {
+    [SerializeField] private Item emptyItem;
     [SerializeField] private ItemHolderUI[] itemInInventoryUI;
-    
+
+    [SerializeField] private List<Item> itemTypeList = new List<Item>();
+
     public void UpdateItems()
     {
-        for (int i = 0; i < itemInInventoryUI.Length; i++)
+        for (int i = 0; i < itemTypeList.Count; i++)
         {
-            itemInInventoryUI[i].ObjectInvisible();
-        }
-
-        List<Item> currentItems = new List<Item>();
-        currentItems = InventoryManager.Instance.GetItemInfo();
-
-        for (int i = 0; i < currentItems.Count; i++)
-        {
-            int amountOfItems = InventoryManager.Instance.AmountItemInfo(currentItems[i]);
-            itemInInventoryUI[i].ChangeItem(currentItems[i], amountOfItems);
+            int amountOfItems = InventoryManager.Instance.AmountItemInfo(itemTypeList[i]);
+            itemInInventoryUI[i].ChangeAmount(amountOfItems);
         }
     }
 
-    public void UpdateInventory()
+    private void Awake()
     {
+        AssignItem();
+    }
 
+    private void AssignItem()
+    {
+        for (int i = 0; i < itemTypeList.Count; i++)
+        {
+            itemInInventoryUI[i].ChangeItem(itemTypeList[i], 0);
+        }
     }
 }

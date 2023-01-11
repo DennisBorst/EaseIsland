@@ -1334,7 +1334,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 63a56b9b04c2cb041895c84cf883b10d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cfaefd8b68051034195b275ca7577b5a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2744,6 +2744,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BrokeBridge
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7eb856047e55f624aa042f1a78511f83,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7eb856047e55f624aa042f1a78511f83,
         type: 3}
