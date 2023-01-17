@@ -11,6 +11,8 @@ public class BuildUI : MonoBehaviour
     [SerializeField] private Image[] necessitieSlots;
     [SerializeField] private TextMeshProUGUI[] amountNeeded;
 
+    private Color32 redColor = new Color32(255, 127, 117, 255);
+
     public void LoadInNecessities(Building building)
     {
         buttonImg.SetActive(false);
@@ -19,7 +21,7 @@ public class BuildUI : MonoBehaviour
 
         for (int i = 0; i < necessitieSlots.Length; i++)
         {
-            amountNeeded[i].color = Color.red;
+            amountNeeded[i].color = redColor;
             necessitieSlots[i].gameObject.SetActive(false);
         }
 

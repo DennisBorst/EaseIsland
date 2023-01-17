@@ -23,6 +23,8 @@ public class ItemSlotUI : MonoBehaviour, ISelectHandler
     {
         InventoryManager.Instance.ItemSelected(itemStack);
         inventoryPanel.ItemSelected(itemStack.item);
+        
+        FMODUnity.RuntimeManager.PlayOneShot("event:/UI/GenericClick", transform.position);
     }
 
     public void UpdateItem(InventoryManager.ItemStack newItem)

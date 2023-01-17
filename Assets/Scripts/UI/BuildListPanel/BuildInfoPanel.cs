@@ -7,7 +7,7 @@ public class BuildInfoPanel : MonoBehaviour
     [SerializeField] private BuildObjectInfo objectInfo;
     [SerializeField] private ItemAmountUI itemAmountInfo;
     [SerializeField] private GameObject buildObjectButton;
-    [SerializeField] private GameObject buildDiscoveredText;
+    [SerializeField] private AnimationFunctions buildDiscoveredText;
     [SerializeField] private Transform objectLoc;
     [Space]
     [SerializeField] private Building emptyInfo;
@@ -23,8 +23,13 @@ public class BuildInfoPanel : MonoBehaviour
     public void AddBuildingInfo(Building building, bool startInfo = false)
     {
         if (discoveredBuildings.Contains(building)) { return; }
-
-        if (!startInfo) { buildDiscoveredText.SetActive(true); }
+        if (!startInfo) 
+        {
+            buildDiscoveredText.gameObject.SetActive(true);
+            buildDiscoveredText.PlayAnimation();
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Scribble", transform.position);
+        }
+        
         discoveredBuildings.Add(building);
         buildInfoCount += 1;
 

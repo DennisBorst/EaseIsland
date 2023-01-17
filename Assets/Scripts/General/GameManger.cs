@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManger : MonoBehaviour
 {
+    [HideInInspector] public bool gameIsFrozen;
     public DayNightCycle dayNightCycle;
     [Space]
     [SerializeField] private Animator fadeScreen;
     [SerializeField] private FirstTimeEvent firstTimeCounter;
+    [SerializeField] private PauseScreen pauseScreen;
 
     public FMODUnity.EventReference fmodEvent;
     [SerializeField] private Location startLocation;
@@ -66,6 +68,19 @@ public class GameManger : MonoBehaviour
             default:
                 break;  
         }
+    }
+
+    public void EnterPauseScreen()
+    {
+        PauseGame(true);
+        pauseScreen.gameObject.SetActive(true);
+        pauseScreen.EnterPauseScreen();
+    }
+
+    public void PauseGame(bool value)
+    {
+        gameIsFrozen = value;
+        Time.timeScale = gameIsFrozen ? 0 : 1;
     }
 
     public void SwitchDayNight()

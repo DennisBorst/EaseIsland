@@ -256,6 +256,7 @@ MonoBehaviour:
   mineItem: {fileID: 11400000, guid: 27791ce9b823b6845a5872b0f9790cad, type: 2}
   itemAnim: {fileID: 432828049708484088, guid: 6b5ce901d30008141b36f45b4b725276, type: 3}
   colorPar: {r: 0.023584902, g: 0.72167695, b: 1, a: 1}
+  mineAudio: event:/Activities/MineCrystal
 --- !u!1 &3817232080945724508
 GameObject:
   m_ObjectHideFlags: 0

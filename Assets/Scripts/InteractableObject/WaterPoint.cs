@@ -54,6 +54,8 @@ public class WaterPoint : MonoBehaviour
         if (!fishing)
         {
             fishing = true;
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Activities/Fishing Rod Throw", transform.position);
+
             CharacterMovement.Instance.CanOnlyInteract(true);
             Vector3 playerPos = CharacterMovement.Instance.playerObj.transform.position;
             Vector3 spawnPos = playerPos + (CharacterMovement.Instance.playerObj.transform.forward * 4f);
@@ -71,7 +73,8 @@ public class WaterPoint : MonoBehaviour
         {
             fishing = false;
             fishScript.TryToCatch();
-            fishScript = null;
+            fishScript = null; 
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Activities/Fishing Grab Fish", transform.position);
             ItemInHand.Instance.itemObj.GetComponent<FishingRod>().StopFishing();
             CharacterMovement.Instance.CanOnlyInteract(false);
         }

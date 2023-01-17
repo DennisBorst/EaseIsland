@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   ItemName: Apple
-  itemDescription: The apple will fall from appletrees, it provide 10 food points.
+  itemDescription: '+10 food points
+
+    The apple will fall from appletrees.'
   item: 8
   itemType: 1
   maxStack: 4

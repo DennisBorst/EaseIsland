@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2aef5a57234edf4ca47423a387ab5ba, type: 3}
+  m_Name: Will#1
+  m_EditorClassIdentifier: 
+  name: Will
+  sentences:
+  - Hi there young man!
+  - Did you also get stranded on this island?
+  - My name is Will, nice to meet you!
+  - Can you help me with something?
+  - Could you build a boat for me, so that I can cross the water to the big island.
+  - My crippling back cannot endure building a boat.
+  - I have to find my daughter on the big island.
+  - After the volcanic eruption we got separated and I ended up on this island.
+  - Is there also another favor I can ask?
+  - Could you gather food for me so I can strengthen up again!
+  optionNames: []

@@ -6,7 +6,7 @@ using Cinemachine;
 public class CharacterMovement : MonoBehaviour
 {
     [HideInInspector] public Vector3 moveDirection;
-    public bool unableToStuff;
+    public bool unableToDoStuff;
     public bool canOnlyInteract;
     private bool inventoryOpened;
 
@@ -23,15 +23,17 @@ public class CharacterMovement : MonoBehaviour
     public Transform orientation;
     [SerializeField] private PlayerAnimation playerAnim;
     [SerializeField] private CinemachineFreeLook freelookCam;
+    [SerializeField] private CinemachineFreeLook talkCam;
     [SerializeField] private GameObject playerUI;
     [SerializeField] private FirstTimeEvent firstTime;
     [SerializeField] private GameObject walkUI;
     [SerializeField] private KeyCode pickUpButton;
     [SerializeField] private KeyCode interactButton; //Action Button
+    [SerializeField] private KeyCode dropButton; //Inventory/Craft menu
     [SerializeField] private KeyCode runButton; //Run Button
     [SerializeField] private KeyCode menuButton; //Inventory/Craft menu
     [SerializeField] private KeyCode menuSecondButton; //Inventory/Craft menu
-    [SerializeField] private KeyCode dropButton; //Inventory/Craft menu
+    [SerializeField] private KeyCode pauseMenuButton; 
     [SerializeField] private KeyCode leftInHandButton; 
     [SerializeField] private KeyCode rightInHandButton; 
 
@@ -63,10 +65,9 @@ public class CharacterMovement : MonoBehaviour
     private InventoryManager inventoryManager;
     private CharacterController charCon;
 
-
     public void CanOnlyInteract(bool freeze)
     {
-        unableToStuff = false;
+        unableToDoStuff = false;
         canOnlyInteract = freeze;
 
         if (freeze)
@@ -82,7 +83,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void FreezePlayer(bool freeze)
     {
-        unableToStuff = freeze;
+        unableToDoStuff = freeze;
 
         if (freeze)
         {
@@ -93,6 +94,20 @@ public class CharacterMovement : MonoBehaviour
     public void DecreaseMovementSpeed(float percentage)
     {
         //currentMovementSpeed = percentage * movementSpeed;
+    }
+
+    public void TalkCamActive(bool value)
+    {
+        if (value)
+        {
+            talkCam.Priority = 15;
+            talkCam.gameObject.SetActive(true);
+        }
+        else
+        {
+            talkCam.gameObject.SetActive(false);
+            talkCam.Priority = 5;
+        }
     }
 
     public void OpenMenu()
@@ -130,7 +145,13 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-        if (unableToStuff) { return; }
+
+
+        if (unableToDoStuff) 
+        {
+            playerAnim.Movement(new Vector2(0, 0), false);
+            return; 
+        }
         
         switch (playerState)
         {
@@ -150,6 +171,14 @@ public class CharacterMovement : MonoBehaviour
         Interact();
         if (canOnlyInteract) { return; }
 
+        if (Input.GetKeyDown(pauseMenuButton))
+        {
+            OpenMenu();
+            FreezePlayer(true);
+            GameManger.Instance.EnterPauseScreen();
+            return;
+        }
+
         if (Input.GetKeyDown(menuButton) || Input.GetKeyDown(menuSecondButton))
         {
             if (inventoryManager.inventoryOpened) { return; }
@@ -168,12 +197,12 @@ public class CharacterMovement : MonoBehaviour
 
     private IEnumerator FreezePlayerForDurationIE(float duration)
     {
-        unableToStuff = true;
+        unableToDoStuff = true;
         isRunning = false;
         currentMovementSpeed = movementSpeed;
         playerAnim.Movement(new Vector2(0, 0), isRunning);
         yield return new WaitForSeconds(duration);
-        unableToStuff = false;
+        unableToDoStuff = false;
     }
 
     private IEnumerator CheckForInteractables()
@@ -274,7 +303,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void OpenMenuButton()
     {
-        if (Input.GetKeyDown(menuButton) || Input.GetKeyDown(menuSecondButton))
+        if (Input.GetKeyDown(menuButton) || Input.GetKeyDown(menuSecondButton) || Input.GetKeyDown(interactButton) || Input.GetKeyDown(pauseMenuButton))
         {
             playerState = PlayerState.CharacterInput;
             inventoryOpened = false;
@@ -379,15 +408,24 @@ public class CharacterMovement : MonoBehaviour
                 float tempDis = Vector3.Distance(transform.position, rangeChecks[i].transform.position);
                 if(tempDis < distance)
                 {
-                    interactable = rangeChecks[i].transform; ;
+                    interactable = rangeChecks[i].transform;
                 }
             }
             Vector3 directionToItem = (interactable.position - playerObj.transform.position).normalized;
 
             if (Vector3.Angle(playerObj.transform.forward, directionToItem) < spotAngle / 2)
             {
-                interactableObj = interactable.GetComponent<Interactable>();
-                interactableObj.InRange();
+                Interactable newInteractableObj = interactable.GetComponent<Interactable>();
+                if(interactableObj != null) { newInteractableObj.InRange(); }
+
+
+                if (interactableObj != null && interactableObj != newInteractableObj)
+                {
+                    interactableObj.OutRange();
+                    newInteractableObj.InRange();
+                }
+
+                interactableObj = newInteractableObj;
                 interactableInRange = true;
             }
             else

@@ -64,6 +64,7 @@ public class FoodManager : MonoBehaviour
 
         while (true)
         {
+            if (GameManger.Instance.gameIsFrozen) { yield return wait; }
             yield return wait;
             DecreaseHunger();
         }

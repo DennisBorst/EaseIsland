@@ -6,6 +6,16 @@ public class AnimationFunctions : MonoBehaviour
 {
     private Animator anim;
 
+    public void PlayAnimation()
+    {
+        anim.SetTrigger("NewBuild");
+    }
+
+    public void StopAnimation()
+    {
+        anim.SetTrigger("Stop");
+    }
+
     public void ChangeAnimNumber(int animNumber)
     {
         anim.SetInteger("AnimNumber", animNumber);

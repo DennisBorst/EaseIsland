@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class TradeUIManager : MonoBehaviour
 {
     [HideInInspector] public Statue statue;
+    [HideInInspector] public CarrotFarmer carrotFarmer;
     public InventoryManager.ItemStack movingItem;
 
     [SerializeField] private List<ItemTradeButton> itemTradeList = new List<ItemTradeButton>();
@@ -20,8 +21,9 @@ public class TradeUIManager : MonoBehaviour
 
     [Space]
     [SerializeField] private Image summonItemImg;
+    [SerializeField] private TextMeshProUGUI collectItemAmountText;
+    [Header("Statue")]
     [SerializeField] private Sprite randomSprite;
-
     [SerializeField] private Item firstItem;
     [SerializeField] private List<Clothing> randomClothing = new List<Clothing>();
     
@@ -30,6 +32,7 @@ public class TradeUIManager : MonoBehaviour
     private InventoryManager.ItemStack itemSelected;
     private int itemSelectedIndex = 0;
     private Clothing newCloth;
+    private int collectItemAmount;
 
     [Serializable]
     public struct ItemDeposit
@@ -101,8 +104,6 @@ public class TradeUIManager : MonoBehaviour
         }
     }
 
-
-
     public void DepositItem(ItemTradeButton tradeButton)
     {
         for (int i = 0; i < tradeButtons.Length; i++)
@@ -110,7 +111,7 @@ public class TradeUIManager : MonoBehaviour
             if(tradeButtons[i] == tradeButton)
             {
                 itemsNeeded[i].amountAlreadyFilled += tradeButton.itemStack.amount;
-                if(itemsNeeded[i].amountAlreadyFilled >= itemsNeeded[i].amount) 
+                if(statue != null && itemsNeeded[i].amountAlreadyFilled >= itemsNeeded[i].amount) 
                 { 
                     itemsNeeded[i].amountAlreadyFilled = itemsNeeded[i].amount;
                     tradeButton.Interactable(false);
@@ -140,9 +141,29 @@ public class TradeUIManager : MonoBehaviour
         {
             SelectObject(itemSelectedIndex);
         }
-
+        
+        if (statue != null) { CheckForNeededItems(); }
+        if (carrotFarmer != null) { IncreaseItemCount(); }
         UpdateDepositItems();
-        CheckForNeededItems();
+    }
+
+    public void CollectItems(bool anim)
+    {
+        if(collectItemAmount > 0)
+        {
+            if (anim) { InventoryManager.Instance.AddToInvWithAnim(firstItem, collectItemAmount); }
+            else 
+            {
+                UpdateInventory();
+                InventoryManager.Instance.AddAmountToInv(firstItem, collectItemAmount);
+                inventory.Clear();
+                inventory = InventoryManager.Instance.GetInventoryList();
+                inventory.Add(tradeButtons[0].itemStack);
+                UpdateInventoryUI();
+            }
+            
+            ResetValues();
+        }
     }
 
     public void GetRandomItem()
@@ -184,11 +205,33 @@ public class TradeUIManager : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        if (firstItem != null)
+        {
+            summonItemImg.sprite = firstItem.inventoryImg;
+        }
+        else
+        {
+            summonItemImg.sprite = randomSprite;
+        }
+
+
+        for (int i = 0; i < itemTradeList.Count; i++)
+        {
+            itemTradeList[i].tradeUIManager = this;
+            itemTradeList[i].UpdateItem(new InventoryManager.ItemStack(emptyItem));
+        }
+
+        UpdateInventoryUI();
+        UpdateDepositItems();
+    }
+
     private void CheckForItem()
     {
         for (int i = 0; i < itemsNeeded.Length; i++)
         {
-            if(itemsNeeded[i].amountAlreadyFilled >= itemsNeeded[i].amount ||
+            if(statue != null && itemsNeeded[i].amountAlreadyFilled >= itemsNeeded[i].amount ||
                 itemsNeeded[i].checkItem && movingItem.item.item != itemsNeeded[i].item ||
                 itemsNeeded[i].checkItemType && movingItem.item.itemType != itemsNeeded[i].itemType ||
                 movingItem.item.itemType == Item.ItemType.NotTradable)
@@ -218,6 +261,11 @@ public class TradeUIManager : MonoBehaviour
         {
             statue.TradeCompleted();
         }
+    }
+
+    private void IncreaseItemCount()
+    {
+        collectItemAmount = (itemsNeeded[0].amountAlreadyFilled / itemsNeeded[0].amount);
     }
 
     private void SelectObject(int objectCount)
@@ -253,28 +301,6 @@ public class TradeUIManager : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        if(firstItem != null)
-        {
-            summonItemImg.sprite = firstItem.inventoryImg;
-        }
-        else
-        {
-            summonItemImg.sprite = randomSprite;
-        }
-
-
-        for (int i = 0; i < itemTradeList.Count; i++)
-        {
-            itemTradeList[i].tradeUIManager = this;
-            itemTradeList[i].UpdateItem(new InventoryManager.ItemStack(emptyItem));
-        }
-
-        UpdateInventoryUI();
-        UpdateDepositItems();
-    }
-
     private void UpdateInventoryUI()
     {
         for (int i = 0; i < inventory.Count; i++)
@@ -289,5 +315,21 @@ public class TradeUIManager : MonoBehaviour
         {
             itemsNeeded[i].itemAmount.text = itemsNeeded[i].amountAlreadyFilled + "/" + itemsNeeded[i].amount;
         }
+
+        if(carrotFarmer != null)
+        {
+            collectItemAmountText.text = "" + collectItemAmount;
+
+            if(collectItemAmount > 0) { carrotFarmer.CanCollect(true); }
+        }
+    }
+
+    private void ResetValues()
+    {
+        carrotFarmer.CanCollect(false);
+        itemsNeeded[0].amountAlreadyFilled -= (itemsNeeded[0].amount * collectItemAmount);
+        collectItemAmount = 0;
+
+        UpdateDepositItems();
     }
 }

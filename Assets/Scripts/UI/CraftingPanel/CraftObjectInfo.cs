@@ -21,6 +21,7 @@ public class CraftObjectInfo : MonoBehaviour
     [SerializeField] private Image craftSlider;
     [SerializeField] private GameObject craftSliderObj;
     [SerializeField] private GameObject unableToCraftSliderObj;
+    [SerializeField] private GameObject backpackFullImg;
 
     private bool canCraft = false;
     private Coroutine craftingRoutine;
@@ -46,6 +47,7 @@ public class CraftObjectInfo : MonoBehaviour
         }
 
         int itemAvaibleCount = 0;
+        bool itemSlotAvailable = false;
 
         for (int i = 0; i < craftableObject.necessities.Length; i++)
         {
@@ -59,14 +61,33 @@ public class CraftObjectInfo : MonoBehaviour
                 craftItemsNeeded[i].ItemTextColor(greenColor);
                 itemAvaibleCount += 1;
             }
+
+            if (InventoryManager.Instance.AmountOfItemInOneSpace(craftableObject.necessities[i].item, craftableObject.necessities[i].amount))
+            {
+                itemSlotAvailable = true;
+            }
+        }
+
+        if(InventoryManager.Instance.AmountOfSlotsAvailable() > 0)
+        {
+            itemSlotAvailable = true;
         }
 
         if (craftableObject.necessities.Length <= itemAvaibleCount)
         {
             craftName.color = greenColor;
-            canCraft = true;
-            craftSliderObj.SetActive(true);
-            unableToCraftSliderObj.SetActive(false);
+            backpackFullImg.SetActive(false);
+
+            if (itemSlotAvailable)
+            {
+                canCraft = true;
+                craftSliderObj.SetActive(true);
+                unableToCraftSliderObj.SetActive(false);
+            }
+            else
+            {
+                backpackFullImg.SetActive(true);
+            }
         }
     }
 

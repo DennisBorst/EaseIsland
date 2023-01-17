@@ -29,6 +29,7 @@ public class ItemTradeButton : MonoBehaviour, ISelectHandler
     {
         if(tradeUIManager != null) { tradeUIManager.ItemSelected(itemStack); }
         if(foodTable != null) { foodTable.ItemSelected(itemStack); }
+        FMODUnity.RuntimeManager.PlayOneShot("event:/UI/GenericClick", transform.position);
     }
 
     public void OnClick()

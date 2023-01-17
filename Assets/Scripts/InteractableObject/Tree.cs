@@ -58,6 +58,7 @@ public class Tree : MonoBehaviour
             {
                 PlayerAnimation.Instance.PlayAnimCount(itemInHand.animNumber);
                 Chop(playerPos);
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Activities/WoodChop", transform.position);
                 return;
             }
         }
@@ -84,6 +85,7 @@ public class Tree : MonoBehaviour
     {
         if (unableToRumble) { return; }
         StartCoroutine(RumbleCooldown());
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Activities/Shaking Tree", transform.position);
 
         CheckSpawnPoints();
         int randomDrop = Random.Range(minDrops, maxDrops + 1);

@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: NightFish
   m_EditorClassIdentifier: 
   ItemName: Night Fish
-  itemDescription: Night fishes like the name already says, will be found while fishing
-    in the night. It will provide 20 food points.
+  itemDescription: '+20 food points
+
+    Night fishes like the name already says,
+    will be found while fishing in the night.'
   item: 18
   itemType: 1
   maxStack: 3

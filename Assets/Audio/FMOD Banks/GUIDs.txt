@@ -1,0 +1,41 @@
+{06747d2f-3058-4a53-a90d-17c3555531ef} bank:/Master
+{9e695dfb-4123-0611-2f44-9d3da4a63777} bank:/Master.strings
+{3ccde9c0-8844-4a49-bb73-d0924c49abb8} bus:/
+{df9c382c-4868-4382-98f3-babeb616495c} bus:/Reverb
+{3b9a8185-e096-493c-b8ce-adb46ba9974f} event:/Acitivities/Fishing Dopper Hits Water
+{f727e230-095f-4d1b-aa26-4f2a64fef1ed} event:/Acitivities/Fishing Grab Fish
+{1c785354-6b71-448d-9f8d-617d0d1a2ccf} event:/Acitivities/Fishing Rod Throw
+{81cff184-ba4c-4146-bdc5-55c041ae6958} event:/Acitivities/Mine Pick - Crystal
+{63f0cf99-e3ce-44c4-b058-74d36c593e8b} event:/Acitivities/Mine Pick - Stone
+{f6169e8a-d693-4a29-b54f-feb8107ea657} event:/Acitivities/Shaking Tree
+{867cb223-cdaa-4240-8591-7fe4356e7ba9} event:/Acitivities/Sheep Shear
+{c5379193-9d94-4d17-80cc-92459716bfe0} event:/Acitivities/Wood Chop
+{8d23a0eb-15f9-40ad-87c6-f52aef52a72b} event:/Ambience/Cave Ambience
+{8cb7dde0-03fb-45be-86ad-216b2ad2d8aa} event:/Ambience/Lake
+{62bba7b1-46b3-4556-81f2-000042f38ea9} event:/Ambience/Ocean - CloseWaves
+{94084ac5-34d3-4dbf-bea6-2edf29cd06e6} event:/Ambience/Plateau Wind
+{07be649f-b33f-47ce-b4a9-617c88a3211e} event:/Ambience/River
+{154660a8-771c-48d7-a40b-1d7c2a6c7c00} event:/Ambience/Waterfall - Loud
+{e0642ded-2a44-4cbc-92b8-ddfb0d30cf5e} event:/Ambience/Waterfall - Soft
+{19a20bd0-b591-455a-9d35-090f42a623c7} event:/Animals/Bird - SingleChirp Var 01
+{b83d8f04-b7a9-43dc-aa0b-8f0b9b80546e} event:/Animals/Bird - SingleWarble Var 01
+{c890b295-f9ef-4ce4-908b-34f591bb7e8d} event:/Animals/Cricket - Var 01
+{bb77cdb8-6870-43c7-9d7b-060c0408b67e} event:/Animals/Cricket - Var 02
+{ee9c94e1-33cf-427a-888e-b5f874bcf0aa} event:/Animals/Cricket - Var 03
+{a6d99982-584c-4bdf-b391-e0a59415c004} event:/Animals/Seagull - Call
+{91e01ec4-5400-4c32-b7df-49f593211589} event:/Animals/Seagull - Classic
+{410e331f-2560-439b-9497-6af2af526595} event:/Animals/Sheep - Normal
+{db8b711e-2a63-47dc-825d-1cf85fbd7a08} event:/Animals/Sheep - Startled
+{ac3f2d7b-324f-4fed-9414-b3767e2d6ca5} event:/Footsteps/Footstep - Dirt
+{61cab0b4-f0f3-48de-be31-d77e1ec800d7} event:/Footsteps/Footstep - Grass
+{b7037658-0cad-4e77-bfcf-5725cb795f5e} event:/Footsteps/Footstep - Sand
+{6fefcfb5-1dc3-4f3f-b4e1-70ff12a4540c} event:/Footsteps/Footstep - Stone
+{b533f28b-c591-403c-ae97-17e40a21189a} event:/Footsteps/Footstep - Wood
+{777bcc92-d33f-4336-a8d5-d50d95d3428a} event:/Objects/Chest - Open
+{91c54497-4203-4ff4-b33e-b39b5c0fa5cb} event:/Objects/Crystal - Shimmer
+{fe8b616e-69d1-4331-a66d-72bd751c45d1} event:/Soundtrack
+{f40926d7-5d9c-403b-8ee8-22d53f1fa729} event:/UI/Generic Click
+{b9058682-5bd7-4787-bb4e-c6f3a5f1b8d3} parameter:/Cave
+{31373cea-6390-4a57-8e84-5138f600c159} parameter:/Day
+{9b958d19-aafc-484c-a23b-57fb90afb562} parameter:/Home
+{ad9595fd-fdfb-4e48-a4a2-19978b150b61} parameter:/Night

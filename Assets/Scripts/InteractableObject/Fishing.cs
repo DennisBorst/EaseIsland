@@ -61,6 +61,8 @@ public class Fishing : MonoBehaviour
         StartCoroutine(waitForFishString());
         CreateDotOnCircle();
 
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Activities/Fishing Dopper Hits Water", transform.position);
+
         if (!firstTimeCounter.fishing && tutorialCloud != null) { tutorialCloud.SetActive(true); }
     }
 

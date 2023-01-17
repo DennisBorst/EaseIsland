@@ -19,7 +19,7 @@ public class ThirdPersonCam : MonoBehaviour
 
     private void Update()
     {
-        if (player.unableToStuff || player.canOnlyInteract || player.playerState == CharacterMovement.PlayerState.Menu) { return; }
+        if (player.unableToDoStuff || player.canOnlyInteract || player.playerState == CharacterMovement.PlayerState.Menu) { return; }
 
         // rotate orientation
         Vector3 viewDir = player.transform.position - new Vector3(transform.position.x, player.transform.position.y, transform.position.z);

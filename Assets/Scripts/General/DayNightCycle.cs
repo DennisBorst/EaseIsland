@@ -157,7 +157,7 @@ public class DayNightCycle : MonoBehaviour
         {
 
             timer = LerpFloat(0, nightDurationInSec, timeStartedLerping, nightDurationInSec);
-            sunMoonIcon.transform.eulerAngles = LerpVector3(new Vector3(0, 0, 180f), new Vector3(0, 0, 360f), timeStartedLerping, dayDurationInSec);
+            sunMoonIcon.transform.eulerAngles = LerpVector3(new Vector3(0, 0, 180f), new Vector3(0, 0, 360f), timeStartedLerping, nightDurationInSec);
 
             volumeDay.weight = LerpFloat(1f, 0f, timeStartedLerping, nightDurationInSec / 8);
             volumeNight.weight = LerpFloat(0f, 1f, timeStartedLerping, nightDurationInSec / 8);

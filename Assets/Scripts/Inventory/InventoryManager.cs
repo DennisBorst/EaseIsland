@@ -13,7 +13,7 @@ public class InventoryManager : MonoBehaviour
 
     [Header("Inventory Referenses")]
     [SerializeField] private GameObject inventoryCanvas;
-    [SerializeField] private GameObject buildTextPopUp;
+    [SerializeField] private AnimationFunctions buildTextPopUp;
     [SerializeField] private List<ItemStack> inInventory = new List<ItemStack>();
     [SerializeField] private InventoryUI inventoryUI;
     //[SerializeField] private CraftingManager craftingManager;
@@ -21,7 +21,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private Item emptyItem;
     [SerializeField] private GameObject itemAnimObject;
     [SerializeField] private Transform backPackLoc;
-
+    [SerializeField] private Animator backPackFullAnim;
 
     private int itemSelectedIndex = 0;
     private ItemInHand itemInHand;
@@ -51,7 +51,7 @@ public class InventoryManager : MonoBehaviour
         inventoryOpened = true;
         UpdateAllUI();
         inventoryUI.OpenCurrentPanel();
-        buildTextPopUp.SetActive(false);
+        //buildTextPopUp.StopAnimation();
         inventoryCanvas.SetActive(true);
         //Cursor.lockState = CursorLockMode.Confined;
         //Cursor.visible = true;
@@ -96,9 +96,19 @@ public class InventoryManager : MonoBehaviour
         UpdateAllUI();
     }
     
-    public bool AddToInv(Item item)
+    public void AddAmountToInv(Item item, int itemCount = 1)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/PickUp", transform.position);
+        for (int i = 0; i < itemCount; i++)
+        {
+            AddToInv(item, false);
+        }
+    }
+
+    public bool AddToInv(Item item, bool audio = true)
     {
         ItemStack itemStack = GetItemStack(item);
+        if (audio) { FMODUnity.RuntimeManager.PlayOneShot("event:/BackPack", transform.position); }
 
         if (itemStack == null || itemStack.isFull)
         {
@@ -118,11 +128,18 @@ public class InventoryManager : MonoBehaviour
     public bool AddToInvWithAnim(Item item, int itemCount = 1)
     {
         ItemStack itemStack = GetItemStack(item);
+        
 
         if (itemStack == null || itemStack.isFull)
         {
-            if (!SlotsAvailable()) { return false; }
+            if (!SlotsAvailable()) 
+            {
+                backPackFullAnim.SetTrigger("BackPackFull");
+                return false; 
+            }
         }
+
+        FMODUnity.RuntimeManager.PlayOneShot("event:/PickUp", transform.position);
         Instantiate(itemAnimObject, transform.position, new Quaternion(0,0,0,0), backPackLoc).GetComponent<GainItem>().ChangeItem(item, item.color, itemCount);
         return true;
     }
@@ -133,7 +150,11 @@ public class InventoryManager : MonoBehaviour
 
         if (itemStack == null || itemStack.isFull)
         {
-            if (!SlotsAvailable()) { return false; }
+            if (!SlotsAvailable()) 
+            {
+                backPackFullAnim.SetTrigger("BackPackFull");
+                return false; 
+            }
         }
         return true;
     }
@@ -299,10 +320,10 @@ public class InventoryManager : MonoBehaviour
         return amount;
     }
 
-    private void Start()
+    public bool AmountOfItemInOneSpace(Item item, int amount)
     {
-        inventoryUI.UpdateSlots(inInventory, maxInvSlots);
-        inventoryUI.UpdatePlayerSlots(inInventory, maxInvSlots);
+        bool enoughSpace = inInventory.Where(x => x.item == item).Any(x => x.amount <= amount);
+        return enoughSpace;
     }
 
     public void UpdateAllUI()
@@ -311,6 +332,46 @@ public class InventoryManager : MonoBehaviour
         inventoryUI.UpdatePlayerSlots(inInventory, maxInvSlots);
         inventoryUI.UpdatePanelPage();
         itemInHand.UpdateItem();
+    }
+
+    public int AmountOfSlotsAvailable()
+    {
+        int inventoryCount = 0;
+
+        for (int i = 0; i < inInventory.Count; i++)
+        {
+            if (inInventory[i].item != emptyItem) { inventoryCount += 1; }
+        }
+
+        return maxInvSlots - inventoryCount;
+    }
+
+    private void Start()
+    {
+        inventoryUI.UpdateSlots(inInventory, maxInvSlots);
+        inventoryUI.UpdatePlayerSlots(inInventory, maxInvSlots);
+    }
+
+    private bool SlotsAvailable()
+    {
+        int inventoryCount = 0;
+
+        for (int i = 0; i < inInventory.Count; i++)
+        {
+            if (inInventory[i].item != emptyItem) { inventoryCount += 1; }
+        }
+
+        return inventoryCount < maxInvSlots;
+    }
+
+    private void CreateList()
+    {
+        for (int i = 0; i < maxInvSlots; i++)
+        {
+            inInventory.Add(new ItemStack(emptyItem));
+        }
+
+        UpdateAllUI();
     }
 
     private IEnumerator DeleteFoodAfterTime(ItemStack itemStack, float foodAmount)
@@ -324,18 +385,6 @@ public class InventoryManager : MonoBehaviour
     {
         ItemStack itemStack = inInventory.FindAll(x => x.item == item).OrderBy(x => x.amount).FirstOrDefault();
         return itemStack;
-    }
-
-    private bool SlotsAvailable()
-    {
-        int inventoryCount = 0;
-
-        for (int i = 0; i < inInventory.Count; i++)
-        {
-            if (inInventory[i].item != emptyItem) { inventoryCount += 1; }
-        }
-
-        return inventoryCount < maxInvSlots;
     }
 
     private int FindFirstEmptyObject()
@@ -352,16 +401,6 @@ public class InventoryManager : MonoBehaviour
         }
 
         return obj;
-    }
-
-    private void CreateList()
-    {
-        for (int i = 0; i < maxInvSlots; i++)
-        {
-            inInventory.Add(new ItemStack(emptyItem));
-        }
-
-        UpdateAllUI();
     }
     #endregion
 

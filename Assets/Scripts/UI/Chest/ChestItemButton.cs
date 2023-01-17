@@ -24,6 +24,7 @@ public class ChestItemButton : MonoBehaviour, ISelectHandler
     public void OnSelect(BaseEventData eventData)
     {
         chest.ItemSelected(this);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/UI/GenericClick", transform.position);
     }
 
     public void OnClick()

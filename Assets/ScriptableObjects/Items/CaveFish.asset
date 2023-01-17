@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: CaveFish
   m_EditorClassIdentifier: 
   ItemName: Cave Fish
-  itemDescription: Cave fish is found in a cave, wow you didn't expected that, didn't
-    you? It provides 25 food points.
+  itemDescription: '+25 food points
+
+    Cave fish is found in a cave, wow you didn''t
+    expected that, didn''t you?'
   item: 19
   itemType: 1
   maxStack: 3

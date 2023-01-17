@@ -17,6 +17,7 @@ public class BuildInfoButton : MonoBehaviour, ISelectHandler
     public void OnSelect(BaseEventData eventData)
     {
         buildInfoPanel.BuildInfoSelected(buildObject, this.gameObject);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/UI/GenericClick", transform.position);
     }
 
     public void UpdateUI()

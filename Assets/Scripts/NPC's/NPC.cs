@@ -2,72 +2,103 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
-
-public class NPC : MonoBehaviour
+public enum StateEnum
 {
+    Idle,
+    Walk,
+    Talking
+}
+
+public class NPC : MonoBehaviour, IUser
+{
+    [HideInInspector] public bool inconversation;
+    [HideInInspector] public Transform direction;
+    [HideInInspector] public bool reachedFirstDes = false;
+    public bool idleNPC = false;
+
     [SerializeField] private Animator anim;
     [SerializeField] private Transform dayTransform;
     [SerializeField] private Transform nightTransform;
+    [SerializeField] private float walkSpeed;
+    [Space]
+    [SerializeField] private List<Dialogue> npcDialogue = new List<Dialogue>();
+    [SerializeField] private Dialogue npcLoopDialogue;
+    [Space]
+    [SerializeField] private UnityEvent[] events;
+    [SerializeField] private StateEnum startStateEnum;
 
-    private NavMeshAgent agent; 
-
-    public enum State
-    {
-        Idle,
-        Walk
-    }
+    private NavMeshAgent agent;
     private State state;
+
+    public FSM fsm;
+    public State startState;
+
+    NPC IUser.npc => this;
+    NavMeshAgent IUser.navMeshAgent => agent;
+    Animator IUser.anim => anim;
+    List<Dialogue> IUser.npcDialogue => npcDialogue;
+    Dialogue IUser.npcLoopDialogue => npcLoopDialogue;
+
+    public void ChangeState(StateEnum state)
+    {
+        fsm.SwitchState(state);
+    }
+
+    private void Awake()
+    {
+        if (!idleNPC) { agent = GetComponent<NavMeshAgent>(); }
+        direction = dayTransform;
+
+        fsm = new FSM(this, startStateEnum, new IdleState(StateEnum.Idle),
+                    new WalkState(StateEnum.Walk), new TalkState(StateEnum.Talking));
+    }
 
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        StartCoroutine(UpdateInSeconds());
+        if (idleNPC) { return; }
+        GameManger.Instance.dayNightCycle.dayEvent.AddListener(DayEvent);
+        GameManger.Instance.dayNightCycle.nightEvent.AddListener(NightEvent);
     }
 
-    private IEnumerator UpdateInSeconds()
+    private void Update()
     {
-        WaitForSeconds wait = new WaitForSeconds(0.2f);
-
-        while (true)
+        if (fsm != null)
         {
-            yield return wait;
-            if (GameManger.Instance.dayNightCycle.dayTime == DayNightCycle.DayTime.Day)
-            {
-                DayTime();
-            }
-            else
-            {
-                NightTime();
-            }
+            fsm.OnUpdate();
         }
     }
 
-    private void DayTime()
+    private void DayEvent()
     {
-        agent.SetDestination(dayTransform.position);
+        reachedFirstDes = false;
+        direction = dayTransform;
 
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        if(fsm.currentState != fsm.states[StateEnum.Talking])
         {
-            anim.SetBool("isWalking", false);
+            fsm.SwitchState(StateEnum.Walk);
+        }
+    }
+
+    private void NightEvent()
+    {
+        direction = nightTransform;
+
+        if (fsm.currentState != fsm.states[StateEnum.Talking])
+        {
+            fsm.SwitchState(StateEnum.Idle);
+            reachedFirstDes = false;
+            fsm.SwitchState(StateEnum.Walk);
         }
         else
         {
-            anim.SetBool("isWalking", true);
+            reachedFirstDes = false;
         }
     }
 
-    private void NightTime()
+    public void InvokeOptionEvent(int eventInt)
     {
-        agent.SetDestination(nightTransform.position);
-
-        if (agent.remainingDistance <= agent.stoppingDistance)
-        {
-            anim.SetBool("isWalking", false);
-        }
-        else
-        {
-            anim.SetBool("isWalking", true);
-        }
+        events[eventInt].Invoke();
     }
 }

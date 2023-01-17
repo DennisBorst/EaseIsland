@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Fish
   m_EditorClassIdentifier: 
   ItemName: Orange Fish
-  itemDescription: The orange fish can be caught while fishing in the daytime on
-    the island. It provides 15  food points.
+  itemDescription: '+15  food points
+
+    The orange fish can be caught while fishing
+    in the daytime on the island.'
   item: 17
   itemType: 1
   maxStack: 4

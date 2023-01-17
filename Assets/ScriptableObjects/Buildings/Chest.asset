@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Chest
   m_EditorClassIdentifier: 
   name: Chest
-  description: The bed is used to skip the night time. This also provide some food,
-    because sleep is important!
+  description: The chest is used to store items of any kind!
   buildObject: {fileID: 4813796503109543227, guid: 5f58460e31011f84db1d19ffbff206e9,
     type: 3}
   necessities:

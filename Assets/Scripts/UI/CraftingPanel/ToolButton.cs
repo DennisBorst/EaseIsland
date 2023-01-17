@@ -17,6 +17,7 @@ public class ToolButton : MonoBehaviour, ISelectHandler
     public void OnSelect(BaseEventData eventData)
     {
         craftingPanel.ToolSelected(craftObject, this.gameObject);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/UI/GenericClick", transform.position);
     }
 
     public void UpdateUI()

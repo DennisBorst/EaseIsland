@@ -21,6 +21,7 @@ public class ClothChangeButton : MonoBehaviour, ISelectHandler
     public void OnSelect(BaseEventData eventData)
     {
         clothUI.ClothSelected(this, this.gameObject);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/UI/GenericClick", transform.position);
     }
 
     public void AddClothUI(ClothUI clothUI)

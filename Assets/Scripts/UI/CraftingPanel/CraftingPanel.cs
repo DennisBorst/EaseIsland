@@ -64,7 +64,7 @@ public class CraftingPanel : MonoBehaviour
         selectUIObject.SelectFirstUIElement();
     }
 
-    private void Start()
+    private void Awake()
     {
         selectUIObject = GetComponent<SelectUIObject>();
 
@@ -75,10 +75,12 @@ public class CraftingPanel : MonoBehaviour
 
         objectInfo.craftingPanel = this;
         itemAmountInfo.UpdateItems();
+
     }
 
     private void OnEnable()
     {
+        
         if(lastTool == null) { return; }
         UpdateUI();
 

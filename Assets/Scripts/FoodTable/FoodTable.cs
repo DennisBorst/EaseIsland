@@ -21,21 +21,12 @@ public class FoodTable : MonoBehaviour
 
     public void Interact(Item itemInHand, Vector3 playerPos)
     {
-        if (GameManger.Instance.dayNightCycle.dayTime == DayNightCycle.DayTime.Night && !menuOpened) { return; }
-
-        if (menuOpened)
-        {
-            CloseMenu();
-        }
-        else
-        {
-            OpenMenu();
-        }
+        OpenMenu();
     }
 
     public void InRange()
     {
-        if (menuOpened || GameManger.Instance.dayNightCycle.dayTime == DayNightCycle.DayTime.Night) 
+        if (menuOpened) 
         {
             OutRange();
             return; 
@@ -47,8 +38,6 @@ public class FoodTable : MonoBehaviour
     {
         interactableUI.OutRange();
     }
-
-
 
     public void ClothReady(Clothing cloth, float waitTime)
     {

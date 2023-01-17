@@ -14,6 +14,7 @@ public class Mineable : MonoBehaviour
     [SerializeField] private GameObject itemAnim;
 
     [SerializeField] private Color colorPar;
+    [SerializeField] private string mineAudio;
 
     private Interactable interactable;
     private InteractableUI interactableUI;
@@ -94,6 +95,7 @@ public class Mineable : MonoBehaviour
     private IEnumerator DelayActions()
     {
         yield return new WaitForSeconds(0.2f);
+        FMODUnity.RuntimeManager.PlayOneShot(mineAudio, transform.position);
         Destroy(mineSlider.gameObject);
 
         switch (mineValue)
@@ -113,7 +115,7 @@ public class Mineable : MonoBehaviour
         if(health <= 0)
         {
             Instantiate(destroyParticle, transform.position, destroyParticle.transform.rotation);
-            crystalSpawner.CrystalDestroyed();
+            if (crystalSpawner != null) { crystalSpawner.CrystalDestroyed(); }
             Destroy(this.gameObject);
         }
     }
