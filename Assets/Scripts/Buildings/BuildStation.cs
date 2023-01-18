@@ -22,6 +22,7 @@ public class BuildStation : MonoBehaviour
         Instantiate(buildComplete, buildLocation.transform.position, Quaternion.identity);
         Instantiate(building.buildObject, buildLocation.transform.position, buildLocation.transform.rotation);
         InventoryManager.Instance.BuildingCompleted(building);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Build", transform.position);
 
         if (destroyAfterBuild)
         {

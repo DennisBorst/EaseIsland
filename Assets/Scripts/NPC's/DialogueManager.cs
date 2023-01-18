@@ -183,14 +183,15 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator WaitCamMovement()
     {
         yield return new WaitForSeconds(0.2f);
+
         if (currentNPC.idleNPC) { currentNPC.ChangeState(StateEnum.Idle); }
         else { currentNPC.ChangeState(StateEnum.Walk); }
-        
+
+        CharacterMovement.Instance.FreezePlayer(false);
+        CharacterMovement.Instance.CloseMenu();
+
         currentNPC.inconversation = false;
         currentNPC = null;
-
-        CharacterMovement.Instance.CloseMenu();
-        CharacterMovement.Instance.FreezePlayer(false);
     }
 
     #region Singleton

@@ -8,7 +8,8 @@ public enum StateEnum
 {
     Idle,
     Walk,
-    Talking
+    Talking,
+    Tutorial
 }
 
 public class NPC : MonoBehaviour, IUser
@@ -17,6 +18,8 @@ public class NPC : MonoBehaviour, IUser
     [HideInInspector] public Transform direction;
     [HideInInspector] public bool reachedFirstDes = false;
     public bool idleNPC = false;
+    [Space]
+    public Transform tutorialTransform;
 
     [SerializeField] private Animator anim;
     [SerializeField] private Transform dayTransform;
@@ -46,13 +49,20 @@ public class NPC : MonoBehaviour, IUser
         fsm.SwitchState(state);
     }
 
+    public void AddDayNightTimeEvent()
+    {
+        GameManger.Instance.dayNightCycle.dayEvent.AddListener(DayEvent);
+        GameManger.Instance.dayNightCycle.nightEvent.AddListener(NightEvent);
+    }
+
     private void Awake()
     {
-        if (!idleNPC) { agent = GetComponent<NavMeshAgent>(); }
+        agent = GetComponent<NavMeshAgent>();
         direction = dayTransform;
 
         fsm = new FSM(this, startStateEnum, new IdleState(StateEnum.Idle),
-                    new WalkState(StateEnum.Walk), new TalkState(StateEnum.Talking));
+                    new WalkState(StateEnum.Walk), new TalkState(StateEnum.Talking),
+                    new TutorialState(StateEnum.Tutorial));
     }
 
     private void Start()

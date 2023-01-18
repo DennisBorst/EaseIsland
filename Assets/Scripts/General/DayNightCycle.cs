@@ -14,6 +14,7 @@ public class DayNightCycle : MonoBehaviour
 
     [HideInInspector] public DayTime dayTime;
 
+    [SerializeField] private bool activateOnStart = false;
     [SerializeField] private float dayDurationInMin;
     [SerializeField] private float nightDurationInMin;
     [Space]
@@ -46,6 +47,12 @@ public class DayNightCycle : MonoBehaviour
 
     public delegate void StartNightTimee();
     public static StartNightTimee startNightTime;
+
+    public void StartDayCycle()
+    {
+        startDayTime.Invoke();
+        StartCoroutine(UpdateInSeconds());
+    }
 
     public void StartDayTime()
     {
@@ -84,6 +91,13 @@ public class DayNightCycle : MonoBehaviour
 
         startDayTime.Invoke();
         StartCoroutine(UpdateInSeconds());
+        if (!activateOnStart) { StartCoroutine(StopCoroutineAfterTime()); }
+    }
+
+    private IEnumerator StopCoroutineAfterTime()
+    {
+        yield return new WaitForSeconds(0.1f);
+        StopAllCoroutines();
     }
 
     private IEnumerator DayNightSwitchWaitTime()

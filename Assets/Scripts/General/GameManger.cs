@@ -92,7 +92,7 @@ public class GameManger : MonoBehaviour
     {
         fadeScreen.gameObject.SetActive(true);
         fadeScreen.SetInteger("FadeType", 1);
-        CharacterMovement.Instance.FreezePlayerForDuration(2f);
+        if (CharacterMovement.Instance != null) { CharacterMovement.Instance.FreezePlayerForDuration(2f); }
         StartCoroutine(WaitToGoToLevel(2f, level));
     }
 

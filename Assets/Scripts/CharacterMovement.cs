@@ -6,6 +6,7 @@ using Cinemachine;
 public class CharacterMovement : MonoBehaviour
 {
     [HideInInspector] public Vector3 moveDirection;
+    [HideInInspector] public bool tutorialActive;
     public bool unableToDoStuff;
     public bool canOnlyInteract;
     private bool inventoryOpened;
@@ -145,11 +146,9 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-
-
         if (unableToDoStuff) 
         {
-            playerAnim.Movement(new Vector2(0, 0), false);
+            if (!tutorialActive) { playerAnim.Movement(new Vector2(0, 0), false); }
             return; 
         }
         
@@ -218,6 +217,8 @@ public class CharacterMovement : MonoBehaviour
 
     private void FieldOfViewCheck()
     {
+        if (tutorialActive) { return; }
+
         ItemCheck();
         ActionCheck();
         SignCheck();
@@ -437,6 +438,11 @@ public class CharacterMovement : MonoBehaviour
         }
         else if (interactableInRange)
         {
+            if (interactableObj != null) 
+            { 
+                interactableObj.OutRange();
+                interactableObj = null;
+            }
             interactableInRange = false;
         }
     }

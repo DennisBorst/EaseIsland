@@ -11,10 +11,8 @@ public class NPCInteractable : MonoBehaviour
     public void Interact(Item itemInHand, Vector3 playerPos)
     {
         if(!npc.idleNPC && GameManger.Instance.dayNightCycle.dayTime == DayNightCycle.DayTime.Night) { return; }
+        InteractNPC();
 
-        npc.inconversation = true;
-        OutRange();
-        npc.ChangeState(StateEnum.Talking);
         //npc.TalkInvoke();
     }
 
@@ -32,6 +30,13 @@ public class NPCInteractable : MonoBehaviour
     public void OutRange()
     {
         interactableUI.OutRange();
+    }
+
+    public void InteractNPC()
+    {
+        npc.inconversation = true;
+        OutRange();
+        npc.ChangeState(StateEnum.Talking);
     }
 
     private void Awake()

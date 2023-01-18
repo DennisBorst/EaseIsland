@@ -63,8 +63,6 @@ public class FoodTable : MonoBehaviour
     private void Start()
     {
         FoodManager.Instance.AddFoodTable(foodTableUI);
-        FoodManager.Instance.StartFoodTimer();
-
         FoodManager.Instance.AddSlider(foodSlider);
     }
 
