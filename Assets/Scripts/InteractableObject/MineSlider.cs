@@ -57,10 +57,10 @@ public class MineSlider : MonoBehaviour
         {
             elapsedTime = Time.time - timeWeStarted;
             stepAmount = Mathf.Pow(elapsedTime * speedOfChange, exponentialModifier);
+            float vibrateamount = stepAmount / 35f;
+            VibrateController.Instance.Vibrate(0.0118001f * vibrateamount, 0.0118001f * vibrateamount);
 
-            //variableToLerp = Mathf.MoveTowards(0f, 100f, stepAmount);
-
-            if(stepAmount >= slider.maxValue)
+            if (stepAmount >= slider.maxValue)
             {
                 //timeWeStarted = Time.time;
                 startToEnd = false;
@@ -69,11 +69,9 @@ public class MineSlider : MonoBehaviour
         else
         {
             elapsedTime -= Time.deltaTime;
-            //elapsedTime = Time.time - timeWeStarted;
-            //stepAmount = Mathf.Pow(elapsedTime * speedOfChange, exponentialModifier);
             stepAmount = Mathf.Pow(elapsedTime * speedOfChange, exponentialModifier);
-
-            //variableToLerp = Mathf.MoveTowards(100f, 0, stepAmount);
+            float vibrateamount = stepAmount / 35f;
+            VibrateController.Instance.Vibrate(0.0118001f * vibrateamount, 0.0118001f * vibrateamount);
 
             if (stepAmount <= 0.6f)
             {

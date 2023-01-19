@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class Mineable : MonoBehaviour
 {
     [HideInInspector] public CrystalSpawner crystalSpawner;
@@ -49,6 +49,17 @@ public class Mineable : MonoBehaviour
         interactableUI.OutRange();
     }
 
+    private void Awake()
+    {
+        interactable = GetComponent<Interactable>();
+        interactableUI = GetComponent<InteractableUI>();
+        anim = GetComponent<Animator>();
+
+        interactable.doAction.AddListener(Interact);
+        interactable.inRange.AddListener(InRange);
+        interactable.outRange.AddListener(OutRange);
+    }
+
     private void StartMining()
     {
         mining = true;
@@ -61,6 +72,7 @@ public class Mineable : MonoBehaviour
     {
         mining = false;
         mineValue = mineSlider.MineValue();
+        VibrateController.Instance.Vibrate(0f, 0f);
 
         switch (mineValue)
         {
@@ -79,17 +91,6 @@ public class Mineable : MonoBehaviour
 
         StartCoroutine(DelayActions());
         PlayerAnimation.Instance.PlayAnimCount(7);
-    }
-
-    private void Awake()
-    {
-        interactable = GetComponent<Interactable>();
-        interactableUI = GetComponent<InteractableUI>();
-        anim = GetComponent<Animator>();
-
-        interactable.doAction.AddListener(Interact);
-        interactable.inRange.AddListener(InRange);
-        interactable.outRange.AddListener(OutRange);
     }
 
     private IEnumerator DelayActions()

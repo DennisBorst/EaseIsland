@@ -24,7 +24,6 @@ public class WalkState : State
 
     public override void OnExit()
     {
-        Debug.Log("Exit Time");
         _iUser.navMeshAgent.ResetPath();
     }
 

@@ -23,7 +23,7 @@ public class IdleState : State
 
     public override void OnExit()
     {
-        Debug.Log("Exit Time");
+
     }
 
     public override void OnUpdate()

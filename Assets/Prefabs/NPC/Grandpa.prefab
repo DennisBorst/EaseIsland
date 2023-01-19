@@ -222,7 +222,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 1
-  m_Height: 3
+  m_Height: 3.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!195 &7093052896957557712
@@ -308,16 +308,18 @@ MonoBehaviour:
   inconversation: 0
   direction: {fileID: 0}
   reachedFirstDes: 0
-  idleNPC: 0
+  idleNPC: 1
+  tutorialTransform: {fileID: 0}
   anim: {fileID: 7093052895701722697}
   dayTransform: {fileID: 0}
   nightTransform: {fileID: 0}
   walkSpeed: 1.3
   npcDialogue:
   - {fileID: 11400000, guid: 4fe52081c793bdb4182bb9332f7de136, type: 2}
+  - {fileID: 11400000, guid: 67fd4fe8117e2a742994a63a6c3b4a6a, type: 2}
   npcLoopDialogue: {fileID: 11400000, guid: 05bafcce9f97b24449f42651d97892ac, type: 2}
   events: []
-  startStateEnum: 1
+  startStateEnum: 0
 --- !u!1001 &7093052894972458357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -505,6 +507,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7157953304595461845, guid: 64662e63c48f8f141ba8f232c01a33aa,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7b3b514301878c74ba32f4882adce9af, type: 2}
     - target: {fileID: -6375843898907209093, guid: 64662e63c48f8f141ba8f232c01a33aa,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

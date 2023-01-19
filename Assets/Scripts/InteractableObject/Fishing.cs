@@ -80,7 +80,8 @@ public class Fishing : MonoBehaviour
         {
             Debug.Log("Missed");
         }
-        
+
+        VibrateController.Instance.Vibrate(0, 0);
         Destroy(this.gameObject);
     }
 
@@ -132,6 +133,8 @@ public class Fishing : MonoBehaviour
                     hotSpot = true;
                     //if (m_hoverHotspot != null) { VRUtils.Instance.PlaySpatialClipAt(m_hoverHotspot, transform.position, 0.75f); }
                 }
+
+                VibrateController.Instance.Vibrate(0.25f, 0.25f);
                 return;
             }
             else
@@ -146,10 +149,16 @@ public class Fishing : MonoBehaviour
             //Changes the size of the dot
             float sizeDif = minSizePlayerDot + ((maxSizePlayerDot - minSizePlayerDot) * percentage);
             playerDotVisual.transform.localScale = new Vector3(sizeDif, sizeDif, 0);
+            float controllervibrate = (sizeDif / maxSizePlayerDot) * 0.03f;
+            VibrateController.Instance.Vibrate(controllervibrate, controllervibrate);
 
             //Impacts how much the controller vibrates
             //float vibrate = (Mathf.Pow(2, m_percentage) - 1) * 0.15f;
             //InputBridge.Instance.VibrateController(vibrate, vibrate, 0.1f, m_grabbable.heldByGrabbers[0].HandSide);
+        }
+        else
+        {
+            VibrateController.Instance.Vibrate(0, 0);
         }
     }
 

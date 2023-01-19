@@ -10,6 +10,7 @@ public class CraftingPanel : MonoBehaviour
     [SerializeField] private Transform objectLoc;
     [Space]
     [SerializeField] private CraftableObject[] startTools;
+    [SerializeField] private GameObject tutorialBottle;
 
     private List<ToolButton> toolButtons = new List<ToolButton>();
     private int toolCount = 0;
@@ -32,8 +33,8 @@ public class CraftingPanel : MonoBehaviour
         {
             selectUIObject.selectAsFirstUI = newObj;
             selectUIObject.SelectFirstUIElement();
+            
         }
-
     }
 
     public void UpdateUI()
@@ -58,6 +59,7 @@ public class CraftingPanel : MonoBehaviour
     {
         InventoryManager.Instance.ItemCrafted(lastTool);
         InventoryManager.Instance.AddToInv(lastTool.craftableItem);
+        if (tutorialBottle != null) { Destroy(tutorialBottle); }
         UpdateUI();
 
         selectUIObject.selectAsFirstUI = lastButton;
