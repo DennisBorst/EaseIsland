@@ -17,7 +17,7 @@ MonoBehaviour:
     be used to build tools or some structures.
   item: 1
   itemType: 0
-  maxStack: 5
+  maxStack: 6
   animNumber: 0
   inventoryImg: {fileID: 21300000, guid: a7d28a88b5d7c0e4db47642d7809b081, type: 3}
   prefabItem: {fileID: 3770329664592127805, guid: 760d270af15eb3542ba567a664f3c0f4,

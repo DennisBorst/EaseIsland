@@ -24,9 +24,12 @@ public class Mineable : MonoBehaviour
 
     private MineSlider mineSlider;
     private int mineValue;
+    private bool downTime = false;
 
     public void Interact(Item itemInHand, Vector3 playerPos)
     {
+        if (downTime) { return; }
+
         if (itemInHand != null)
         {
             if (itemInHand.item == ItemPickup.ItemType.Pickaxe)
@@ -70,6 +73,7 @@ public class Mineable : MonoBehaviour
 
     private void StopMining()
     {
+        downTime = true;
         mining = false;
         mineValue = mineSlider.MineValue();
         VibrateController.Instance.Vibrate(0f, 0f);
@@ -118,6 +122,10 @@ public class Mineable : MonoBehaviour
             Instantiate(destroyParticle, transform.position, destroyParticle.transform.rotation);
             if (crystalSpawner != null) { crystalSpawner.CrystalDestroyed(); }
             Destroy(this.gameObject);
+        }
+        else
+        {
+            downTime = false;
         }
     }
 }

@@ -17,7 +17,7 @@ MonoBehaviour:
     building structures. '
   item: 4
   itemType: 0
-  maxStack: 3
+  maxStack: 4
   animNumber: 0
   inventoryImg: {fileID: 21300000, guid: 3b630efc392f1d14e976d772b8640c67, type: 3}
   prefabItem: {fileID: 4415727249704013631, guid: 754f3f9f7cc67c34ebe6ab34ab934dd1,

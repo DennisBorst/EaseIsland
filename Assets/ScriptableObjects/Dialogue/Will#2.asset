@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Will
   sentences:
-  - You can chop down tree's with an axe. You can craft these in your crafting tab
+  - You can chop down trees with an axe. You can craft these in the crafting tab
     in your inventory.
-  - Dont worry I have seen them grow back, its strange but quite handy.
+  - Weirdly enough, they grow back pretty fast!
   - Good luck!
   optionNames: []

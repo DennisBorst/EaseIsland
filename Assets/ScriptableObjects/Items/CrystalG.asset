@@ -17,7 +17,7 @@ MonoBehaviour:
     can be used to light up lanterns.
   item: 16
   itemType: 3
-  maxStack: 4
+  maxStack: 6
   animNumber: 0
   inventoryImg: {fileID: 21300000, guid: e49859e2d4630384a96857ebd7b113fc, type: 3}
   prefabItem: {fileID: 6770933866677055667, guid: 6b73c0d48cccf3e4db4a4cd7a4070c61,

@@ -17,7 +17,7 @@ MonoBehaviour:
     tools and in some structures.
   item: 3
   itemType: 0
-  maxStack: 3
+  maxStack: 4
   animNumber: 0
   inventoryImg: {fileID: 21300000, guid: 458bb8c40d7afb64686e82b8a59bfccc, type: 3}
   prefabItem: {fileID: 4390777097759357826, guid: 0ff6f6a5846646c4c8642f28503d5630,

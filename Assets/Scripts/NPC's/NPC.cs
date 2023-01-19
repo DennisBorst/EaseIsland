@@ -53,6 +53,9 @@ public class NPC : MonoBehaviour, IUser
     {
         GameManger.Instance.dayNightCycle.dayEvent.AddListener(DayEvent);
         GameManger.Instance.dayNightCycle.nightEvent.AddListener(NightEvent);
+
+        if (GameManger.Instance.dayNightCycle.dayTime == DayNightCycle.DayTime.Day) { DayEvent(); }
+        else { NightEvent(); }
     }
 
     private void Awake()
