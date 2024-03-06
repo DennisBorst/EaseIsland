@@ -13,6 +13,15 @@ public class DayNightCycle : MonoBehaviour
     }
 
     [HideInInspector] public DayTime dayTime;
+    [Space]
+    public UnityEvent dayEvent;
+    public UnityEvent nightEvent;
+
+    public delegate void StartDayTimee();
+    public static StartDayTimee startDayTime;
+
+    public delegate void StartNightTimee();
+    public static StartNightTimee startNightTime;
 
     [SerializeField] private bool activateOnStart = false;
     [SerializeField] private float dayDurationInMin;
@@ -31,22 +40,16 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] private float morningEveningKelvin;
     [SerializeField] private float dayTimeKelvin;
     [Space]
-    public UnityEvent dayEvent;
-    public UnityEvent nightEvent;
-    [Space]
     [SerializeField] private Animator fadeScreen;
 
     private float dayDurationInSec;
     private float nightDurationInSec;
     private float timeStartedLerping;
     private float noonTimeStartedLerping;
+
+    private int day;
+    private int month;
     private float timer;
-
-    public delegate void StartDayTimee();
-    public static StartDayTimee startDayTime;
-
-    public delegate void StartNightTimee();
-    public static StartNightTimee startNightTime;
 
     public void StartDayCycle()
     {
@@ -77,6 +80,12 @@ public class DayNightCycle : MonoBehaviour
         fadeScreen.SetInteger("FadeType", 2);
         CharacterMovement.Instance.FreezePlayerForDuration(2f);
         StartCoroutine(DayNightSwitchWaitTime());
+    }
+
+    public Vector3 GetDate()
+    {
+        Vector3 currentDate = new Vector3(timer, day, month);
+        return currentDate;
     }
 
     private void Start()
@@ -160,8 +169,20 @@ public class DayNightCycle : MonoBehaviour
         }
         else
         {
-            startNightTime.Invoke();
+            NightStartEvent();
             //StartNightTime();
+        }
+    }
+
+    private void DayStartEvent()
+    {
+        startDayTime.Invoke();
+        day += 1;
+
+        if(day >= 30)
+        {
+            day = 0;
+            month += 1;
         }
     }
 
@@ -178,9 +199,14 @@ public class DayNightCycle : MonoBehaviour
         }
         else
         {
-            startDayTime.Invoke();
+            DayStartEvent();
             //StartDayTime();
         }
+    }
+
+    private void NightStartEvent()
+    {
+        startNightTime.Invoke();
     }
 
     private Vector3 LerpVector3(Vector3 start, Vector3 end, float timeStartedLerping, float lerpTime = 1)

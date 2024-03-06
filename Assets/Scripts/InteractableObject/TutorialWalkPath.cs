@@ -36,7 +36,6 @@ public class TutorialWalkPath : MonoBehaviour
         }
         else
         {
-            Debug.Log("DESTINATION REACHED");
             PlayerAnimation.Instance.Movement(new Vector2(0, 0), false);
             StopAllCoroutines();
             Destroy(this);
