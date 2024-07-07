@@ -48,8 +48,6 @@ public class Tree : MonoBehaviour
     private Vector3 treeRot;
     private GameObject woodLogObj;
 
-    private Vector3 dateDestroyed;
-
     public void Interact(Item itemInHand, Vector3 playerPos)
     {
         if (treeDead) { return; }
@@ -122,7 +120,6 @@ public class Tree : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
             StartCoroutine(LerpToRotation(rotation, 3f));
 
-            dateDestroyed = GameManger.Instance.dayNightCycle.GetDate();
         }
         else
         {

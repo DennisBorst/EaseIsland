@@ -191,7 +191,7 @@ public class CharacterMovement : MonoBehaviour
         Movement();
         PickUp();
         SwitchItem();
-        //DropItem();
+        DropItem();
     }
 
     private IEnumerator FreezePlayerForDurationIE(float duration)
